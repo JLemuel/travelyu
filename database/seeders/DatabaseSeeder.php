@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
+use App\Models\User;
+use App\Models\Destination;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +14,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // Seed users
+        User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@info.com',
+        ]);
+        User::factory()->create([
+            'name' => 'Travel Agency',
+            'email' => 'travelagency@info.com',
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Seed activities
+        Artisan::call('db:seed', ['--class' => 'ActivitySeeder']);
+        Artisan::call('db:seed', ['--class' => 'DestinationSeeder']);
     }
 }
