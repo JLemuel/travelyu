@@ -44,12 +44,12 @@ class PackageResource extends Resource
                     ->options(Destination::pluck('name', 'id'))
                     ->required()
                     ->reactive(),
-                Forms\Components\Select::make('activities_id')
-                    ->label('Choose a Activities')
-                    ->multiple()
-                    ->options(Activity::pluck('name', 'id'))
-                    ->required()
-                    ->reactive(),
+                // Forms\Components\Select::make('activities_id')
+                //     ->label('Choose a Activities')
+                //     ->multiple()
+                //     ->options(Activity::pluck('name', 'id'))
+                //     ->required()
+                //     ->reactive(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),

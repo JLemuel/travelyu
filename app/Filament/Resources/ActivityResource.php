@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ActivityResource\Pages;
 use App\Filament\Resources\ActivityResource\RelationManagers;
 use App\Models\Activity;
+use App\Models\Destination;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -38,6 +39,11 @@ class ActivityResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('destination_id')
+                    ->label('Choose a Destination')
+                    ->options(Destination::pluck('name', 'id'))
+                    ->required()
+                    ->reactive(),
                 Forms\Components\TextInput::make('price')
                     ->required()
                     ->numeric()

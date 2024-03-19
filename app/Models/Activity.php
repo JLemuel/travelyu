@@ -20,4 +20,8 @@ class Activity extends Model
     {
         return $this->belongsToMany(Package::class);
     }
+    public function destination()
+    {
+        return $this->belongsTo(Destination::class);
+    }
 }

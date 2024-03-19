@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->decimal('price', 8, 2);
+            $table->unsignedBigInteger('destination_id'); // Or you can use $table->foreignId('destination_id') for a more concise approach
+            $table->foreign('destination_id')->references('id')->on('destinations')->onDelete('cascade');
             $table->timestamps();
         });
     }

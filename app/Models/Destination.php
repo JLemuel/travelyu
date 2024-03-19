@@ -20,4 +20,9 @@ class Destination extends Model
     {
         return $this->belongsTo(Package::class);
     }
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }
 }
