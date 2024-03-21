@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('destination_id'); // Define the destination_id column
+            $table->unsignedBigInteger('destination_id');
             $table->foreign('destination_id')->references('id')->on('destinations')->onDelete('cascade');
             $table->string('name');
+            $table->string('type');
             $table->text('description');
             $table->decimal('price', 10, 2);
             $table->integer('duration');
-            $table->unsignedBigInteger('activities_id'); // Define the activities_id column
-            $table->foreign('activities_id')->references('id')->on('activities')->onDelete('cascade');
             $table->string('image')->nullable();
-            $table->longText('full_address')->nullable();
-            $table->double('lat', 10, 6)->nullable();
-            $table->double('lng', 10, 6)->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->unsignedInteger('booking_limit')->nullable(); // Existing field for booking limit
+            $table->unsignedInteger('max_persons')->nullable(); // Add this line for max persons
             $table->timestamps();
         });
     }

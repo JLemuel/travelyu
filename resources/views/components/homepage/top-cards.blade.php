@@ -16,13 +16,12 @@
             @endphp
             <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.{{ $loop->iteration }}s">
                 <div class="position-relative d-block overflow-hidden" style="height: 100%; background: #eee;">
-                    <a href="#" class="h-100 d-flex align-items-end justify-content-center flex-column">
+                    <!-- Update the link here -->
+                    <a href="{{ route('destinations.show', $destination) }}"
+                        class="h-100 d-flex align-items-end justify-content-center flex-column">
                         <img class="img-fluid w-100" src="{{ asset('storage/' . $image) }}"
                             alt="{{ $destination->name }}" style="object-fit: cover;">
                         <div class="text-overlay">
-                            <div class="bg-white text-danger fw-bold m-3 py-1 px-2">
-                                {{-- Discount can be placed here if available --}}
-                            </div>
                             <div class="bg-white text-primary fw-bold m-3 py-1 px-2">
                                 {{ $destination->name }}
                             </div>
@@ -31,6 +30,7 @@
                 </div>
             </div>
             @endforeach
+
         </div>
     </div>
 </div>

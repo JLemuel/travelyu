@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         // Seed activities
         Artisan::call('db:seed', ['--class' => 'DestinationSeeder']);
         Artisan::call('db:seed', ['--class' => 'ActivitySeeder']);
+        Artisan::call('db:seed', ['--class' => 'PackageSeeder']);
     }
 }

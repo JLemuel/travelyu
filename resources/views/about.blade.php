@@ -1,8 +1,8 @@
 <x-app-layout>
 
     <!-- About Start -->
-    <div class="container-xxl py-5" style="margin-top: 5rem">
-        <div class="container">
+    <div class="container-xxl py-5">
+        <div class="container" style="padding-top: 5rem">
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px">
                     <div class="position-relative h-100">

@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\PackageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +23,22 @@ use App\Models\Activity;
 Route::get('/', function () {
     return view('splash');
 });
+
+// Assuming you already have this controller or you'll create it
+Route::get('/destinations/{destination}', [DestinationController::class, 'show'])->name('destinations.show');
+
+Route::get('/packages/{package}', [PackageController::class, 'show'])->name('packages.show');
+
+
+Route::get('/search', function (Request $request) {
+    $query = $request->query('query');
+
+    // Execute search, e.g., based on a 'name' field. Adjust as needed.
+    $destinations = Destination::where('name', 'LIKE', "%{$query}%")->get();
+
+    // Use the 'top-cards' component view for displaying results.
+    return view('search-results', ['destinations' => $destinations]);
+})->name('search');
 
 
 Route::get('/home', function () {

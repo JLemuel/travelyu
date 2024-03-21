@@ -13,4 +13,9 @@ class DestinationController extends Controller
 
         return view('destinations.index', compact('destinations')); // Return the view with the destinations data
     }
+
+    public function show(Destination $destination) // Route Model Binding
+    {
+        return view('destinations.show', compact('destination'));
+    }
 }

@@ -35,6 +35,11 @@
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     {{--
     <link href="{{ asset('build/assets/app-DtC4mRBH.css') }}" rel="stylesheet" /> --}}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js"></script>
+
 </head>
 
 <body class="font-sans antialiased">
@@ -49,6 +54,17 @@
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            if (window.location.hash === '#search-results') {
+                const searchResultsElement = document.getElementById('search-results');
+                if (searchResultsElement) {
+                    searchResultsElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+                }
+            }
+        });
+    </script>
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

@@ -13,7 +13,6 @@ class Package extends Model
 
     protected $fillable = [
         'destination_id',
-        'activities_id',
         'name',
         'description',
         'price',
@@ -25,8 +24,7 @@ class Package extends Model
     ];
 
     protected $casts = [
-        'image' => 'array',
-        'activities_id' => 'array',
+        'image' => 'array'
     ];
 
 

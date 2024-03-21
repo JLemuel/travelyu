@@ -14,11 +14,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="{{ route('home') }}" class="nav-item nav-link active">Home</a>
-                <a href="{{ route('destination') }}" class="nav-item nav-link">Destination</a>
-                <a href="{{ route('tour-packages') }}" class="nav-item nav-link">Tour Packages</a>
-                <a href="{{ route('about') }}" class="nav-item nav-link">About</a>
-                <a href="{{ route('contact') }}" class="nav-item nav-link">Contact</a>
+                <a href="{{ route('home') }}"
+                    class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }} ">Home</a>
+                <a href="{{ route('destination') }}"
+                    class="nav-item nav-link {{ request()->routeIs('destination') ? 'active' : '' }}">Destination</a>
+                <a href="{{ route('tour-packages') }}"
+                    class="nav-item nav-link {{ request()->routeIs('tour-packages') ? 'active' : '' }}">Tour
+                    Packages</a>
+                <a href="{{ route('about') }}"
+                    class="nav-item nav-link {{ request()->routeIs('about') ? 'active' : '' }}">About</a>
+                <a href="{{ route('contact') }}"
+                    class="nav-item nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a>
             </div>
             <!-- Authentication Links -->
             @if (Route::has('login'))
@@ -41,7 +47,7 @@
             @endif
         </div>
     </nav>
-    @if(request()->is('/'))
+    @if(request()->is('home'))
     <div class="container-fluid bg-primary py-5 mb-5 hero-header">
         <div class="container py-5">
             <div class="row justify-content-center py-5">
@@ -54,13 +60,17 @@
                         ipsum lorem sit
                     </p> --}}
                     <div class="position-relative w-75 mx-auto animated slideInDown">
-                        <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text"
-                            placeholder="Where are you going today?" />
-                        <button type="button"
-                            class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2"
-                            style="margin-top: 7px">
-                            Search
-                        </button>
+                        <!-- Search form starts here -->
+                        <form action="{{ route('search') }}" method="GET" class="d-flex position-relative">
+                            <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" name="query"
+                                type="text" placeholder="Where are you going today?" required>
+                            <button type="submit"
+                                class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2"
+                                style="margin-top: 7px">
+                                Search
+                            </button>
+                        </form>
+                        <!-- Search form ends here -->
                     </div>
                 </div>
             </div>

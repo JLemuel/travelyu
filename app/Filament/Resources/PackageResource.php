@@ -18,6 +18,14 @@ use Cheesegrits\FilamentGoogleMaps\Fields\Geocomplete;
 use Cheesegrits\FilamentGoogleMaps\Fields\Map;
 use Filament\Forms\Components\Section;
 
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\DatePicker;
+
 class PackageResource extends Resource
 {
     protected static ?string $model = Package::class;
@@ -39,114 +47,67 @@ class PackageResource extends Resource
     {
         return $form
             ->schema([
+                // Destination Selection
                 Forms\Components\Select::make('destination_id')
                     ->label('Choose a Destination')
                     ->options(Destination::pluck('name', 'id'))
                     ->required()
                     ->reactive(),
-                // Forms\Components\Select::make('activities_id')
-                //     ->label('Choose a Activities')
-                //     ->multiple()
-                //     ->options(Activity::pluck('name', 'id'))
-                //     ->required()
-                //     ->reactive(),
+
+                // Core Tour Details
                 Forms\Components\TextInput::make('name')
+                    ->label('Tour Name') // More descriptive label
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('type')
+                    ->label('Tour Type')
+                    ->options(['Classic', 'Rainy', 'Summer'])
+                    ->required(),
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->maxLength(65535)
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('price')
-                    ->required()
-                    ->numeric()
-                    ->prefix('$'),
-                Forms\Components\TextInput::make('duration')
-                    ->required()
-                    ->numeric(),
-                // Forms\Components\TextInput::make('location')
-                //     ->required()
-                //     ->maxLength(255),
 
-                Section::make('Images')->schema(([
-                    Forms\Components\FileUpload::make('image')
-                        ->label('Image')
-                        ->image()
-                        // ->imageEditor()
-                        ->multiple()
-                        // ->preserveFilenames()
-                        ->disk('public')
-                        ->directory('images')
-                        ->required()
-                        ->previewable(true)
-                        // ->resize(50)
-                        ->columnSpan(2),
-                ])),
-                Section::make('Location')->schema(([
-                    Forms\Components\TextInput::make('lat')
-                        ->afterStateUpdated(function ($state, callable $get, callable $set) {
-                            $set('location', [
-                                'lat' => floatVal($state),
-                                'lng' => floatVal($get('lng')),
-                            ]);
-                        })
-                        ->readonly()
-                        ->lazy()
-                        ->maxLength(32),
-                    Forms\Components\TextInput::make('lng')
-                        ->afterStateUpdated(function ($state, callable $get, callable $set) {
-                            $set('location', [
-                                'lat' => floatval($get('lat')),
-                                'lng' => floatVal($state),
-                            ]);
-                        })
-                        ->readonly()
-                        ->lazy()
-                        ->maxLength(32),
-                    // Forms\Components\TextInput::make('full_address')
-                    //     ->reactive(),
-                    Geocomplete::make('full_address')
-                        ->countries(['us', 'mx', 'ca']) // restrict autocomplete results to these countries
-                        ->prefix('Choose:')
-                        ->placeholder('Start typing an address ...')
-                        ->geocodeOnLoad()
-                        ->geolocate(), // add a suffix but
+                // Pricing & Capacity
+                Section::make('Pricing & Capacity')
+                    ->schema([
+                        Forms\Components\TextInput::make('price')
+                            ->required()
+                            ->numeric()
+                            ->prefix('$'),
+                        Forms\Components\TextInput::make('duration')
+                            ->label('Duration (Days)')
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\TextInput::make('booking_limit')
+                            ->label('Booking Limit')
+                            ->numeric(),
+                        Forms\Components\TextInput::make('max_persons')
+                            ->label('Max Participants')
+                            ->numeric(),
+                    ])->columns(2),
 
-                    Map::make('location')
-                        ->reactive()
-                        ->afterStateUpdated(function ($state, callable $set) {
-                            $set('lat', $state['lat']);
-                            $set('lng', $state['lng']);
-                        })
-                        ->drawingControl()
-                        ->defaultLocation([16.6159, 120.3209])
-                        ->mapControls([
-                            'zoomControl' => true,
-                        ])
-                        ->debug()
-                        ->draggable() // allow dragging to move marker
-                        ->clickable(false) // allow clicking to move marker
+                // Scheduling
+                Section::make('Scheduling')
+                    ->schema([
+                        Forms\Components\DatePicker::make('start_date')
+                            ->required(),
+                        Forms\Components\DatePicker::make('end_date')
+                            ->required(),
+                    ])->columns(2),
 
-                        ->autocomplete('full_address')
-                        ->autocompleteReverse()
-                        // ->reverseGeocode([
-                        //     'city'   => '%L',
-                        //     'zip'    => '%z',
-                        //     'state'  => '%A1',
-                        //     'street' => '%n %S',
-                        // ])
-                        ->geolocate()
-                        //                    ->reverseGeocodeUsing(function (callable $set, array $results) {
-                        //                        $set('city', 'foo bar');
-                        //                    })
-                        //                    ->placeUpdatedUsing(function (callable $set, array $place) {
-                        //                        $set('city', 'foo wibble');
-                        //                    })
-                        ->columnSpan(2), // allow clicking to move marker
-                    // ->geolocate() // adds a button to request device location and set map marker accordingly
-                    // ->geolocateLabel('Get Location') // overrides the default label for geolocate button
-                    // ->geolocateOnLoad(true, false), // geolocate on load, second arg 'always' (default false, only for new form))
-                ]))->columns(2)
+                // Images
+                Section::make('Images')
+                    ->schema([
+                        Forms\Components\FileUpload::make('image')
+                            ->multiple()
+                            ->image()
+                            ->disk('public')
+                            ->directory('images')
+                            ->required()
+                            ->previewable(true)
+                            ->columnSpanFull(), // Occupy full width
+                    ])->columns(2),
             ])->columns(2);
     }
 
@@ -154,30 +115,30 @@ class PackageResource extends Resource
     {
         return $table
             ->columns([
-
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('destination.name')
+                    ->label('Destination')
+                    ->searchable(),  // Assuming 'destination' relationship exists
+                Tables\Columns\TextColumn::make('type')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('price')
-                    ->money()
+                    ->money('php') // Adjust currency if needed
                     ->sortable(),
                 Tables\Columns\TextColumn::make('duration')
-                    ->numeric()
+                    ->label('Duration (Days)')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('location')
-                    ->searchable(),
                 Tables\Columns\ImageColumn::make('image')
-                    ->circular()
-                    ->stacked()
-                    ->limit(3)
-                    ->limitedRemainingText(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->circular(), // No stacking needed for a single image
+                Tables\Columns\TextColumn::make('start_date')
+                    ->date()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('end_date')
+                    ->date()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('booking_limit'),
+                Tables\Columns\TextColumn::make('max_persons'),
+                // ... (created_at, updated_at - Keep if desired)
             ])
             ->filters([
                 //

@@ -55,7 +55,7 @@
                     <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text"
                         placeholder="Your email" />
                     <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">
-                        SignUp
+                        Subscribe
                     </button>
                 </div>
             </div>
@@ -65,18 +65,18 @@
         <div class="copyright">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    &copy; <a class="border-bottom" href="#">Your Site Name</a>, All
+                    &copy; <a class="border-bottom" href="#">Travelyu</a>, All
                     Right Reserved. Designed By
-                    <a class="border-bottom" href="#">Coding Home</a>
+                    <a class="border-bottom" href="#">ICTU Pogi's</a>
                 </div>
-                <div class="col-md-6 text-center text-md-end">
+                {{-- <div class="col-md-6 text-center text-md-end">
                     <div class="footer-menu">
                         <a href="">Home</a>
                         <a href="">Cookies</a>
                         <a href="">Help</a>
                         <a href="">FQAs</a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
