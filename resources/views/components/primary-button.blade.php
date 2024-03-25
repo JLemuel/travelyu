@@ -21,7 +21,7 @@
 
     .bg-gray-800 {
         --tw-bg-opacity: 1;
-        background-color: rgb(31 41 55 / var(--tw-bg-opacity))
+        background-color: green;
     }
 
     .px-4 {
@@ -105,6 +105,7 @@
         background-color: rgb(17 24 39 / var(--tw-bg-opacity))
     }
 
+    /* 
     @media (prefers-color-scheme: dark) {
         .dark\:bg-gray-200 {
             --tw-bg-opacity: 1;
@@ -134,7 +135,7 @@
             --tw-bg-opacity: 1;
             background-color: rgb(209 213 219 / var(--tw-bg-opacity))
         }
-    }
+    } */
 </style>
 <button {{ $attributes->merge(['type' => 'submit', 'class' => 'inline-flex items-center px-4 py-2 bg-gray-800
     dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase

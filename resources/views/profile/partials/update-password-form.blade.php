@@ -50,32 +50,10 @@
     .font-medium {
         font-weight: 500
     }
-
-    .text-gray-600 {
-        --tw-text-opacity: 1;
-        color: rgb(75 85 99 / var(--tw-text-opacity))
-    }
-
-    .text-gray-900 {
-        --tw-text-opacity: 1;
-        color: rgb(17 24 39 / var(--tw-text-opacity))
-    }
-
-    @media (prefers-color-scheme: dark) {
-        .dark\:text-gray-100 {
-            --tw-text-opacity: 1;
-            color: rgb(243 244 246 / var(--tw-text-opacity))
-        }
-
-        .dark\:text-gray-400 {
-            --tw-text-opacity: 1;
-            color: rgb(156 163 175 / var(--tw-text-opacity))
-        }
-    }
 </style>
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+        <h2 class="text-lg font-medium " style="color: green; margin-top: 1rem">
             {{ __('Update Password') }}
         </h2>
 

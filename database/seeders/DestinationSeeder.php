@@ -17,21 +17,13 @@ class DestinationSeeder extends Seeder
         Destination::create([
             'name' => 'Mountain Resort',
             'description' => 'Escape to the serene mountains and enjoy outdoor adventures.',
-            'image' => json_encode([
-                "images/01HSST66B44ZNN52H741BZZ3GP.jpg",
-                "images/01HSST66B9D6RACRBF1QEAC14H.jpg",
-                "images/01HSST66BAHNYNBMY12SWC8RD8.jpg"
-            ]),
+            'image' => json_encode(["images\/01HSSPVEPEN1YXN9TTFR8MB3H4.jpg", "images\/01HSSPVEPZ9MZDG1VJ7SDJS98C.jpg", "images\/01HSSPVEQ1VXC0HX7CCS2ARJG7.jpg"]),
         ]);
 
         Destination::create([
             'name' => 'Beach Paradise',
             'description' => 'Relax on pristine beaches and soak up the sun.',
-            'image' => json_encode([
-                "images/01HSST66B44ZNN52H741BZZ3GP.jpg",
-                "images/01HSST66B9D6RACRBF1QEAC14H.jpg",
-                "images/01HSST66BAHNYNBMY12SWC8RD8.jpg"
-            ]),
+            'image' => json_encode(["images\/01HSSPVEPEN1YXN9TTFR8MB3H4.jpg", "images\/01HSSPVEPZ9MZDG1VJ7SDJS98C.jpg", "images\/01HSSPVEQ1VXC0HX7CCS2ARJG7.jpg"]),
         ]);
 
         // Add more destinations as needed

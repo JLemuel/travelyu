@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\BookingController;
-
+use App\Http\Controllers\Auth\RegisteredUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +20,7 @@ use App\Http\Controllers\BookingController;
 
 use App\Models\Destination;
 use App\Models\Activity;
-
+use App\Models\Package;
 
 // In routes/web.php
 Route::post('/checkout', [BookingController::class, 'store'])->name('checkout');
@@ -36,7 +36,8 @@ Route::get('/', function () {
 });
 
 // Assuming you already have this controller or you'll create it
-Route::get('/destinations/{destination}', [DestinationController::class, 'show'])->name('destinations.show');
+Route::get('/destinations/{destinations}', [DestinationController::class, 'showDestinations'])->name('destinations.show');
+Route::get('/destinations/{destinations}/{destinationId}', [DestinationController::class, 'show'])->name('destinations.detail');
 
 Route::get('/packages/{package}', [PackageController::class, 'show'])->name('packages.show');
 
@@ -66,7 +67,8 @@ Route::get('/destination', function () {
 
 // Tour Packages page
 Route::get('/tour-packages', function () {
-    return view('tour-packages'); // Assuming you have a view named 'tour-packages.blade.php'
+    $packages = Package::all();
+    return view('tour-packages', compact('packages')); // Assuming you have a view named 'tour-packages.blade.php'
 })->name('tour-packages');
 
 // About page
@@ -91,6 +93,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Route::post('register', [RegisteredUserController::class, 'store']);
 
 // // Custom routes for your application
 // Route::view('/destinations', 'destinations')->name('destinations'); // Assuming you have a view named 'destinations.blade.php'

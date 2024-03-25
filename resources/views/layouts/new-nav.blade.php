@@ -16,19 +16,26 @@
             <div class="navbar-nav ms-auto py-0">
                 <a href="{{ route('home') }}"
                     class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }} ">Home</a>
+
+
+                <!-- Authentication Links -->
+                @if (Route::has('login'))
+                @auth
+
                 <a href="{{ route('destination') }}"
                     class="nav-item nav-link {{ request()->routeIs('destination') ? 'active' : '' }}">Destination</a>
+
                 <a href="{{ route('tour-packages') }}"
                     class="nav-item nav-link {{ request()->routeIs('tour-packages') ? 'active' : '' }}">Tour
                     Packages</a>
+
                 <a href="{{ route('about') }}"
                     class="nav-item nav-link {{ request()->routeIs('about') ? 'active' : '' }}">About</a>
+
                 <a href="{{ route('contact') }}"
                     class="nav-item nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a>
+
             </div>
-            <!-- Authentication Links -->
-            @if (Route::has('login'))
-            @auth
             <a href="{{ route('profile.edit') }}" class="nav-item nav-link">{{ Auth::user()->name }}</a>
             <a href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();"

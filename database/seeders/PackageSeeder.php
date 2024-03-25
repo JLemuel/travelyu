@@ -21,11 +21,7 @@ class PackageSeeder extends Seeder
                 'description' => 'Experience the timeless beauty of the city with our Classic Tour Package.',
                 'price' => 199.99,
                 'duration' => 7,
-                'image' => json_encode([
-                    "images/01HSST66B44ZNN52H741BZZ3GP.jpg",
-                    "images/01HSST66B9D6RACRBF1QEAC14H.jpg",
-                    "images/01HSST66BAHNYNBMY12SWC8RD8.jpg"
-                ]),
+                'image' => json_encode(["images\/01HSSPVEPEN1YXN9TTFR8MB3H4.jpg", "images\/01HSSPVEPZ9MZDG1VJ7SDJS98C.jpg", "images\/01HSSPVEQ1VXC0HX7CCS2ARJG7.jpg"]),
                 'start_date' => Carbon::now()->format('Y-m-d'),
                 'end_date' => Carbon::now()->addDays(30)->format('Y-m-d'),
                 'booking_limit' => 50,
@@ -44,11 +40,7 @@ class PackageSeeder extends Seeder
                 'description' => 'Get ready for fun in the sun with our Summer Adventure Package.',
                 'price' => 299.99,
                 'duration' => 10,
-                'image' => json_encode([
-                    "images/01HSST66B44ZNN52H741BZZ3GP.jpg",
-                    "images/01HSST66B9D6RACRBF1QEAC14H.jpg",
-                    "images/01HSST66BAHNYNBMY12SWC8RD8.jpg"
-                ]),
+                'image' => json_encode(["images\/01HSSPVEPEN1YXN9TTFR8MB3H4.jpg", "images\/01HSSPVEPZ9MZDG1VJ7SDJS98C.jpg", "images\/01HSSPVEQ1VXC0HX7CCS2ARJG7.jpg"]),
                 'start_date' => Carbon::now()->addMonths(1)->format('Y-m-d'),
                 'end_date' => Carbon::now()->addMonths(2)->format('Y-m-d'),
                 'booking_limit' => 30,
@@ -67,11 +59,7 @@ class PackageSeeder extends Seeder
                 'description' => 'Don\'t let the rain dampen your spirits! Enjoy our Rainy Day Special.',
                 'price' => 99.99,
                 'duration' => 5,
-                'image' => json_encode([
-                    "images/01HSST66B44ZNN52H741BZZ3GP.jpg",
-                    "images/01HSST66B9D6RACRBF1QEAC14H.jpg",
-                    "images/01HSST66BAHNYNBMY12SWC8RD8.jpg"
-                ]),
+                'image' => json_encode(["images\/01HSSPVEPEN1YXN9TTFR8MB3H4.jpg", "images\/01HSSPVEPZ9MZDG1VJ7SDJS98C.jpg", "images\/01HSSPVEQ1VXC0HX7CCS2ARJG7.jpg"]),
                 'start_date' => Carbon::now()->addMonths(3)->format('Y-m-d'),
                 'end_date' => Carbon::now()->addMonths(4)->format('Y-m-d'),
                 'booking_limit' => 20,

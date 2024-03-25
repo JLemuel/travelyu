@@ -17,12 +17,12 @@
         color: rgb(55 65 81 / var(--tw-text-opacity))
     }
 
-    @media (prefers-color-scheme: dark) {
+    /* @media (prefers-color-scheme: dark) {
         .dark\:text-gray-300 {
             --tw-text-opacity: 1;
             color: rgb(209 213 219 / var(--tw-text-opacity))
         }
-    }
+    } */
 </style>
 @props(['value'])
 
