@@ -21,11 +21,21 @@ class PackageSeeder extends Seeder
                 'description' => 'Experience the timeless beauty of the city with our Classic Tour Package.',
                 'price' => 199.99,
                 'duration' => 7,
-                'image' => null, // or provide a path to an image
+                'image' => json_encode([
+                    "images/01HSST66B44ZNN52H741BZZ3GP.jpg",
+                    "images/01HSST66B9D6RACRBF1QEAC14H.jpg",
+                    "images/01HSST66BAHNYNBMY12SWC8RD8.jpg"
+                ]),
                 'start_date' => Carbon::now()->format('Y-m-d'),
                 'end_date' => Carbon::now()->addDays(30)->format('Y-m-d'),
                 'booking_limit' => 50,
                 'max_persons' => 5,
+                'tour_plan_details' => '<p><strong>Day 1: Arrival and Welcome</strong></p>
+                    <ul>
+                        <li>Morning: Arrival at the city/airport.</li>
+                        <li>Afternoon: City tour.</li>
+                        <li>Evening: Welcome dinner.</li>
+                    </ul>'
             ],
             [
                 'destination_id' => 1,
@@ -34,11 +44,21 @@ class PackageSeeder extends Seeder
                 'description' => 'Get ready for fun in the sun with our Summer Adventure Package.',
                 'price' => 299.99,
                 'duration' => 10,
-                'image' => null,
+                'image' => json_encode([
+                    "images/01HSST66B44ZNN52H741BZZ3GP.jpg",
+                    "images/01HSST66B9D6RACRBF1QEAC14H.jpg",
+                    "images/01HSST66BAHNYNBMY12SWC8RD8.jpg"
+                ]),
                 'start_date' => Carbon::now()->addMonths(1)->format('Y-m-d'),
                 'end_date' => Carbon::now()->addMonths(2)->format('Y-m-d'),
                 'booking_limit' => 30,
                 'max_persons' => 4,
+                'tour_plan_details' => '<p><strong>Day 1: Arrival and Welcome</strong></p>
+                    <ul>
+                        <li>Morning: Arrival at the city/airport.</li>
+                        <li>Afternoon: City tour.</li>
+                        <li>Evening: Welcome dinner.</li>
+                    </ul>'
             ],
             [
                 'destination_id' => 1,
@@ -47,11 +67,21 @@ class PackageSeeder extends Seeder
                 'description' => 'Don\'t let the rain dampen your spirits! Enjoy our Rainy Day Special.',
                 'price' => 99.99,
                 'duration' => 5,
-                'image' => null,
+                'image' => json_encode([
+                    "images/01HSST66B44ZNN52H741BZZ3GP.jpg",
+                    "images/01HSST66B9D6RACRBF1QEAC14H.jpg",
+                    "images/01HSST66BAHNYNBMY12SWC8RD8.jpg"
+                ]),
                 'start_date' => Carbon::now()->addMonths(3)->format('Y-m-d'),
                 'end_date' => Carbon::now()->addMonths(4)->format('Y-m-d'),
                 'booking_limit' => 20,
                 'max_persons' => 6,
+                'tour_plan_details' => '<p><strong>Day 1: Arrival and Welcome</strong></p>
+                    <ul>
+                        <li>Morning: Arrival at the city/airport.</li>
+                        <li>Afternoon: City tour.</li>
+                        <li>Evening: Welcome dinner.</li>
+                    </ul>',
             ]
         ];
 

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,16 @@ use App\Http\Controllers\PackageController;
 
 use App\Models\Destination;
 use App\Models\Activity;
+
+
+// In routes/web.php
+Route::post('/checkout', [BookingController::class, 'store'])->name('checkout');
+
+// Place this inside web.php
+Route::get('/booking-success', function () {
+    return view('booking.success'); // Assumes you have a view named 'booking.success.blade.php'
+})->name('booking.success');
+
 
 Route::get('/', function () {
     return view('splash');

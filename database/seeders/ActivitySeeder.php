@@ -21,7 +21,7 @@ class ActivitySeeder extends Seeder
             'name' => 'Hiking',
             'description' => 'Explore nature trails and enjoy breathtaking views.',
             'price' => 50.00,
-            'image' => 'hiking.jpg', // Assuming image is just a string path to the image
+            'image' => ["images\/01HSST66B44ZNN52H741BZZ3GP.jpg","images\/01HSST66B9D6RACRBF1QEAC14H.jpg","images\/01HSST66BAHNYNBMY12SWC8RD8.jpg"], // Assuming image is just a string path to the image
             'destination_id' => $destinationId,
         ]);
 
@@ -30,7 +30,7 @@ class ActivitySeeder extends Seeder
             'name' => 'Scuba Diving',
             'description' => 'Discover the underwater world and swim with marine life.',
             'price' => 100.00,
-            'image' => 'scuba_diving.jpg', // Assuming image is just a string path to the image
+            'image' => ["images\/01HSST66B44ZNN52H741BZZ3GP.jpg","images\/01HSST66B9D6RACRBF1QEAC14H.jpg","images\/01HSST66BAHNYNBMY12SWC8RD8.jpg"], // Assuming image is just a string path to the image
             'destination_id' => $destinationId,
         ]);
     }

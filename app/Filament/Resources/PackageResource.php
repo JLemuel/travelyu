@@ -25,6 +25,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\RichEditor;
 
 class PackageResource extends Resource
 {
@@ -87,6 +88,27 @@ class PackageResource extends Resource
                             ->numeric(),
                     ])->columns(2),
 
+                    Section::make('Tour Plan Details')
+                    ->description('Prevent abuse by limiting the number of requests per period')
+                    ->schema([
+                        RichEditor::make('tour_plan_details')
+                            ->toolbarButtons([
+                                'attachFiles',
+                                'blockquote',
+                                'bold',
+                                'bulletList',
+                                'codeBlock',
+                                'h2',
+                                'h3',
+                                'italic',
+                                'link',
+                                'orderedList',
+                                'redo',
+                                'strike',
+                                'underline',
+                                'undo',
+                            ])
+                    ]),
                 // Scheduling
                 Section::make('Scheduling')
                     ->schema([
@@ -95,6 +117,7 @@ class PackageResource extends Resource
                         Forms\Components\DatePicker::make('end_date')
                             ->required(),
                     ])->columns(2),
+
 
                 // Images
                 Section::make('Images')

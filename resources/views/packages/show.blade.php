@@ -189,6 +189,64 @@
             padding-top: 10px;
             /* Adjust padding to match the image */
         }
+
+        .accordion-button:not(.collapsed) {
+    color: white;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.accordion-button {
+    color: #5cb85c;
+    background-color: transparent;
+    border-color: #ddd;
+}
+
+.accordion-item {
+    border: none;
+    background: none;
+    border-radius: 0;
+}
+
+.accordion-item .accordion-button::after {
+    background-image: url('path-to-your-dropdown-icon.svg'); /* Path to your dropdown icon */
+}
+
+.tour-day-content strong {
+    font-size: 1.2em;
+    color: #333;
+}
+
+.tour-day-content ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.tour-day-content li:before {
+    content: '•';
+    color: #5cb85c; /* or any color you prefer */
+    font-weight: bold;
+    display: inline-block; 
+    width: 1em;
+    margin-left: -1em;
+}
+
+.tour-day-content img {
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+
+.review-rating .star {
+    color: #ddd; /* Color of empty star */
+    margin-right: 5px;
+    font-size: 1.2em;
+}
+
+.review-rating .star.filled {
+    color: #ffc107; /* Color of filled star */
+}
+
     </style>
 
     <!-- Bootstrap Carousel for Images -->
@@ -267,13 +325,79 @@
                             <p class="mt-4">{{ $package->description }}</p>
                         </div>
                         <div class="tab-pane fade" id="tour-plan" role="tabpanel" aria-labelledby="tour-plan-tab">
+                            <div class="mt-3">
+                                <!-- {!! $package->tour_plan_details !!} -->
+                                <div class="accordion" id="tourPlanAccordion">
+                                    @php
+                                        // Assuming $package->tour_plan_details is a collection or an array of HTML content strings for each day
+                                        $days = explode('<p><strong>', $package->tour_plan_details); // Split the content into days
+                                        array_shift($days); // Remove the first empty element due to explode
+                                    @endphp
 
+                                    @foreach($days as $index => $dayContent)
+                                        @php
+                                            // Re-add the removed <p><strong> and wrap the content in a div for styling
+                                            $dayContent = '<p><strong>' . $dayContent; 
+                                            $dayContent = '<div class="tour-day-content">' . $dayContent . '</div>';
+                                        @endphp
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingDay{{ $index }}">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDay{{ $index }}" aria-expanded="true" aria-controls="collapseDay{{ $index }}">
+                                                    Day {{ $index + 1 }}
+                                                </button>
+                                            </h2>
+                                            <div id="collapseDay{{ $index }}" class="accordion-collapse show" aria-labelledby="headingDay{{ $index }}" data-bs-parent="#tourPlanAccordion">
+                                                <div class="accordion-body">
+                                                    {!! $dayContent !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                            <!-- Include reviews here -->
-                            <!-- Possibly iterate through reviews if available -->
+                        <div class="tab-pane fade show active" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                        <!-- Example review 1 -->
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="card-title">John Doe</h5>
+                                    <div class="review-rating">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star">★</span>
+                                    </div>
+                                </div>
+                                <p class="card-text">The tour was absolutely wonderful and exceeded our expectations. Loved every bit of it!</p>
+                                <p class="text-muted">March 24, 2024</p>
+                            </div>
                         </div>
+
+                        <!-- Example review 2 -->
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="card-title">Jane Smith</h5>
+                                    <div class="review-rating">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                </div>
+                                <p class="card-text">Incredible experience! Our guide was knowledgeable and the itinerary was well planned.</p>
+                                <p class="text-muted">February 14, 2024</p>
+                            </div>
+                        </div>
+
+                        <!-- More reviews can be added here -->
+                    </div>
+
                     </div>
                 </div>
 
@@ -284,7 +408,7 @@
                         <!-- Display package name here -->
                         <h5 class="card-title">Book This Tour</h5>
                         <!-- Begin Booking Form -->
-                        <form method="post">
+                        <form action="{{ route('checkout') }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label for="start_date" class="form-label">Start Date</label>
@@ -304,6 +428,10 @@
                                     <!-- Options for number of persons -->
                                 </select>
                             </div>
+                              <!-- Hidden inputs to store package details -->
+                            <input type="hidden" name="package_id" value="{{ $package->id }}">
+                            <input type="hidden" name="package_price" id="package_price" value="{{ $package->price }}">
+
                             <!-- Dynamic Total Price Display -->
                             <!-- Inside your card body, after the form -->
                             <div id="totalPriceContainer" class="mt-3 d-flex justify-content-between">

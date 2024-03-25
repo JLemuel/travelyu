@@ -25,6 +25,7 @@ return new class extends Migration
             $table->date('end_date')->nullable();
             $table->unsignedInteger('booking_limit')->nullable(); // Existing field for booking limit
             $table->unsignedInteger('max_persons')->nullable(); // Add this line for max persons
+            $table->text('tour_plan_details')->nullable();
             $table->timestamps();
         });
     }

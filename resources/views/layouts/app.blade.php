@@ -46,7 +46,7 @@
     <div>
         @include('layouts.new-nav')
 
-        <main>
+        <main >
             {{ $slot }}
         </main>
 

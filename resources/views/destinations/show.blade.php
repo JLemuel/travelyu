@@ -146,7 +146,7 @@
                         </p>
                         <div class="package-details mb-2">
                             <span class="days"><i class="bi bi-calendar3"></i> {{ $package->duration }} days</span>
-                            <span class="price">From ${{ $package->price }}</span>
+                            <span class="price">From ₱{{ $package->price }}</span>
                         </div>
                         <p class="card-text">{{ $package->description }}</p>
                         <a href="{{ route('packages.show', $package->id) }}" class="btn btn-primary">Explore</a>
