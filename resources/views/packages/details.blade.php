@@ -191,62 +191,70 @@
         }
 
         .accordion-button:not(.collapsed) {
-    color: white;
-    background-color: #5cb85c;
-    border-color: #4cae4c;
-}
+            color: white;
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
 
-.accordion-button {
-    color: #5cb85c;
-    background-color: transparent;
-    border-color: #ddd;
-}
+        .accordion-button {
+            color: #5cb85c;
+            background-color: transparent;
+            border-color: #ddd;
+        }
 
-.accordion-item {
-    border: none;
-    background: none;
-    border-radius: 0;
-}
+        .accordion-item {
+            border: none;
+            background: none;
+            border-radius: 0;
+        }
 
-.accordion-item .accordion-button::after {
-    background-image: url('path-to-your-dropdown-icon.svg'); /* Path to your dropdown icon */
-}
+        .accordion-item .accordion-button::after {
+            background-image: url('path-to-your-dropdown-icon.svg');
+            /* Path to your dropdown icon */
+        }
 
-.tour-day-content strong {
-    font-size: 1.2em;
-    color: #333;
-}
+        .tour-day-content strong {
+            font-size: 1.2em;
+            color: #333;
+        }
 
-.tour-day-content ul {
-    list-style: none;
-    padding-left: 20px;
-}
+        .tour-day-content ul {
+            list-style: none;
+            padding-left: 20px;
+        }
 
-.tour-day-content li:before {
-    content: '•';
-    color: #5cb85c; /* or any color you prefer */
-    font-weight: bold;
-    display: inline-block; 
-    width: 1em;
-    margin-left: -1em;
-}
+        .tour-day-content li:before {
+            content: '•';
+            color: #5cb85c;
+            /* or any color you prefer */
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
 
-.tour-day-content img {
-    width: 100%;
-    margin-top: 15px;
-    border-radius: 5px;
-}
+        .tour-day-content img {
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
 
-.review-rating .star {
-    color: #ddd; /* Color of empty star */
-    margin-right: 5px;
-    font-size: 1.2em;
-}
+        .review-rating .star {
+            color: #ddd;
+            /* Color of empty star */
+            margin-right: 5px;
+            font-size: 1.2em;
+        }
 
-.review-rating .star.filled {
-    color: #ffc107; /* Color of filled star */
-}
+        .review-rating .star.filled {
+            color: #ffc107;
+            /* Color of filled star */
+        }
 
+        #map {
+            height: 400px;
+            /* Adjust as needed */
+        }
     </style>
 
     <!-- Bootstrap Carousel for Images -->
@@ -289,18 +297,22 @@
                         $package->duration }} days</span>
                     <span class="text-muted"><i class="bi bi-people-fill"></i> <strong>Max People:</strong> {{
                         $package->max_persons }}</span>
-                    <span class="text-muted"><i class="bi bi-book-fill"></i> <strong>Booking Limit:</strong> {{
-                        $package->booking_limit }}</span>
+                    <span class="text-muted"><i class="bi bi-book-fill"></i>
+                        <strong>Booking Limit:</strong> {{ $package->booking_limit }}
+                        {{-- ({{ $package->booking }} booked) --}}
+                    </span>
+
                     <span class="text-muted"><i class="bi bi-geo-alt-fill"></i> <strong>Tour Type:</strong> {{
                         $package->type }}</span>
                     <span class="text-muted">
-                        <i class="bi bi-star-fill text-warning"></i> <strong>Reviews:</strong> 8 reviews
+                        <i class="bi bi-star-fill text-warning"></i> <strong>Reviews:</strong> {{
+                        $package->reviews->count() }} reviews
                     </span>
                 </div>
             </div>
         </div>
         <div class="row mt-4">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="container">
                     <!-- Package Description -->
                     <div class="section" id="description">
@@ -316,55 +328,70 @@
                             <!-- Displaying Tour Plan Content -->
                             <div class="accordion" id="tourPlanAccordion">
                                 @php
-                                    $days = explode('<p><strong>', $package->tour_plan_details); // Split the content into days
-                                    array_shift($days); // Remove the first empty element due to explode
-                                @endphp
+                                $days = explode('<p><strong>', $package->tour_plan_details); // Split the content into
+                                        array_shift($days); // Remove the first empty element due to explode
+                                        @endphp
 
-                                @foreach($days as $index => $dayContent)
-                                    @php
-                                        $dayContent = '<p><strong>' . $dayContent; 
-                                        $dayContent = '<div class="tour-day-content">' . $dayContent . '</div>';
-                                    @endphp
+                                        @foreach($days as $index => $dayContent)
+                                        @php
+                                        $dayContent = '<p><strong>' . $dayContent;
+                                                $dayContent = '<div class="tour-day-content">' . $dayContent . '</div>';
+                                                @endphp
 
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingDay{{ $index }}">
-                                            <button class="accordion-button" type="button" data-bs-target="#collapseDay{{ $index }}" aria-expanded="true" aria-controls="collapseDay{{ $index }}">
-                                                Day {{ $index + 1 }}
-                                            </button>
-                                        </h2>
-                                        <div id="collapseDay{{ $index }}" class="accordion-collapse" aria-labelledby="headingDay{{ $index }}" data-bs-parent="#tourPlanAccordion">
-                                            <div class="accordion-body">
-                                                {!! $dayContent !!}
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="headingDay{{ $index }}">
+                                                        <button class="accordion-button" type="button"
+                                                            data-bs-target="#collapseDay{{ $index }}"
+                                                            aria-expanded="true"
+                                                            aria-controls="collapseDay{{ $index }}">
+                                                            Day {{ $index + 1 }}
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapseDay{{ $index }}" class="accordion-collapse"
+                                                        aria-labelledby="headingDay{{ $index }}"
+                                                        data-bs-parent="#tourPlanAccordion">
+                                                        <div class="accordion-body">
+                                                            {!! $dayContent !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endforeach
                             </div>
                         </div>
                     </div>
+                    <div class="section">
+                        <h2>Location</h2>
+                        <div id="map" class="mt-4"></div>
+                    </div>
+                </div>
 
+            </div>
+
+            <div class="col-md-6">
+                <div class="container">
                     <div class="section" id="reviews">
                         <h2>Reviews</h2>
 
-                        @forelse($package->reviews as $review)                     
+                        @forelse($package->reviews as $review)
                         <div class="card mb-3">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
-                                <h5 class="card-title">{{ $review->user->name ?? 'Anonymous' }}</h5> 
+                                    <h5 class="card-title">{{ $review->user->name ?? 'Anonymous' }}</h5>
                                     <div class="review-rating">
-                                    @for($i = 0; $i < 5; $i++)
-                                            <span class="bi{{ $i < $review->rating ? ' bi-star-fill' : ' bi-star' }}"></span>
-                                        @endfor 
+                                        @for($i = 0; $i < 5; $i++) <span
+                                            class="bi{{ $i < $review->rating ? ' bi-star-fill' : ' bi-star' }}">
+                                            </span>
+                                            @endfor
                                     </div>
                                 </div>
                                 <p class="card-text">{{ $review->content }}</p>
-                                    <p class="text-muted">{{ $review->created_at->format('F d, Y') }}</p>
+                                <p class="text-muted">{{ $review->created_at->format('F d, Y') }}</p>
                             </div>
                         </div>
                         @empty
-                            <p>No reviews yet.</p>
+                        <p>No reviews yet.</p>
                         @endforelse
-                      
+
                     </div>
 
 
@@ -374,9 +401,10 @@
                     <div class="review-form mt-4">
                         <h3>Add Your Review</h3>
                         <form action="/submit-review" method="POST">
-                            @csrf <!-- CSRF token for Laravel forms -->
+                            @csrf
+                            <!-- CSRF token for Laravel forms -->
 
-                               <!-- Hidden input for package_id -->
+                            <!-- Hidden input for package_id -->
                             <input type="hidden" name="package_id" value="{{ $package->id }}">
 
                             <div class="mb-3">
@@ -392,18 +420,76 @@
                             </div>
                             <div class="mb-3">
                                 <label for="reviewText" class="form-label">Your Review</label>
-                                <textarea class="form-control" id="reviewText" name="reviewText" rows="3" required></textarea>
+                                <textarea class="form-control" id="reviewText" name="reviewText" rows="3"
+                                    required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit Review</button>
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
 
     </div>
 
-
+    <script>
+        // Destination latitude and longitude values from your variable
+        var destLat = {{ number_format($package->destination->lat, 6) }};
+        var destLng = {{ number_format($package->destination->lng, 6) }};
     
+        function initMap() {
+            var destination = new google.maps.LatLng(destLat, destLng);
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 14,
+                center: destination,
+                disableDefaultUI: true,
+                zoomControl: true,
+                mapTypeControl: true,
+            });
+    
+            var directionsService = new google.maps.DirectionsService();
+            var directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+    
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var currentLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+    
+                    calculateAndDisplayRoute(directionsService, directionsRenderer, currentLocation, destination);
+                }, function() {
+                    handleLocationError(true, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, map.getCenter());
+            }
+        }
+    
+        function calculateAndDisplayRoute(directionsService, directionsRenderer, currentLocation, destination) {
+            directionsService.route({
+                origin: currentLocation,
+                destination: destination,
+                // Specify the travel mode: driving, walking, bicycling or transit
+                travelMode: 'DRIVING'
+            }, function(response, status) {
+                if (status === 'OK') {
+                    directionsRenderer.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+    
+        function handleLocationError(browserHasGeolocation, pos) {
+            alert(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+        }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap"></script>
+
 </x-app-layout>

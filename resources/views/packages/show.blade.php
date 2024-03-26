@@ -191,62 +191,65 @@
         }
 
         .accordion-button:not(.collapsed) {
-    color: white;
-    background-color: #5cb85c;
-    border-color: #4cae4c;
-}
+            color: white;
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
 
-.accordion-button {
-    color: #5cb85c;
-    background-color: transparent;
-    border-color: #ddd;
-}
+        .accordion-button {
+            color: #5cb85c;
+            background-color: transparent;
+            border-color: #ddd;
+        }
 
-.accordion-item {
-    border: none;
-    background: none;
-    border-radius: 0;
-}
+        .accordion-item {
+            border: none;
+            background: none;
+            border-radius: 0;
+        }
 
-.accordion-item .accordion-button::after {
-    background-image: url('path-to-your-dropdown-icon.svg'); /* Path to your dropdown icon */
-}
+        .accordion-item .accordion-button::after {
+            background-image: url('path-to-your-dropdown-icon.svg');
+            /* Path to your dropdown icon */
+        }
 
-.tour-day-content strong {
-    font-size: 1.2em;
-    color: #333;
-}
+        .tour-day-content strong {
+            font-size: 1.2em;
+            color: #333;
+        }
 
-.tour-day-content ul {
-    list-style: none;
-    padding-left: 20px;
-}
+        .tour-day-content ul {
+            list-style: none;
+            padding-left: 20px;
+        }
 
-.tour-day-content li:before {
-    content: '•';
-    color: #5cb85c; /* or any color you prefer */
-    font-weight: bold;
-    display: inline-block; 
-    width: 1em;
-    margin-left: -1em;
-}
+        .tour-day-content li:before {
+            content: '•';
+            color: #5cb85c;
+            /* or any color you prefer */
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
 
-.tour-day-content img {
-    width: 100%;
-    margin-top: 15px;
-    border-radius: 5px;
-}
+        .tour-day-content img {
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
 
-.review-rating .star {
-    color: #ddd; /* Color of empty star */
-    margin-right: 5px;
-    font-size: 1.2em;
-}
+        .review-rating .star {
+            color: #ddd;
+            /* Color of empty star */
+            margin-right: 5px;
+            font-size: 1.2em;
+        }
 
-.review-rating .star.filled {
-    color: #ffc107; /* Color of filled star */
-}
-
+        .review-rating .star.filled {
+            color: #ffc107;
+            /* Color of filled star */
+        }
     </style>
 
     <!-- Bootstrap Carousel for Images -->
@@ -294,14 +297,15 @@
                     <span class="text-muted"><i class="bi bi-geo-alt-fill"></i> <strong>Tour Type:</strong> {{
                         $package->type }}</span>
                     <span class="text-muted">
-                        <i class="bi bi-star-fill text-warning"></i> <strong>Reviews:</strong> 8 reviews
+                        <i class="bi bi-star-fill text-warning"></i> <strong>Reviews:</strong> {{
+                        $package->reviews->count() }} reviews
                     </span>
                 </div>
             </div>
         </div>
-         <div class="row mt-4">
+        <div class="row mt-4">
             <div class="col-md-8">
-            <div class="container">
+                <div class="container">
                     <!-- Package Description -->
                     <div class="section" id="description">
                         <h2>Description</h2>
@@ -316,29 +320,34 @@
                             <!-- Displaying Tour Plan Content -->
                             <div class="accordion" id="tourPlanAccordion">
                                 @php
-                                    $days = explode('<p><strong>', $package->tour_plan_details); // Split the content into days
-                                    array_shift($days); // Remove the first empty element due to explode
-                                @endphp
+                                $days = explode('<p><strong>', $package->tour_plan_details); // Split the content into
+                                        array_shift($days); // Remove the first empty element due to explode
+                                        @endphp
 
-                                @foreach($days as $index => $dayContent)
-                                    @php
-                                        $dayContent = '<p><strong>' . $dayContent; 
-                                        $dayContent = '<div class="tour-day-content">' . $dayContent . '</div>';
-                                    @endphp
+                                        @foreach($days as $index => $dayContent)
+                                        @php
+                                        $dayContent = '<p><strong>' . $dayContent;
+                                                $dayContent = '<div class="tour-day-content">' . $dayContent . '</div>';
+                                                @endphp
 
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingDay{{ $index }}">
-                                            <button class="accordion-button" type="button" data-bs-target="#collapseDay{{ $index }}" aria-expanded="true" aria-controls="collapseDay{{ $index }}">
-                                                Day {{ $index + 1 }}
-                                            </button>
-                                        </h2>
-                                        <div id="collapseDay{{ $index }}" class="accordion-collapse" aria-labelledby="headingDay{{ $index }}" data-bs-parent="#tourPlanAccordion">
-                                            <div class="accordion-body">
-                                                {!! $dayContent !!}
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="headingDay{{ $index }}">
+                                                        <button class="accordion-button" type="button"
+                                                            data-bs-target="#collapseDay{{ $index }}"
+                                                            aria-expanded="true"
+                                                            aria-controls="collapseDay{{ $index }}">
+                                                            Day {{ $index + 1 }}
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapseDay{{ $index }}" class="accordion-collapse"
+                                                        aria-labelledby="headingDay{{ $index }}"
+                                                        data-bs-parent="#tourPlanAccordion">
+                                                        <div class="accordion-body">
+                                                            {!! $dayContent !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -346,25 +355,25 @@
                     <div class="section" id="reviews">
                         <h2>Reviews</h2>
 
-                        @forelse($package->reviews as $review)                     
+                        @forelse($package->reviews as $review)
                         <div class="card mb-3">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
-                                <h5 class="card-title">{{ $review->user->name ?? 'Anonymous' }}</h5> 
+                                    <h5 class="card-title">{{ $review->user->name ?? 'Anonymous' }}</h5>
                                     <div class="review-rating">
-                                    @for($i = 0; $i < 5; $i++)
-                                            <span class="bi{{ $i < $review->rating ? ' bi-star-fill' : ' bi-star' }}"></span>
-                                        @endfor 
+                                        @for($i = 0; $i < 5; $i++) <span
+                                            class="bi{{ $i < $review->rating ? ' bi-star-fill' : ' bi-star' }}"></span>
+                                            @endfor
                                     </div>
                                 </div>
                                 <p class="card-text">{{ $review->content }}</p>
-                                    <p class="text-muted">{{ $review->created_at->format('F d, Y') }}</p>
+                                <p class="text-muted">{{ $review->created_at->format('F d, Y') }}</p>
                             </div>
                         </div>
                         @empty
-                            <p>No reviews yet.</p>
+                        <p>No reviews yet.</p>
                         @endforelse
-                      
+
                     </div>
 
                 </div>
@@ -395,7 +404,7 @@
                                     <!-- Options for number of persons -->
                                 </select>
                             </div>
-                              <!-- Hidden inputs to store package details -->
+                            <!-- Hidden inputs to store package details -->
                             <input type="hidden" name="package_id" value="{{ $package->id }}">
                             <input type="hidden" name="package_price" id="package_price" value="{{ $package->price }}">
 
@@ -414,7 +423,7 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
 
     <script>
