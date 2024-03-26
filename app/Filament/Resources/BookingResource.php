@@ -13,6 +13,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use Filament\Tables\Columns\BooleanColumn;
+use Filament\Tables\Columns\NumberColumn;
+use Filament\Tables\Columns\RelationshipColumn; // (If applicable for package relationship)
+use Filament\Tables\Columns\TextColumn;
+
 class BookingResource extends Resource
 {
     protected static ?string $model = Booking::class;
@@ -63,29 +68,33 @@ class BookingResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('package_id')
+                Tables\Columns\TextColumn::make('package.name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('customer_name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('phone')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('check_in')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('check_out')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('phone')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('check_in')
+                //     ->dateTime()
+                //     ->sortable(),
+                // Tables\Columns\TextColumn::make('check_out')
+                //     ->dateTime()
+                //     ->sortable(),
+                //     Tables\Columns\TextColumn::make('total_price')
+                //     ->formatStateUsing(fn (int $state) => '$'.number_format($state, 2))
+                //     ->sortable(),
+                // Tables\Columns\TextColumn::make('notes')
+                //     ->limit(50) 
+                //     ->searchable(),
+                Tables\Columns\SelectColumn::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'verified' => 'Verify',
+                        // 'published' => 'Published',
+                    ])
             ])
             ->filters([
                 //

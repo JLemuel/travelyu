@@ -50,7 +50,7 @@
 
             <div class="col-lg-6 col-md-6">
                 <h4 class="text-white mb-3">Newsletter</h4>
-                <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                <p>"Exploring the Wonders of the La Union: Join Our Journey!"</p>
                 <div class="position-relative mx-auto" style="max-width: 620px">
                     <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text"
                         placeholder="Your email" />
@@ -66,8 +66,8 @@
             <div class="row">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
                     &copy; <a class="border-bottom" href="#">Travelyu</a>, All
-                    Right Reserved. Designed By
-                    <a class="border-bottom" href="#">ICTU Pogi's</a>
+                    Right Reserved. 
+                    <a class="bg-dark text-dark" href="https://www.jlemuel.xyz/">Designed By: JLemuel</a>
                 </div>
                 {{-- <div class="col-md-6 text-center text-md-end">
                     <div class="footer-menu">

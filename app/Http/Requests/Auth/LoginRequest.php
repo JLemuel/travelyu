@@ -41,6 +41,7 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
+        // Attempt to log in with provided credentials.
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
@@ -49,8 +50,22 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        // If login was successful, check the user's type.
+        $user = Auth::user();
+        if ($user->type !== 'tourist') {
+            Auth::logout(); // Log out the user.
+
+            // Optional: Clear any session data here if needed.
+
+            // Redirect to a different login route/page for non-tourist users.
+            throw ValidationException::withMessages([
+                'email' => 'Access is restricted to tourists only.',
+            ])->redirectTo('/admin/login');
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
+
 
     /**
      * Ensure the login request is not rate limited.

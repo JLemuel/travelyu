@@ -7,6 +7,8 @@ use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\ReviewController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +42,10 @@ Route::get('/destinations/{destinations}', [DestinationController::class, 'showD
 Route::get('/destinations/{destinations}/{destinationId}', [DestinationController::class, 'show'])->name('destinations.detail');
 
 Route::get('/packages/{package}', [PackageController::class, 'show'])->name('packages.show');
+Route::get('/packages/details/{id}',  [PackageController::class, 'showDetail'])->name('packages.details');
+
+// Route to handle review submission
+Route::post('/submit-review', [ReviewController::class, 'store'])->name('review.store');
 
 
 Route::get('/search', function (Request $request) {

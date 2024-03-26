@@ -1,7 +1,18 @@
 <div>
     @if(isset($bookings) && $bookings->count() > 0)
         @foreach($bookings as $booking)
-            <div class="card mb-4">
+            <div class="card mb-4 position-relative">
+                <!-- Pending Verification Badge -->
+                @if($booking->status === 'pending') 
+                    <div class="position-absolute top-0 end-0">
+                        <span class="badge bg-warning text-dark m-2">Pending Verification</span>
+                    </div>
+                @elseif($booking->status === 'verified') 
+                    <div class="position-absolute top-0 end-0">
+                        <span class="badge bg-success text-white m-2">Verified</span>
+                    </div>
+                @endif
+
                 <div class="row no-gutters">
                     <!-- Package Image Column -->
                     <div class="col-lg-4">
@@ -24,6 +35,10 @@
                                 Check-out: {{ $booking->check_out->format('M d, Y') }}<br>
                                 Total Price: ${{ number_format($booking->total_price, 2) }}
                             </p>
+                            <!-- Button to view package details -->
+                            <a href="{{ route('packages.details', $booking->package->id) }}" class="btn btn-primary">
+                                View Details
+                            </a>
                         </div>
                         <div class="card-footer">
                             <small class="text-muted">Booking ID: {{ $booking->id }}</small>

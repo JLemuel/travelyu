@@ -134,8 +134,8 @@
     /* Optionally, adjust padding and margins as needed */
 </style>
 <x-app-layout>
-    <div class="container py-5">
-        <ul class="nav nav-tabs" style="padding-top: 5rem" id="profileTabs" role="tablist">
+    <div class="container py-5 ">
+        <ul class="nav nav-tabs " style="padding-top: 5rem" id="profileTabs" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="user-bookings-tab" data-bs-toggle="tab" href="#user-bookings" role="tab"
                     aria-controls="user-bookings" aria-selected="true">User Bookings</a>

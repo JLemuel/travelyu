@@ -36,20 +36,23 @@
                     class="nav-item nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a>
 
             </div>
-            <a href="{{ route('profile.edit') }}" class="nav-item nav-link">{{ Auth::user()->name }}</a>
-            <a href="{{ route('logout') }}"
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                class="btn btn-primary rounded-pill py-2 px-4">
-                Logout
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-            @else
-            <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}" class="btn btn-primary rounded-pill py-2 px-4">Register</a>
-            @endif
+                <a href="{{ route('profile.edit') }}" class="nav-item nav-link">{{ Auth::user()->name }}</a>
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                    class="btn btn-primary rounded-pill py-2 px-4">
+                    Logout
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+                @else
+          
+                <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
+                @if (Route::has('register'))
+               <!-- Apply button styling classes to the 'Register' link to match the 'Logout' button appearance -->
+                <a href="{{ route('register') }}" class="btn btn-primary rounded-pill py-2 px-4" style="background-color: #00b300; border-color: #00b300; color: white;">Register</a>
+                @endif
+         
             @endauth
             @endif
         </div>

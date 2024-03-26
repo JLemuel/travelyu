@@ -49,12 +49,15 @@
         <div class="row">
             <!-- Map Component Column -->
             <div class="col-12 col-md-6">
+                  <!-- These headings will only show on xs to sm screens -->
+                  <h2 class="fw-bold text-lg mb-4 d-md-none">Discover La Union</h2>
+                <h4 class="text-muted mb-4 d-md-none">Explore the Hidden Gems</h4>
                 <!-- This will take full width on xs to md screens, and half on lg screens -->
                 <x-elyu-map route-name="destinations.show" />
             </div>
 
             <!-- Collage of Images Column -->
-            <div class="col-12 col-md-6 " style=" position: relative;">
+            <div class="col-12 col-md-6 d-none d-md-block" style=" position: relative;">
                 <!-- This will take full width on xs to md screens, and half on lg screens -->
                 <h2 class="fw-bold text-lg mb-4">Discover La Union</h2>
                 <h4 class="text-muted mb-4">Explore the Hidden Gems</h4>

@@ -29,7 +29,8 @@ class BookingController extends Controller
             'email' => $user->email, // Assuming the user's email
             'phone' => 'N/A', // Placeholder for phone, adjust as necessary
             'package_id' => $validated['package_id'],
-            'total_price' => $this->calculateTotalPrice($validated), // Calculate total price
+            // 'total_price' => $this->calculateTotalPrice($validated), // Calculate total price
+            'total_price' =>  $validated['package_price'], // Calculate total price
             // Include additional fields as needed
         ];
 
@@ -57,7 +58,8 @@ class BookingController extends Controller
         $totalDays = $diff->days + 1;
         // Assuming 'adults' is a multiplier (e.g., price per adult per day)
         // $totalPrice = $totalDays * $validatedData['adults'] * $validatedData['package_price'];
-        $totalPrice = $totalDays * $validatedData['package_price'];
+        $totalPrice = $totalDays *
+         $validatedData['package_price'];
 
 
         return $totalPrice;

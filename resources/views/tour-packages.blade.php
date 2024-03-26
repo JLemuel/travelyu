@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div style="padding-top: 5rem">
+    <div class="container " style="padding-top: 5rem">
         <x-tour-packages :title="'All Tour Packages'" :subtitle="'Packages'" :packages="$packages" />
     </div>
 

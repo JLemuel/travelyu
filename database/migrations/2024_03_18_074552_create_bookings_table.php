@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('package_id');
             $table->decimal('total_price', 10, 2); // Adding the total_price column
             $table->text('notes')->nullable();
+            $table->string('status')->default('pending'); // String column
             $table->timestamps();
         
             // Foreign key constraint for package_id
@@ -30,7 +31,6 @@ return new class extends Migration
             // Foreign key constraint for user_id - assuming you have a 'users' table
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
-        
     }
 
     /**

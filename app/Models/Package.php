@@ -122,4 +122,9 @@ class Package extends Model
     {
         return $this->belongsToMany(Activity::class);
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

@@ -279,7 +279,7 @@
         </button>
     </div>
 
-    <div class="container">
+    <div class="container pb-5">
         <div class="row mt-3">
             <div class="col">
                 <h1>{{ $package->name }}</h1>
@@ -299,9 +299,9 @@
                 </div>
             </div>
         </div>
-         <div class="row mt-4">
-            <div class="col-md-8">
-            <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="container">
                     <!-- Package Description -->
                     <div class="section" id="description">
                         <h2>Description</h2>
@@ -367,101 +367,43 @@
                       
                     </div>
 
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <!-- Display package name here -->
-                        <h5 class="card-title">Book This Tour</h5>
-                        <!-- Begin Booking Form -->
-                        <form action="{{ route('checkout') }}" method="POST">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="start_date" class="form-label">Start Date</label>
-                                <input type="date" class="form-control" id="start_date" name="start_date"
-                                    min="{{ $package->start_date}}" max="{{ $package->end_date }}" required>
-                            </div>
+
+                    <!-- Additional reviews here -->
+
+                    <!-- Add a Review Form -->
+                    <div class="review-form mt-4">
+                        <h3>Add Your Review</h3>
+                        <form action="/submit-review" method="POST">
+                            @csrf <!-- CSRF token for Laravel forms -->
+
+                               <!-- Hidden input for package_id -->
+                            <input type="hidden" name="package_id" value="{{ $package->id }}">
 
                             <div class="mb-3">
-                                <label for="end_date" class="form-label">End Date</label>
-                                <input type="date" class="form-control" id="end_date" name="end_date"
-                                    min="{{ $package->start_date}}" max="{{ $package->end_date}}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="adults" class="form-label">Persons</label>
-                                <select class="form-select" id="adults" name="adults" required
-                                    data-price="{{ $package->price }}">
-                                    <!-- Options for number of persons -->
+                                <label for="reviewRating" class="form-label">Rating</label>
+                                <select class="form-select" id="reviewRating" name="reviewRating" required>
+                                    <option selected>Choose...</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Fair</option>
+                                    <option value="3">3 - Good</option>
+                                    <option value="4">4 - Very Good</option>
+                                    <option value="5">5 - Excellent</option>
                                 </select>
                             </div>
-                              <!-- Hidden inputs to store package details -->
-                            <input type="hidden" name="package_id" value="{{ $package->id }}">
-                            <input type="hidden" name="package_price" id="package_price" value="{{ $package->price }}">
-
-                            <!-- Dynamic Total Price Display -->
-                            <!-- Inside your card body, after the form -->
-                            <div id="totalPriceContainer" class="mt-3 d-flex justify-content-between">
-                                <h5>Total Price:</h5>
-                                <h3 id="totalPrice" class="text-danger">₱0</h3>
+                            <div class="mb-3">
+                                <label for="reviewText" class="form-label">Your Review</label>
+                                <textarea class="form-control" id="reviewText" name="reviewText" rows="3" required></textarea>
                             </div>
-
-
-                            <!-- Include additional fields as necessary -->
-                            <button type="submit" class="btn btn-primary">Book Now</button>
+                            <button type="submit" class="btn btn-primary">Submit Review</button>
                         </form>
-                        <!-- End Booking Form -->
                     </div>
                 </div>
+
             </div>
-        </div> 
+        </div>
+
     </div>
 
-    <script>
-        const adultsSelect = document.getElementById('adults');
-        const maxPersons = {{ $package->max_persons }};
-        const packagePricePerDay = {{ $package->price }};
-        const startDateInput = document.getElementById('start_date');
-        const endDateInput = document.getElementById('end_date');
-        const totalPriceElement = document.getElementById('totalPrice');
-    
-        // Generate options dynamically for the number of adults
-        for (let i = 1; i <= maxPersons; i++) {
-            let option = document.createElement('option');
-            option.value = i;
-            option.text = i + (i > 1 ? ' people' : ' person'); // Adding "person/people" text
-            adultsSelect.appendChild(option);
-        }
-    
-        document.getElementById('start_date').addEventListener('change', function () {
-            const startDate = this.value;
-            const endDateInput = document.getElementById('end_date');
-            endDateInput.min = startDate; // Adjust the min value for the end date
-            if (endDateInput.value < startDate) {
-                endDateInput.value = startDate; // Reset end date if it is before start date
-            }
-            calculateTotalPrice(); // Recalculate price on date change
-        });
-    
-        function calculateTotalPrice() {
-            const startDate = new Date(startDateInput.value);
-            const endDate = new Date(endDateInput.value);
-            const totalDays = (endDate - startDate) / (1000 * 3600 * 24) + 1; // +1 to include both start and end dates
-            const totalPrice = packagePricePerDay;
-    
-            if (!isNaN(totalPrice) && totalPrice > 0) {
-                totalPriceElement.textContent = `₱${totalPrice.toFixed(2)}`;
-            } else {
-                totalPriceElement.textContent = '₱0';
-            }
-        }
-    
-        // Event listeners to recalculate total price when input values change
-        endDateInput.addEventListener('change', calculateTotalPrice);
-    
-        // Initial calculation on page load
-        calculateTotalPrice();
-    </script>
 
-    @include('components.homepage.footer')
+    
 </x-app-layout>
