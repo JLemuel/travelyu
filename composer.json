@@ -12,6 +12,7 @@
         "cheesegrits/filament-google-maps": "^3.0",
         "dotswan/filament-map-picker": "^1.0",
         "filament/filament": "3.2",
+        "flowframe/laravel-trend": "^0.1.5",
         "guzzlehttp/guzzle": "^7.2",
         "hasnayeen/themes": "^3.0",
         "laravel/breeze": "^1.29",
