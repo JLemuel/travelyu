@@ -20,7 +20,7 @@ class ActivityResource extends Resource
     protected static ?string $model = Activity::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cog-8-tooth';
-
+    protected static ?int $navigationSort = 3;
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

@@ -32,6 +32,9 @@ Route::get('/booking-success', function () {
     return view('booking.success'); // Assumes you have a view named 'booking.success.blade.php'
 })->name('booking.success');
 
+Route::get('/admin/login', function () {
+    return redirect()->to('login');
+})->name('filament.admin.auth.login');
 
 Route::get('/', function () {
     return view('splash');

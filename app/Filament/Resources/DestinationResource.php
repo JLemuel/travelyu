@@ -21,6 +21,8 @@ class DestinationResource extends Resource
     protected static ?string $model = Destination::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-globe-alt';
+
+    protected static ?int $navigationSort = 3;
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

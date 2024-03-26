@@ -33,6 +33,8 @@ class PackageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-cube';
 
+    protected static ?int $navigationSort = 3;
+
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
@@ -88,7 +90,7 @@ class PackageResource extends Resource
                             ->numeric(),
                     ])->columns(2),
 
-                    Section::make('Tour Plan Details')
+                Section::make('Tour Plan Details')
                     ->description('Prevent abuse by limiting the number of requests per period')
                     ->schema([
                         RichEditor::make('tour_plan_details')
