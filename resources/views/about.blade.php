@@ -6,8 +6,9 @@
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px">
                     <div class="position-relative h-100">
-                        <img class="img-fluid position-absolute w-100 h-100" src="img/about.jpg" alt=""
-                            style="object-fit: cover" />
+                        <img class="img-fluid position-absolute w-100 h-100"
+                            src="https://images.unsplash.com/photo-1466112928291-0903b80a9466?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt="" style="object-fit: cover" />
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
@@ -15,7 +16,7 @@
                         About Us
                     </h6>
                     <h1 class="mb-4">
-                        Welcome to <span class="text-primary">Tourist</span>
+                        Welcome to <span class="text-primary">Travelyu</span>
                     </h1>
                     <p class="mb-4">
                         Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu

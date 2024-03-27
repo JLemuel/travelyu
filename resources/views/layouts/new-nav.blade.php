@@ -36,23 +36,24 @@
                     class="nav-item nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a>
 
             </div>
-                <a href="{{ route('profile.edit') }}" class="nav-item nav-link">{{ Auth::user()->name }}</a>
-                <a href="{{ route('logout') }}"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                    class="btn btn-primary rounded-pill py-2 px-4">
-                    Logout
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-                @else
-          
-                <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
-                @if (Route::has('register'))
-               <!-- Apply button styling classes to the 'Register' link to match the 'Logout' button appearance -->
-                <a href="{{ route('register') }}" class="btn btn-primary rounded-pill py-2 px-4" style="background-color: #00b300; border-color: #00b300; color: white;">Register</a>
-                @endif
-         
+            <a href="{{ route('profile.edit') }}" class="nav-item nav-link">{{ Auth::user()->name }}</a>
+            <a href="{{ route('logout') }}"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                class="btn btn-primary rounded-pill py-2 px-4">
+                Logout
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+            @else
+
+            <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
+            @if (Route::has('register'))
+            <!-- Apply button styling classes to the 'Register' link to match the 'Logout' button appearance -->
+            <a href="{{ route('register') }}" class="btn btn-primary rounded-pill py-2 px-4"
+                style="background-color: #00b300; border-color: #00b300; color: white;">Register</a>
+            @endif
+
             @endauth
             @endif
         </div>
@@ -65,26 +66,28 @@
                     <h1 class="display-3 text-white mb-3 animated slideInDown">
                         Discover the most engaging places here in La Union.
                     </h1>
-                    {{-- <p class="fs-4 text-white mb-4 animated slideInDown">
-                        Tempor erat elitr rebum at clita diam amet diam et eos erat
-                        ipsum lorem sit
-                    </p> --}}
-                    <div class="position-relative w-75 mx-auto animated slideInDown">
-                        <!-- Search form starts here -->
-                        <form action="{{ route('search') }}" method="GET" class="d-flex position-relative">
-                            <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" name="query"
-                                type="text" placeholder="Where are you going today?" required>
-                            <button type="submit"
-                                class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2"
-                                style="margin-top: 7px">
-                                Search
-                            </button>
-                        </form>
-                        <!-- Search form ends here -->
-                    </div>
+                    <!-- "Explore Now" button -->
+                    <a href="/destination" class="btn btn-primary rounded-pill py-2 px-4" role="button">Explore Now</a>
                 </div>
+
             </div>
         </div>
         @endif
     </div>
     <!-- Navbar & Hero End -->
+    {{-- <p class="fs-4 text-white mb-4 animated slideInDown">
+        Tempor erat elitr rebum at clita diam amet diam et eos erat
+        ipsum lorem sit
+    </p> --}}
+    {{-- <div class="position-relative w-75 mx-auto animated slideInDown">
+        <!-- Search form starts here -->
+        <form action="{{ route('search') }}" method="GET" class="d-flex position-relative">
+            <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" name="query" type="text"
+                placeholder="Where are you going today?" required>
+            <button type="submit" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2"
+                style="margin-top: 7px">
+                Search
+            </button>
+        </form>
+        <!-- Search form ends here -->
+    </div> --}}

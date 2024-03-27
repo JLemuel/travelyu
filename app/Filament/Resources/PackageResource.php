@@ -77,7 +77,7 @@ class PackageResource extends Resource
                         Forms\Components\TextInput::make('price')
                             ->required()
                             ->numeric()
-                            ->prefix('$'),
+                            ->prefix('₱'),
                         Forms\Components\TextInput::make('duration')
                             ->label('Duration (Days)')
                             ->required()
