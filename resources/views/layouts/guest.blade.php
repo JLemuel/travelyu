@@ -16,18 +16,21 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans text-gray-900 antialiased">
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 ">
-        <div>
+<body class="font-sans text-gray-900 antialiased"
+    style="background: url('{{ asset('assets/elyuu.jpg') }}') no-repeat center center; background-size: cover;">
+    <div class="min-h-screen grid grid-cols-1 sm:grid-cols-2 justify-center items-center gap-6 pt-6 sm:pt-0">
+        <div class="flex justify-center">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <x-application-logo class="w-40 h-40 fill-current text-gray-500" />
             </a>
         </div>
 
-        <div class="w-full sm:max-w-md mt-6 px-6 py-4 mb-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
+        <div
+            class="w-full sm:max-w-xl mt-6 px-6 py-4 mb-6 bg-white bg-opacity-90 shadow-md overflow-hidden sm:rounded-lg">
             {{ $slot }}
         </div>
     </div>
 </body>
+
 
 </html>

@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin User', // Concatenating 'Admin' and 'User'
             'first_name' => 'Admin',
             'last_name' => 'User',
-            'birthday' => '1980-01-01',
             'email' => 'admin@info.com',
             'contact_number' => '1234567890',
             'type' => 'admin',
@@ -32,7 +31,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Tourist User', // Concatenating 'Tourist' and 'User'
             'first_name' => 'Tourist',
             'last_name' => 'User',
-            'birthday' => '1990-02-02',
             'email' => 'tourist@info.com',
             'contact_number' => '0987654321',
             'type' => 'tourist',
@@ -45,7 +43,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Travel Agency', // Concatenating 'Travel' and 'Agency'
             'first_name' => 'Travel',
             'last_name' => 'Agency',
-            'birthday' => '1985-03-03',
             'email' => 'travelagency@info.com',
             'contact_number' => '1234509876',
             'type' => 'travel_agency',

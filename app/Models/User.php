@@ -21,10 +21,14 @@ class User extends Authenticatable
         'name',
         'first_name',
         'last_name',
-        'birthday',
+        'agency_name', // Added field
         'email',
+        'email_verified_at', // Ensure this is manageable if you're handling email verification
         'contact_number',
         'type',
+        'profile_image', // Added field
+        'file_path', // Added field
+        'establishment_date', // Added field
         'username',
         'password',
     ];

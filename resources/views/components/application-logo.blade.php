@@ -1,1 +1,1 @@
-<img src="{{ asset('assets/travelyu_logo.png') }}" alt="Travelyu" class="block h-40 w-auto">
+<img src="{{ asset('assets/travelyu_logo.png') }}" alt="Travelyu">

@@ -33,30 +33,38 @@ class RegisteredUserController extends Controller
         // dd($request->all()); // Dump the request data and die
 
         $request->validate([
-            // 'name' => ['required', 'string', 'max:255'],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'birthday' => ['required', 'date'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'contact_number' => ['required', 'string', 'max:255'],
             'type' => ['required', 'string', 'in:tourist,travel_agency'],
+            'agency_name' => ['nullable', 'string', 'max:255', 'required_if:type,==,travel_agency'],
+            'establishment_date' => ['nullable', 'date', 'required_if:type,==,travel_agency'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'file' => ['file', 'mimes:jpg,jpeg,png,pdf,doc,docx', 'max:2048'],
         ]);
+
+        if ($request->hasFile('file')) {
+            $filePath = $request->file('file')->store('public/documents');
+        }
 
         $fullName = $request->first_name . ' ' . $request->last_name; // Concatenate first name and last name
 
         $user = User::create([
+            'first_name' => $request->type === 'tourist' ? $request->first_name : null,
             'name' => $fullName,
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'birthday' => $request->birthday,
+            'last_name' => $request->type === 'tourist' ? $request->last_name : null,
+            'agency_name' => $request->type === 'travel_agency' ? $request->agency_name : null,
             'email' => $request->email,
             'contact_number' => $request->contact_number,
             'type' => $request->type,
+            'file_path' => $filePath ?? null,
+            'establishment_date' => $request->type === 'travel_agency' ? $request->establishment_date : null,
             'username' => $request->username,
             'password' => Hash::make($request->password),
         ]);
+
 
         event(new Registered($user));
 

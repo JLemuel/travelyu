@@ -1,14 +1,38 @@
 <!-- Navbar & Hero Start -->
+<style>
+    .navbar-logo {
+        height: auto;
+        /* Maintain aspect ratio */
+        /* width: 15rem; */
+        /* Set width as desired */
+        max-height: 15rem;
+        /* Set maximum height as desired */
+    }
+
+    /* Make adjustments for different screen sizes */
+    @media (max-width: 768px) {
+        .navbar-logo {
+            width: 10rem;
+            /* Smaller width on smaller screens */
+        }
+    }
+
+    /* Further adjustments for even smaller screens */
+    @media (max-width: 480px) {
+        .navbar-logo {
+            width: 8rem;
+            /* Even smaller width for mobile screens */
+        }
+    }
+</style>
 <div class="container-fluid position-relative p-0">
     <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0"
         style="background-color: rgba(83, 255, 83, 0.196);">
-        <a href="" class="navbar-brand p-0">
-            <h1 class="text-primary m-0">
-                <img src="{{ asset('assets/travelyu_logo.png') }}" alt="Travelyu"
-                    style="width:auto; height:20rem" />TRAVELYU
-            </h1>
-            <!-- <img src="img/logo.png" alt="Logo"> -->
+        <a href="/" class="navbar-brand p-0 ms-5">
+            <img src="{{ asset('assets/travelyu_logo1.png') }}" alt="Travelyu" class="navbar-logo" />
+
         </a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="fa fa-bars"></span>
         </button>
@@ -36,27 +60,27 @@
                     class="nav-item nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a>
 
             </div>
-            <a href="{{ route('profile.edit') }}" class="nav-item nav-link">{{ Auth::user()->name }}</a>
-            <a href="{{ route('logout') }}"
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                class="btn btn-primary rounded-pill py-2 px-4">
-                Logout
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-            @else
-
-            <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
-            @if (Route::has('register'))
-            <!-- Apply button styling classes to the 'Register' link to match the 'Logout' button appearance -->
-            <a href="{{ route('register') }}" class="btn btn-primary rounded-pill py-2 px-4"
-                style="background-color: #00b300; border-color: #00b300; color: white;">Register</a>
-            @endif
-
-            @endauth
-            @endif
         </div>
+        <a href="{{ route('profile.edit') }}" class="nav-item nav-link">{{ Auth::user()->name }}</a>
+        <a href="{{ route('logout') }}"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+            class="btn btn-primary rounded-pill py-1 px-2" style="font-size: 1.2rem">
+            Logout
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+        @else
+
+        <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
+        @if (Route::has('register'))
+        <!-- Apply button styling classes to the 'Register' link to match the 'Logout' button appearance -->
+        <a href="{{ route('register') }}" class="nav-item nav-link " style="color: white;">Register</a>
+
+        @endif
+
+        @endauth
+        @endif
     </nav>
     @if(request()->is('home'))
     <div class="container-fluid bg-primary py-5 mb-5 hero-header">
