@@ -111,7 +111,7 @@
     <div class="container booking-container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <form class="form">
+                <form class="form" action="{{ route('search.packages') }}" method="GET">
                     <div class="row mb-3">
                         <!-- Text indicators and form controls... -->
                         <div class="col-lg-2 mb-3">
@@ -149,17 +149,22 @@
                             </select>
                         </div>
                         <div class="col-lg-2 mb-3">
+                            <span class="input-indicator">Max Price (₱)</span>
+                            <input type="number" class="form-control" name="max_price" id="max_price"
+                                placeholder="Enter max price in ₱">
+                        </div>
+
+
+                        <div class="col-lg-2 mb-3">
                             <span class="input-indicator">Start Date</span>
                             <input type="date" class="form-control" name="start_date">
                         </div>
                         <div class="col-lg-2 mb-3">
                             <span class="input-indicator">End Date</span>
                             <input type="date" class="form-control" name="end_date">
+
                         </div>
-                        <div class="col-lg-2 mb-3">
-                            <span class="input-indicator">No. of People</span>
-                            <input type="text" class="form-control" placeholder="Enter number">
-                        </div>
+
                         <div class="col-lg-2 mb-3">
                             <input type="submit" class="btn btn-primary btn-block" value="Book Now">
                         </div>
@@ -175,4 +180,20 @@
     @include('components.homepage.services')
 
     @include('components.homepage.footer')
+
+    {{-- <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const maxPriceSlider = document.getElementById('max_price');
+            const maxPriceOutput = document.getElementById('maxPriceOutput');
+        
+            // Display the default slider value
+            maxPriceOutput.textContent = maxPriceSlider.value;
+        
+            // Update the current slider value (each time you drag the slider handle)
+            maxPriceSlider.oninput = function() {
+                maxPriceOutput.textContent = this.value;
+            }
+        });
+    </script> --}}
+
 </x-app-layout>

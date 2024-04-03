@@ -397,13 +397,92 @@
                                 <input type="date" class="form-control" id="end_date" name="end_date"
                                     min="{{ $package->start_date}}" max="{{ $package->end_date}}" required>
                             </div>
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <label for="adults" class="form-label">Persons</label>
                                 <select class="form-select" id="adults" name="adults" required
                                     data-price="{{ $package->price }}">
                                     <!-- Options for number of persons -->
                                 </select>
+                            </div> --}}
+
+                            <!-- Price Indicator Section -->
+                            <div class="row text-center mb-4">
+                                <div class="col-md-4">
+                                    <div class="card bg-light">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Adult Price</h5>
+                                            {{-- <p class="card-text">₱{{ $package->adult_price }} / person</p> --}}
+                                            <p class="card-text">₱150 / person</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card bg-light">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Youth Price</h5>
+                                            {{-- <p class="card-text">₱{{ $package->youth_price }} / person</p> --}}
+                                            <p class="card-text">₱150 / person</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card bg-light">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Children Price</h5>
+                                            {{-- <p class="card-text">₱{{ $package->child_price }} / person</p> --}}
+                                            <p class="card-text">₱150 / person</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+                            <!-- Notification for Exceeding Max Persons -->
+                            <div id="exceedMaxPersonsNotice" class="alert alert-warning d-none" role="alert">
+                                {{-- Exceeding the package's max allowed persons. Additional person price: ₱{{
+                                $package->additional_person_price }} --}}
+                                Exceeding the package's max allowed persons. Additional person price: ₱200
+                            </div>
+
+                            <!-- Adults Selector -->
+                            <div class="mb-3">
+                                <label class="form-label">Adults</label>
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-outline-primary"
+                                        onclick="changeNumberOfPersons('adults', false)">-</button>
+                                    <input type="text" id="adults" name="adults" class="form-control text-center"
+                                        value="0" readonly>
+                                    <button type="button" class="btn btn-outline-primary"
+                                        onclick="changeNumberOfPersons('adults', true)">+</button>
+                                </div>
+                            </div>
+
+                            <!-- Youth Selector -->
+                            <div class="mb-3">
+                                <label class="form-label">Youth</label>
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-outline-primary"
+                                        onclick="changeNumberOfPersons('youth', false)">-</button>
+                                    <input type="text" id="youth" name="youth" class="form-control text-center"
+                                        value="0" readonly>
+                                    <button type="button" class="btn btn-outline-primary"
+                                        onclick="changeNumberOfPersons('youth', true)">+</button>
+                                </div>
+                            </div>
+
+                            <!-- Children Selector -->
+                            <div class="mb-3">
+                                <label class="form-label">Children</label>
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-outline-primary"
+                                        onclick="changeNumberOfPersons('children', false)">-</button>
+                                    <input type="text" id="children" name="children" class="form-control text-center"
+                                        value="0" readonly>
+                                    <button type="button" class="btn btn-outline-primary"
+                                        onclick="changeNumberOfPersons('children', true)">+</button>
+                                </div>
+                            </div>
+
+
                             <!-- Hidden inputs to store package details -->
                             <input type="hidden" name="package_id" value="{{ $package->id }}">
                             <input type="hidden" name="package_price" id="package_price" value="{{ $package->price }}">
@@ -427,50 +506,89 @@
     </div>
 
     <script>
-        const adultsSelect = document.getElementById('adults');
         const maxPersons = {{ $package->max_persons }};
         const packagePricePerDay = {{ $package->price }};
         const startDateInput = document.getElementById('start_date');
         const endDateInput = document.getElementById('end_date');
         const totalPriceElement = document.getElementById('totalPrice');
+        const exceedMaxPersonsNotice = document.getElementById('exceedMaxPersonsNotice');
     
-        // Generate options dynamically for the number of adults
-        for (let i = 1; i <= maxPersons; i++) {
-            let option = document.createElement('option');
-            option.value = i;
-            option.text = i + (i > 1 ? ' people' : ' person'); // Adding "person/people" text
-            adultsSelect.appendChild(option);
+    
+    
+        function changeNumberOfPersons(category, isIncreasing) {
+            const input = document.getElementById(category);
+            let currentValue = parseInt(input.value, 10);
+            currentValue = isIncreasing ? currentValue + 1 : currentValue - 1;
+            currentValue = currentValue < 0 ? 0 : currentValue;
+            input.value = currentValue;
+    
+            calculateTotalPrice();
         }
-    
-        document.getElementById('start_date').addEventListener('change', function () {
-            const startDate = this.value;
-            const endDateInput = document.getElementById('end_date');
-            endDateInput.min = startDate; // Adjust the min value for the end date
-            if (endDateInput.value < startDate) {
-                endDateInput.value = startDate; // Reset end date if it is before start date
-            }
-            calculateTotalPrice(); // Recalculate price on date change
-        });
     
         function calculateTotalPrice() {
             const startDate = new Date(startDateInput.value);
             const endDate = new Date(endDateInput.value);
-            const totalDays = (endDate - startDate) / (1000 * 3600 * 24) + 1; // +1 to include both start and end dates
-            const totalPrice = packagePricePerDay;
-    
-            if (!isNaN(totalPrice) && totalPrice > 0) {
-                totalPriceElement.textContent = `₱${totalPrice.toFixed(2)}`;
+            const totalDays = Math.max((endDate - startDate) / (1000 * 3600 * 24) + 1, 1); // Ensure at least one day
+
+            const adultsCount = parseInt(document.getElementById('adults').value, 10);
+            const youthCount = parseInt(document.getElementById('youth').value, 10);
+            const childrenCount = parseInt(document.getElementById('children').value, 10);
+            const totalPersons = adultsCount + youthCount + childrenCount;
+
+                // Defined additional prices per category
+            const additionalAdultPrice = 100; // Adjust as necessary
+            const additionalYouthPrice = 150; // Adjust as necessary
+            const additionalChildPrice = 50;  // Adjust as necessary
+
+            let basePrice = packagePricePerDay * totalDays; // Base price calculation
+
+            // Calculate additional fees for extra persons
+            let extraFees = 0;
+            if (totalPersons > maxPersons) {
+                let extraAdults = Math.max(adultsCount + youthCount + childrenCount - maxPersons, 0);
+                let extraYouth =  Math.max(extraAdults - adultsCount, 0);
+                let extraChildren =  Math.max(extraYouth - youthCount, 0);
+
+                if(extraAdults => 1) {
+                    extraFees += extraAdults * additionalAdultPrice;
+                }
+
+                if(extraYouth => 1) {
+                    extraFees += extraYouth * additionalYouthPrice;
+                }
+
+                if(extraChildren => 1) {
+                    extraFees += extraChildren * additionalChildPrice;
+                }
+
+                console.log("adultsCount:", adultsCount , "extraAdults:", extraAdults, "extraFees:", extraFees )
+                console.log("youthCount:", youthCount , "extraYouth:", extraYouth, "extraFees:", extraFees )
+                console.log("childrenCount:", childrenCount , "extraChildren:", extraChildren, "extraFees:", extraFees )
+
+                // Apply the extra fees across all days
+                exceedMaxPersonsNotice.classList.remove('d-none');
             } else {
-                totalPriceElement.textContent = '₱0';
+                exceedMaxPersonsNotice.classList.add('d-none');
             }
+
+            console.log("total extraFees", extraFees);
+
+            let totalPrice = basePrice + extraFees;
+
+            totalPriceElement.textContent = `₱${totalPrice.toFixed(2)}`;
         }
-    
-        // Event listeners to recalculate total price when input values change
+
+
+        document.getElementById('start_date').addEventListener('change', calculateTotalPrice);
         endDateInput.addEventListener('change', calculateTotalPrice);
+        document.getElementById('adults').addEventListener('change', calculateTotalPrice);
+        document.getElementById('youth').addEventListener('change', calculateTotalPrice);
+        document.getElementById('children').addEventListener('change', calculateTotalPrice);
     
-        // Initial calculation on page load
-        calculateTotalPrice();
+        calculateTotalPrice(); // Initial calculation on page load
     </script>
+
+
 
     @include('components.homepage.footer')
 </x-app-layout>

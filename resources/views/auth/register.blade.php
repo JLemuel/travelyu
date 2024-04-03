@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="max-w-7xl mx-auto">
+    <div class="mx-auto">
         <div class="mb-4">
             <nav class="flex flex-col sm:flex-row">
                 <button id="defaultTab"

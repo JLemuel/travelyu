@@ -50,6 +50,7 @@ Route::get('/packages/details/{id}',  [PackageController::class, 'showDetail'])-
 // Route to handle review submission
 Route::post('/submit-review', [ReviewController::class, 'store'])->name('review.store');
 
+Route::get('/search-packages', [PackageController::class, 'search'])->name('search.packages');
 
 Route::get('/search', function (Request $request) {
     $query = $request->query('query');
