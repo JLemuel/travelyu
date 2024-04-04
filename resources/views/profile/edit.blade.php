@@ -97,6 +97,9 @@
     body {
         --tw-bg-opacity: 1;
         background-color: rgb(237, 247, 237 / var(--tw-bg-opacity));
+        /* background-color: green; */
+        overflow: hidden;
+        height: 100%;
         /* Light green background */
     }
 

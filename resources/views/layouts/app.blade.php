@@ -56,6 +56,10 @@
     </div>
 
     <script>
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+        
         document.addEventListener('DOMContentLoaded', (event) => {
             if (window.location.hash === '#search-results') {
                 const searchResultsElement = document.getElementById('search-results');

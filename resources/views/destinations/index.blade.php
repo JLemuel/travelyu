@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    {{-- Inside resources/views/destinations/index.blade.php
+    <!-- {{-- Inside resources/views/destinations/index.blade.php
     <h1>Destinations in {{ $cityName }}</h1>
     @foreach ($destinations as $destination)
 
@@ -10,11 +10,11 @@
         <x-homepage.top-cards :destinations="$packages" title="All Tour Packages" subtitle="Packages" />
     </div>
 
-    @endforeach --}}
+    @endforeach --}} -->
 
     <div class="container" style="padding-top: 5rem">
-        <h1 class="mt-5">Destinations in {{ $cityName }}</h1>
-        <x-homepage.top-cards :destinations="$destinations" title="All Tour Packages" subtitle="Packages" />
+        <!-- <h1 class="mt-5">Destinations in {{ $cityName }}</h1> -->
+        <x-homepage.top-cards :destinations="$destinations" title="Destinations in {{ $cityName }}" subtitle="Destinations" />
     </div>
 
 

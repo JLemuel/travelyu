@@ -10,8 +10,10 @@ class Booking extends Model
     use HasFactory;
 
     protected $fillable = [
-        // include all other fillable attributes here
-        'user_id', 'customer_name', 'email', 'phone', 'check_in', 'check_out', 'package_id', 'notes', 'total_price',
+        // Include all other fillable attributes here
+        'user_id', 'customer_name', 'email', 'phone', 'check_in', 'check_out', 'package_id', 'notes', 'total_price', 'receipt',
+        'adults_count', 'youth_count', 'children_count', 'additional_adults_count',
+        'additional_youth_count', 'additional_children_count',
     ];
 
     protected $casts = [

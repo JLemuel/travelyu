@@ -173,9 +173,11 @@
             </div>
         </div>
     </div>
-    <x-tour-packages :packages="$destinations" title="Popular Destinations" subtitle="Destination" />
+   
 
-    <x-tour-packages :packages="$activities" title="Popular Activities" subtitle="Activities" />
+    <x-package-gallery :packages="$destinations" title="Popular Destinations" subtitle="Destination" />
+
+    <x-package-gallery :packages="$activities" title="Popular Activities" subtitle="Activities" />
 
     @include('components.homepage.services')
 
