@@ -69,8 +69,8 @@
     position: relative;
     margin-right: 25px;
     padding: 35px 0;
-    /* color: #FFFFFF !important; */
-    color: var(--primary) !important;
+    color: #FFFFFF !important;
+    /* color: var(--primary) !important; */
     /* color: greenyellow !important; */
     font-size: 18px;
     font-weight: 600;
@@ -118,7 +118,7 @@
     }
 
     .navbar-light .navbar-brand img {
-        max-height: 45px;
+        /* max-height: 45px; */
     }
 }
 

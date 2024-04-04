@@ -14,33 +14,39 @@ class PackageController extends Controller
 
     public function showDetail($id)
     {
-        $package = Package::with('reviews.user')->findOrFail($id); 
+        $package = Package::with('reviews.user')->findOrFail($id);
 
         return view('packages.details', compact('package'));
     }
 
     public function search(Request $request)
     {
+        // Validate request data
+        $validated = $request->validate([
+            'destination' => 'string|nullable',
+            'max_price' => 'numeric|nullable',
+            'start_date' => 'date|nullable',
+            'end_date' => 'date|nullable',
+        ]);
+
         $query = Package::query();
 
         // Primary search criteria
-        if ($request->filled('destination')) {
-            $query->whereHas('destination', function ($q) use ($request) {
-                $q->where('city', $request->destination);
+        if (!empty($validated['destination'])) {
+            $query->whereHas('destination', function ($q) use ($validated) {
+                $q->where('city', $validated['destination']);
             });
         }
 
         // Secondary search criteria (price and dates)
-        $query->where(function ($q) use ($request) {
-            if ($request->filled('max_price')) {
-                $q->where('price', '<=', $request->max_price);
+        $query->where(function ($q) use ($validated) {
+            if (!empty($validated['max_price'])) {
+                $q->where('price', '<=', $validated['max_price']);
             }
 
-            if ($request->filled('start_date') && $request->filled('end_date')) {
-                $q->where(function ($subQuery) use ($request) {
-                    $subQuery->where('start_date', '<=', $request->end_date)
-                            ->where('end_date', '>=', $request->start_date);
-                });
+            if (!empty($validated['start_date']) && !empty($validated['end_date'])) {
+                $q->where('start_date', '<=', $validated['end_date'])
+                    ->where('end_date', '>=', $validated['start_date']);
             }
         });
 
@@ -49,35 +55,40 @@ class PackageController extends Controller
 
         // Fallback for suggestions
         if ($packages->isEmpty()) {
-            // Adjust this logic based on your application's needs
-            $similarPriceRange = $request->filled('max_price') ? $request->max_price * 1.2 : null; // Example: widen the search by 20%
-            $similarPackagesQuery = Package::query();
-
-            // Suggestion criteria
-            $similarPackagesQuery->when($request->filled('destination'), function ($q) use ($request) {
-                $q->whereHas('destination', function ($subQuery) use ($request) {
-                    // Exclude the originally searched city, you might want to include nearby cities here
-                    $subQuery->where('city', '!=', $request->destination);
-                });
-            });
-
-            // Adjusting for price range in suggestions
-            if ($similarPriceRange) {
-                $similarPackagesQuery->where('price', '<=', $similarPriceRange);
-            }
-
-            // Adjusting for date range in suggestions
-            if ($request->filled('start_date') && $request->filled('end_date')) {
-                $similarPackagesQuery->where(function ($q) use ($request) {
-                    $q->where('end_date', '>=', $request->start_date) // Package ends after the start date
-                    ->orWhere('start_date', '<=', $request->end_date); // Package starts before the end date
-                });
-            }
+            $similarPackagesQuery = $this->getSimilarPackagesQuery($validated);
 
             $packages = $similarPackagesQuery->take(5)->get(); // Example limit
             $isSuggestion = true;
         }
 
         return view('search-results', compact('packages', 'isSuggestion'));
+    }
+
+    protected function getSimilarPackagesQuery($validated)
+    {
+        $similarPriceRange = !empty($validated['max_price']) ? $validated['max_price'] * 1.2 : null;
+        $similarPackagesQuery = Package::query();
+
+        // Suggestion criteria based on destination
+        if (!empty($validated['destination'])) {
+            $similarPackagesQuery->whereHas('destination', function ($q) use ($validated) {
+                $q->where('city', '!=', $validated['destination']);
+            });
+        }
+
+        // Adjusting for price range in suggestions
+        if ($similarPriceRange) {
+            $similarPackagesQuery->where('price', '<=', $similarPriceRange);
+        }
+
+        // Adjusting for date range in suggestions
+        if (!empty($validated['start_date']) && !empty($validated['end_date'])) {
+            $similarPackagesQuery->where(function ($q) use ($validated) {
+                $q->where('end_date', '>=', $validated['start_date'])
+                    ->orWhere('start_date', '<=', $validated['end_date']);
+            });
+        }
+
+        return $similarPackagesQuery;
     }
 }

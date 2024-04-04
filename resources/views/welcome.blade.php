@@ -173,7 +173,7 @@
             </div>
         </div>
     </div>
-   
+
 
     <x-package-gallery :packages="$destinations" title="Popular Destinations" subtitle="Destination" />
 

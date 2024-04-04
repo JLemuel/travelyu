@@ -6,7 +6,7 @@
         }
 
         .custom-carousel .carousel-inner img {
-            object-fit: fill;
+            object-fit: cover;
             /* Cover the area of the carousel item without stretching */
             height: 100%;
             /* Ensure the image covers the full height of the item */
@@ -289,17 +289,17 @@
                 <div class="d-flex justify-content-start flex-wrap align-items-center gap-3">
                     <span class="text-muted"><strong>Price:</strong> From ₱{{ $package->price }}</span>
                     <span class="text-muted"><i class="bi bi-clock"></i> <strong>Duration:</strong> {{
-    $package->duration }} days</span>
+                        $package->duration }} days</span>
                     <span class="text-muted"><i class="bi bi-people-fill"></i> <strong>Max People:</strong> {{
-    $package->max_persons }}</span>
-   
+                        $package->max_persons }}</span>
+
                     <span class="text-muted"><i class="bi bi-book-fill"></i> <strong>Booking Limit:</strong> {{
-    $package->booking_limit }}</span>
+                        $package->booking_limit }}</span>
                     <span class="text-muted"><i class="bi bi-geo-alt-fill"></i> <strong>Tour Type:</strong> {{
-    $package->type }}</span>
+                        $package->type }}</span>
                     <span class="text-muted">
                         <i class="bi bi-star-fill text-warning"></i> <strong>Reviews:</strong> {{
-    $package->reviews->count() }} reviews
+                        $package->reviews->count() }} reviews
                     </span>
                 </div>
             </div>
@@ -321,14 +321,14 @@
                             <!-- Displaying Tour Plan Content -->
                             <div class="accordion" id="tourPlanAccordion">
                                 @php
-                                    $days = explode('<p><strong>', $package->tour_plan_details); // Split the content into
-                                    array_shift($days); // Remove the first empty element due to explode
-                                                                            @endphp
+                                $days = explode('<p><strong>', $package->tour_plan_details); // Split the content into
+                                        array_shift($days); // Remove the first empty element due to explode
+                                        @endphp
 
-                                                                            @foreach($days as $index => $dayContent)
-                                                                            @php
+                                        @foreach($days as $index => $dayContent)
+                                        @php
                                         $dayContent = '<p><strong>' . $dayContent;
-                                        $dayContent = '<div class="tour-day-content">' . $dayContent . '</div>';
+                                                $dayContent = '<div class="tour-day-content">' . $dayContent . '</div>';
                                                 @endphp
 
                                                 <div class="accordion-item">
@@ -381,18 +381,19 @@
             </div>
 
             @php
-                $today = \Carbon\Carbon::now()->format('Y-m-d');
-                $isExpired = $today > $package->end_date;
+            $today = \Carbon\Carbon::now()->format('Y-m-d');
+            $isExpired = $today > $package->end_date;
             @endphp
             <div class="col-md-5">
                 @php
-                    $bookingsCount = $package->bookings()->count();
-                    $isFullyBooked = $bookingsCount >= $package->booking_limit;
+                $bookingsCount = $package->bookings()->count();
+                $isFullyBooked = $bookingsCount >= $package->booking_limit;
                 @endphp
 
                 <div class=" py-3 text-start">
                     <!-- Display how many times this package has been booked -->
-                    <span class="text-muted py-2"><i class="bi bi-book-fill"></i> <strong>Booked:</strong> {{ $bookingsCount }} times</span><br>
+                    <span class="text-muted py-2"><i class="bi bi-book-fill"></i> <strong>Booked:</strong> {{
+                        $bookingsCount }} times</span><br>
                 </div>
                 <div class="card">
 
@@ -420,43 +421,52 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
 
                             <div class="row">
                                 <!-- Adults Selector -->
-                    
-                                <div class="col-md-4">
+
+                                <div class="col-md-6">
                                     <div class="pb-3">
                                         <label class="form-label">Adults</label>
                                         <div class="input-group">
-                                            <button type="button" id="adultsMinus" class="btn btn-outline-primary">-</button>
-                                            <input type="text" id="adults" name="adults" class="form-control text-center" value="0" readonly>
-                                            <button type="button" id="adultsPlus" class="btn btn-outline-primary">+</button>
+                                            <button type="button" id="adultsMinus"
+                                                class="btn btn-outline-primary">-</button>
+                                            <input type="text" id="adults" name="adults"
+                                                class="form-control text-center" value="0" readonly>
+                                            <button type="button" id="adultsPlus"
+                                                class="btn btn-outline-primary">+</button>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Youth Selector -->
-                                
+                                {{--
                                 <div class="col-md-4">
                                     <div class="pb-3">
                                         <label class="form-label">Youth</label>
                                         <div class="input-group">
-                                            <button type="button" id="youthMinus" class="btn btn-outline-primary">-</button>
-                                            <input type="text" id="youth" name="youth" class="form-control text-center" value="0" readonly>
-                                            <button type="button" id="youthPlus" class="btn btn-outline-primary">+</button>
+                                            <button type="button" id="youthMinus"
+                                                class="btn btn-outline-primary">-</button>
+                                            <input type="text" id="youth" name="youth" class="form-control text-center"
+                                                value="0" readonly>
+                                            <button type="button" id="youthPlus"
+                                                class="btn btn-outline-primary">+</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <!-- Children Selector -->
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="pb-3">
                                         <label class="form-label">Children</label>
                                         <div class="input-group">
-                                            <button type="button" id="childrenMinus" class="btn btn-outline-primary">-</button>
-                                            <input type="text" id="children" name="children" class="form-control text-center" value="0" readonly>
-                                            <button type="button" id="childrenPlus" class="btn btn-outline-primary">+</button>
+                                            <button type="button" id="childrenMinus"
+                                                class="btn btn-outline-primary">-</button>
+                                            <input type="text" id="children" name="children"
+                                                class="form-control text-center" value="0" readonly>
+                                            <button type="button" id="childrenPlus"
+                                                class="btn btn-outline-primary">+</button>
                                         </div>
                                     </div>
                                 </div>
@@ -466,33 +476,40 @@
                             <!-- Notification for Exceeding Max Persons -->
                             <div id="exceedMaxPersonsNotice" class="alert alert-warning d-none" role="alert">
                                 {{-- Exceeding the package's max allowed persons. Additional person price: ₱{{
-                                  $package->additional_person_price }} --}}
+                                $package->additional_person_price }} --}}
                                 Exceeding the package's max allowed persons. Additional person price will be needed.
                             </div>
 
                             <!-- Additional Fees Section -->
                             <div id="additionalFees" class="additional-fees-section mt-2 d-none">
-                              <h4 class="form-control text-center text-green mb-3" style="background-color: lightgreen; color: green;">Additional Fees</h4>
+                                <h4 class="form-control text-center text-green mb-3"
+                                    style="background-color: lightgreen; color: green;">Additional Fees</h4>
                                 <!-- Row for Additional Fees Display -->
                                 <div class="row">
                                     <!-- Additional Fee for Adults -->
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="">
-                                            <p id="additionalAdultFeeText" class="text-center" style="background-color: #e6f9e6; color: green; border-color: green;"></p>
+                                            <p id="additionalAdultFeeText" class="text-center"
+                                                style="background-color: #e6f9e6; color: green; border-color: green;">
+                                            </p>
                                         </div>
                                     </div>
 
                                     <!-- Additional Fee for Youth -->
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <div class="pb-3">
-                                            <p id="additionalYouthFeeText" class="text-center" style="background-color: #e6f9e6; color: green; border-color: green;"></p>
+                                            <p id="additionalYouthFeeText" class="text-center"
+                                                style="background-color: #e6f9e6; color: green; border-color: green;">
+                                            </p>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <!-- Additional Fee for Children -->
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="pb-3">
-                                            <p id="additionalChildFeeText" class="text-center" style="background-color: #e6f9e6; color: green; border-color: green;"></p>
+                                            <p id="additionalChildFeeText" class="text-center"
+                                                style="background-color: #e6f9e6; color: green; border-color: green;">
+                                            </p>
                                         </div>
                                     </div>
 
@@ -501,67 +518,105 @@
                                 <!-- Row for Person Selectors -->
                                 <div class="row">
                                     <!-- Adults Selector -->
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="pb-3">
                                             <label class="form-label">Adults</label>
                                             <div class="input-group">
-                                                <button type="button" id="additionalFeeAdultsMinus" class="btn btn-outline-primary">-</button>
-                                                <input type="text" id="additionalFeeAdults" name="additionalFeeAdults" class="form-control text-center" value="0" readonly>
-                                                <button type="button" id="additionalFeeAdultsPlus" class="btn btn-outline-primary">+</button>
+                                                <button type="button" id="additionalFeeAdultsMinus"
+                                                    class="btn btn-outline-primary">-</button>
+                                                <input type="text" id="additionalFeeAdults" name="additionalFeeAdults"
+                                                    class="form-control text-center" value="0" readonly>
+                                                <button type="button" id="additionalFeeAdultsPlus"
+                                                    class="btn btn-outline-primary">+</button>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <div class="pb-3">
                                             <label class="form-label">Youth</label>
                                             <div class="input-group">
-                                                <button type="button" id="additionalFeeYouthMinus" class="btn btn-outline-primary">-</button>
-                                                <input type="text" id="additionalFeeYouth" name="additionalFeeYouth" class="form-control text-center" value="0" readonly>
-                                                <button type="button" id="additionalFeeYouthPlus" class="btn btn-outline-primary">+</button>
+                                                <button type="button" id="additionalFeeYouthMinus"
+                                                    class="btn btn-outline-primary">-</button>
+                                                <input type="text" id="additionalFeeYouth" name="additionalFeeYouth"
+                                                    class="form-control text-center" value="0" readonly>
+                                                <button type="button" id="additionalFeeYouthPlus"
+                                                    class="btn btn-outline-primary">+</button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <!-- Children Selector -->
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="pb-3">
                                             <label class="form-label">Children</label>
                                             <div class="input-group">
-                                                <button type="button" id="additionalFeeChildrenMinus" class="btn btn-outline-primary">-</button>
-                                                <input type="text" id="additionalFeeChildren" name="additionalFeeChildren" class="form-control text-center" value="0" readonly>
-                                                <button type="button" id="additionalFeeChildrenPlus" class="btn btn-outline-primary">+</button>
+                                                <button type="button" id="additionalFeeChildrenMinus"
+                                                    class="btn btn-outline-primary">-</button>
+                                                <input type="text" id="additionalFeeChildren"
+                                                    name="additionalFeeChildren" class="form-control text-center"
+                                                    value="0" readonly>
+                                                <button type="button" id="additionalFeeChildrenPlus"
+                                                    class="btn btn-outline-primary">+</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Hidden inputs to store package details -->
-                            <input type="hidden" name="package_id" value="{{ $package->id }}">
-                            <input type="hidden" name="package_price" id="package_price" value="{{ $package->price }}">
+                            <!-- Horizontal line for visual separation -->
+                            <hr style="border-top: 1px solid #ccc; margin-bottom: 1rem;" />
+                            <h5>Choose Your Pickup and Drop-off Locations</h6>
+                                <!-- Your input fields for pickup and drop-off locations -->
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label for="pickupLocation">Pickup Location</label>
+                                        <input type="text" id="pickupLocation" class="form-control"
+                                            placeholder="Enter a location">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="dropoffLocation">Drop-off Location</label>
+                                        <input type="text" id="dropoffLocation" class="form-control"
+                                            placeholder="Enter a location">
+                                    </div>
+                                </div>
 
-                            <!-- Dynamic Total Price Display -->
-                            <!-- Inside your card body, after the form -->
-                            <div id="totalPriceContainer" class="mt-3 d-flex justify-content-between">
-                                <h5>Total Price:</h5>
-                                <input type="hidden" id="totalPriceInput" name="totalPrice">
-                                <h3 id="totalPrice" name="totalPrice" class="text-danger"></h3>
-                            </div>
+                                <!-- Hidden inputs to store the latitude and longitude -->
+                                <input type="hidden" id="pickupLatitude" name="pickup_latitude">
+                                <input type="hidden" id="pickupLongitude" name="pickup_longitude">
+                                <input type="hidden" id="dropoffLatitude" name="dropoff_latitude">
+                                <input type="hidden" id="dropoffLongitude" name="dropoff_longitude">
+
+                                <!-- Map container -->
+                                <div id="map" style="height: 400px;"></div>
 
 
-                            <!-- Include additional fields as necessary -->
-                            <button type="submit" class="btn btn-primary">Book Now</button>
+                                <!-- Hidden inputs to store package details -->
+                                <input type="hidden" name="package_id" value="{{ $package->id }}">
+                                <input type="hidden" name="package_price" id="package_price"
+                                    value="{{ $package->price }}">
+
+                                <!-- Dynamic Total Price Display -->
+                                <!-- Inside your card body, after the form -->
+                                <div id="totalPriceContainer" class="mt-3 d-flex justify-content-between">
+                                    <h5>Total Price:</h5>
+                                    <input type="hidden" id="totalPriceInput" name="totalPrice">
+                                    <h3 id="totalPrice" name="totalPrice" class="text-danger"></h3>
+                                </div>
+
+
+                                <!-- Include additional fields as necessary -->
+                                <button type="submit" class="btn btn-primary">Book Now</button>
                         </form>
                         <!-- End Booking Form -->
                         @elseif($isFullyBooked)
-                            <div class="alert alert-info" role="alert">
-                                This package is fully booked.
-                            </div>
+                        <div class="alert alert-info" role="alert">
+                            This package is fully booked.
+                        </div>
                         @elseif($isExpired)
-                            <div class="alert alert-info" role="alert">
-                                This package is no longer available.
-                            </div>
+                        <div class="alert alert-info" role="alert">
+                            This package is no longer available.
+                        </div>
                         @endif
                     </div>
                 </div>
@@ -576,15 +631,16 @@
         const packageDetails = {
             maxPersons: {{ $package->max_persons }},
             pricePerDay: {{ $package->price }},
-            additionalAdultPrice: 100,
-            additionalYouthPrice: 150,
-            additionalChildPrice: 50
+            additionalAdultPrice: parseInt({{ $package->addtional_adult_price }}),
+            // additionalYouthPrice: parseInt({{ $package->addtional_youth_price }}),
+            additionalChildPrice: parseInt({{ $package->addtional_children_price }}),
+
         };
 
         function calculateTotalPrice() {
             const startDate = new Date(document.getElementById('start_date').value);
             const endDate = new Date(document.getElementById('end_date').value);
-            const totalDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1; // +1 to include both start and end dates
+            const totalDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24)); // +1 to include both start and end dates
 
             if (!isNaN(totalDays) && totalDays > 0) {
                 const basePrice = totalDays * packageDetails.pricePerDay;
@@ -593,11 +649,15 @@
 
                 if (totalPersons >= packageDetails.maxPersons) {
                     const additionalAdults = parseInt(document.getElementById('additionalFeeAdults').value, 10) || 0;
-                    const additionalYouth = parseInt(document.getElementById('additionalFeeYouth').value, 10) || 0;
+                    // const additionalYouth = parseInt(document.getElementById('additionalFeeYouth').value, 10) || 0;
                     const additionalChildren = parseInt(document.getElementById('additionalFeeChildren').value, 10) || 0;
 
+                    console.log("packageDetails.additionalAdultPrice", packageDetails.additionalAdultPrice)
+                    // console.log("packageDetails.additionalYouthPrice", packageDetails.additionalYouthPrice)
+                    console.log("packageDetails.additionalChildPrice", packageDetails.additionalChildPrice)
+
                     extraFees += additionalAdults * packageDetails.additionalAdultPrice;
-                    extraFees += additionalYouth * packageDetails.additionalYouthPrice;
+                    // extraFees += additionalYouth * packageDetails.additionalYouthPrice;
                     extraFees += additionalChildren * packageDetails.additionalChildPrice;
 
                     extraFees; // Multiply by the number of days
@@ -616,7 +676,7 @@
         }
 
         document.getElementById('additionalAdultFeeText').textContent = `₱${packageDetails.additionalAdultPrice} per adult`;
-        document.getElementById('additionalYouthFeeText').textContent = `₱${packageDetails.additionalYouthPrice} per youth`;
+        // document.getElementById('additionalYouthFeeText').textContent = `₱${packageDetails.additionalYouthPrice} per youth`;
         document.getElementById('additionalChildFeeText').textContent = `₱${packageDetails.additionalChildPrice} per child`;
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -624,7 +684,7 @@
             document.getElementById('start_date').addEventListener('change', calculateTotalPrice);
             document.getElementById('end_date').addEventListener('change', calculateTotalPrice);
 
-            ['adults', 'youth', 'children', 'additionalFeeAdults', 'additionalFeeYouth', 'additionalFeeChildren'].forEach(category => {
+            ['adults', 'children', 'additionalFeeAdults', 'additionalFeeChildren'].forEach(category => {
                 document.getElementById(`${category}Minus`).addEventListener('click', () => changePersonCount(category, false));
                 document.getElementById(`${category}Plus`).addEventListener('click', () => changePersonCount(category, true));
             });
@@ -641,14 +701,14 @@
             if (getTotalPersons() >= packageDetails.maxPersons) {
                 // Disable the childrenPlus button
                 document.getElementById('adultsPlus').disabled = true;
-                document.getElementById('youthPlus').disabled = true;
+                // document.getElementById('youthPlus').disabled = true;
                 document.getElementById('childrenPlus').disabled = true;
                 exceedMaxPersonsNotice.classList.remove('d-none');
                 additionalFees.classList.remove('d-none');
             } else {
                 // Enable the childrenPlus button if it was disabled
                 document.getElementById('adultsPlus').disabled = false;
-                document.getElementById('youthPlus').disabled = false;
+                // document.getElementById('youthPlus').disabled = false;
                 document.getElementById('childrenPlus').disabled = false;
                 exceedMaxPersonsNotice.classList.add('d-none');
                 additionalFees.classList.add('d-none');
@@ -659,15 +719,122 @@
 
         function getTotalPersons() {
             const adultsCount = parseInt(document.getElementById('adults').value, 10) || 0;
-            const youthCount = parseInt(document.getElementById('youth').value, 10) || 0;
+            // const youthCount = parseInt(document.getElementById('youth').value, 10) || 0;
             const childrenCount = parseInt(document.getElementById('children').value, 10) || 0;
-            return adultsCount + youthCount + childrenCount; // This does not include additional fees
+            return adultsCount + childrenCount; // This does not include additional fees
         }
 
+        
+
+
         document.getElementById('start_date').addEventListener('change', calculateTotalPrice);
-        endDateInput.addEventListener('change', calculateTotalPrice);
+        // endDateInput.addEventListener('change', calculateTotalPrice);
         calculateTotalPrice();
     </script>
+    <script>
+        let map;
+        let geocoder;
+        let pickupMarker;
+        let dropoffMarker;
+
+        // Initialize and add the map
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 16.616003, lng: 120.316712 },
+                zoom: 13,
+                disableDefaultUI: true
+            });
+
+            geocoder = new google.maps.Geocoder();
+
+            // Autocomplete for pickup and drop-off inputs
+            const pickupInput = document.getElementById('pickupLocation');
+            const dropoffInput = document.getElementById('dropoffLocation');
+
+            const pickupAutocomplete = new google.maps.places.Autocomplete(pickupInput);
+            const dropoffAutocomplete = new google.maps.places.Autocomplete(dropoffInput);
+
+            pickupAutocomplete.bindTo('bounds', map);
+            dropoffAutocomplete.bindTo('bounds', map);
+
+            // Place changed event for pickup location
+            pickupAutocomplete.addListener('place_changed', function() {
+                const place = pickupAutocomplete.getPlace();
+                if (!place.geometry) {
+                    window.alert("No details available for input: '" + place.name + "'");
+                    return;
+                }
+                setMarker(place, pickupMarker, 'pickup');
+            });
+
+            // Place changed event for drop-off location
+            dropoffAutocomplete.addListener('place_changed', function() {
+                const place = dropoffAutocomplete.getPlace();
+                if (!place.geometry) {
+                    window.alert("No details available for input: '" + place.name + "'");
+                    return;
+                }
+                setMarker(place, dropoffMarker, 'dropoff');
+            });
+        }
+
+        // Sets the marker on the map
+        function setMarker(place, marker, type) {
+            if (marker && marker.setPosition) {
+                marker.setPosition(place.geometry.location);
+            } else {
+                marker = new google.maps.Marker({
+                    map: map,
+                    position: place.geometry.location,
+                    draggable: true
+                });
+            }
+
+            if (type === 'pickup') {
+                pickupMarker = marker;
+            } else {
+                dropoffMarker = marker;
+            }
+
+            // Event listener for marker drag end
+            google.maps.event.addListener(marker, 'dragend', function() {
+                updateLocationInputs(marker.getPosition(), type);
+            });
+
+            // Update the input fields
+            updateLocationInputs(place.geometry.location, type);
+
+            map.panTo(place.geometry.location);
+            map.setZoom(13);
+        }
+
+        // Updates the hidden input fields with the latitude and longitude
+        function updateLocationInputs(latLng, type) {
+            if (type === 'pickup') {
+                document.getElementById('pickupLatitude').value = latLng.lat();
+                document.getElementById('pickupLongitude').value = latLng.lng();
+                console.log(document.getElementById('pickupLatitude'));
+                console.log(document.getElementById('pickupLongitude'));
+            } else {
+                document.getElementById('dropoffLatitude').value = latLng.lat();
+                document.getElementById('dropoffLongitude').value = latLng.lng();
+                console.log(document.getElementById('dropoffLatitude'), document.getElementById('dropoffLongitude'));
+            }
+        }
+
+        // Load the map script with the API key and the initMap callback
+        function loadScript() {
+            var script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${'{{ env("GOOGLE_MAPS_API_KEY") }}'}&libraries=places&callback=initMap`;
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+        }
+
+        document.addEventListener('DOMContentLoaded', loadScript);
+    </script>
+
+
 
     @include('components.homepage.footer')
 </x-app-layout>

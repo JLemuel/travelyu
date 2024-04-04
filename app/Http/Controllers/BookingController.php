@@ -17,33 +17,37 @@ class BookingController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'adults' => 'required|integer|min:0',
-            'youth' => 'required|integer|min:0',
             'children' => 'required|integer|min:0',
             'additionalFeeAdults' => 'required|integer|min:0',
-            'additionalFeeYouth' => 'required|integer|min:0',
             'additionalFeeChildren' => 'required|integer|min:0',
             'package_id' => 'required|exists:packages,id',
             'totalPrice' => 'required|numeric',
+            'pickup_latitude' => 'required|numeric',
+            'pickup_longitude' => 'required|numeric',
+            'dropoff_latitude' => 'required|numeric',
+            'dropoff_longitude' => 'required|numeric',
         ]);
+    
 
-        // Prepare data for creating a new Booking record
-        $bookingData = [
-            'check_in' => $validated['start_date'], // Map 'start_date' to 'check_in'
-            'check_out' => $validated['end_date'], // Map 'end_date' to 'check_out'
-            'user_id' => $user->id, // Include the user ID
-            'customer_name' => $user->name, // Assuming the user's name is to be used as customer name
-            'email' => $user->email, // Assuming the user's email
-            'phone' => $user->contact_number, // Placeholder for phone, adjust as necessary
-            'package_id' => $validated['package_id'],
-            // 'total_price' => $this->calculateTotalPrice($validated), // Calculate total price
-            'total_price' => $validated['totalPrice'], // Use 'totalPrice' from validated data
-            'adults_count' => $validated['adults'], // Add count of adults
-            'youth_count' => $validated['youth'], // Add count of youth
-            'children_count' => $validated['children'], // Add count of children
-            'additional_adults_count' => $validated['additionalFeeAdults'], // Add count of additional adults
-            'additional_youth_count' => $validated['additionalFeeYouth'], // Add count of additional youth
-            'additional_children_count' => $validated['additionalFeeChildren'], // Add count of additional children
-        ];
+         // Prepare data for creating a new Booking record
+            $bookingData = [
+                'check_in' => $validated['start_date'],
+                'check_out' => $validated['end_date'],
+                'user_id' => $user->id,
+                'package_id' => $validated['package_id'],
+                'total_price' => $validated['totalPrice'],
+                'adults_count' => $validated['adults'],
+                'children_count' => $validated['children'],
+                'additional_adults_count' => $validated['additionalFeeAdults'],
+                'additional_children_count' => $validated['additionalFeeChildren'],
+                // Add the pickup and drop-off location data
+                'pickup_latitude' => $validated['pickup_latitude'],
+                'pickup_longitude' => $validated['pickup_longitude'],
+                'dropoff_latitude' => $validated['dropoff_latitude'],
+                'dropoff_longitude' => $validated['dropoff_longitude'],
+                // Add any additional fields as necessary
+            ];
+
 
         // Create a new Booking record
         $booking = new Booking($bookingData);

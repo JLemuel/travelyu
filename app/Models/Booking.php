@@ -11,7 +11,7 @@ class Booking extends Model
 
     protected $fillable = [
         // Include all other fillable attributes here
-        'user_id', 'customer_name', 'email', 'phone', 'check_in', 'check_out', 'package_id', 'notes', 'total_price', 'receipt',
+        'user_id', 'customer_name', 'email', 'phone', 'check_in', 'check_out', 'package_id', 'notes', 'pickup_latitude', 'pickup_longitude', 'dropoff_latitude', 'dropoff_longitude', 'total_price', 'receipt',
         'adults_count', 'youth_count', 'children_count', 'additional_adults_count',
         'additional_youth_count', 'additional_children_count',
     ];
@@ -21,11 +21,15 @@ class Booking extends Model
         'check_out' => 'datetime',
         // Add other attributes as needed
     ];
-    
+
 
     // Define the relationship with Package model
     public function package()
     {
         return $this->belongsTo(Package::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

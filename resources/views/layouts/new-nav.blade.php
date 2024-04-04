@@ -27,8 +27,9 @@
 </style>
 <div class="container-fluid position-relative p-0">
     <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0"
-        style="background-color: rgba(83, 255, 83, 0.196);">
-        <a href="/" class="navbar-brand p-0 ms-5">
+        style="background-color: rgba(52, 255, 52, 0.586);">
+        {{-- style="background-color: rgba(83, 255, 83, 0.196);"> --}}
+        <a href="/" class="navbar-brand p-0 ps-0 ps-md-5">
             <img src="{{ asset('assets/travelyu_logo1.png') }}" alt="Travelyu" class="navbar-logo" />
 
         </a>
@@ -60,27 +61,28 @@
                     class="nav-item nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a>
 
             </div>
+
+            <a href="{{ route('profile.edit') }}" class="nav-item nav-link">{{ Auth::user()->name }}</a>
+            <a href="{{ route('logout') }}"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                class="btn btn-primary rounded-pill py-1 px-2" style="font-size: 1.2rem">
+                Logout
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+            @else
+
+            <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
+            @if (Route::has('register'))
+            <!-- Apply button styling classes to the 'Register' link to match the 'Logout' button appearance -->
+            <a href="{{ route('register') }}" class="nav-item nav-link " style="color: white;">Register</a>
+
+            @endif
+
+            @endauth
+            @endif
         </div>
-        <a href="{{ route('profile.edit') }}" class="nav-item nav-link">{{ Auth::user()->name }}</a>
-        <a href="{{ route('logout') }}"
-            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-            class="btn btn-primary rounded-pill py-1 px-2" style="font-size: 1.2rem">
-            Logout
-        </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
-        @else
-
-        <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
-        @if (Route::has('register'))
-        <!-- Apply button styling classes to the 'Register' link to match the 'Logout' button appearance -->
-        <a href="{{ route('register') }}" class="nav-item nav-link " style="color: white;">Register</a>
-
-        @endif
-
-        @endauth
-        @endif
     </nav>
     @if(request()->is('home'))
     <div class="container-fluid bg-primary py-5 mb-5 hero-header">

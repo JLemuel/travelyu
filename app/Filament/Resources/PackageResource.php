@@ -90,6 +90,20 @@ class PackageResource extends Resource
                             ->numeric(),
                     ])->columns(2),
 
+                // Pricing & Capacity
+                Section::make('Additional Fees')
+                    ->schema([
+                        Forms\Components\TextInput::make('addtional_adult_price')
+                            ->label('Adult additional fee')
+                            ->numeric(),
+                        // Forms\Components\TextInput::make('addtional_youth_price')
+                        //     ->label('Youth additional fee')
+                        //     ->numeric(),
+                        Forms\Components\TextInput::make('addtional_children_price')
+                            ->label('Children additional fee')
+                            ->numeric(),
+                    ])->columns(2),
+
                 Section::make('Tour Plan Details')
                     ->description('Prevent abuse by limiting the number of requests per period')
                     ->schema([

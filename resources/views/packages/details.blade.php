@@ -287,8 +287,8 @@
         </button>
     </div>
 
-    <div class="container pb-5">
-        <div class="row mt-3">
+    <div class="px-2 pb-5">
+        <div class=" row mt-3">
             <div class="col">
                 <h1>{{ $package->name }}</h1>
                 <div class="d-flex justify-content-start flex-wrap align-items-center gap-3">
@@ -313,7 +313,7 @@
         </div>
         <div class="row mt-4">
             <div class="col-md-6">
-                <div class="container">
+                <div class="px-2">
                     <!-- Package Description -->
                     <div class="section" id="description">
                         <h2>Description</h2>
@@ -368,7 +368,7 @@
             </div>
 
             <div class="col-md-6">
-                <div class="container">
+                <div class="px-2 pt-4">
                     <div class="section" id="reviews">
                         <h2>Reviews</h2>
 
@@ -433,12 +433,17 @@
     </div>
 
     <script>
-        // Destination latitude and longitude values from your variable
-        var destLat = {{ number_format($package->destination->lat, 6) }};
-        var destLng = {{ number_format($package->destination->lng, 6) }};
+        // Coordinates for the starting point (origin)
+        var originLat = 16.616003;
+        var originLng = 120.316712;
     
         function initMap() {
+            // Destination latitude and longitude values from your package variable
+            var destLat = {{ number_format($package->destination->lat, 6) }};
+            var destLng = {{ number_format($package->destination->lng, 6) }};
             var destination = new google.maps.LatLng(destLat, destLng);
+    
+            // Create a map object and specify the DOM element for display
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 14,
                 center: destination,
@@ -447,30 +452,21 @@
                 mapTypeControl: true,
             });
     
+            // Create a directions service object to use the route method and a directions renderer object
             var directionsService = new google.maps.DirectionsService();
             var directionsRenderer = new google.maps.DirectionsRenderer();
             directionsRenderer.setMap(map);
     
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var currentLocation = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
+            // Set the origin for the directions to the fixed coordinates
+            var origin = new google.maps.LatLng(originLat, originLng);
     
-                    calculateAndDisplayRoute(directionsService, directionsRenderer, currentLocation, destination);
-                }, function() {
-                    handleLocationError(true, map.getCenter());
-                });
-            } else {
-                // Browser doesn't support Geolocation
-                handleLocationError(false, map.getCenter());
-            }
+            // Calculate and display the route
+            calculateAndDisplayRoute(directionsService, directionsRenderer, origin, destination);
         }
     
-        function calculateAndDisplayRoute(directionsService, directionsRenderer, currentLocation, destination) {
+        function calculateAndDisplayRoute(directionsService, directionsRenderer, origin, destination) {
             directionsService.route({
-                origin: currentLocation,
+                origin: origin,
                 destination: destination,
                 // Specify the travel mode: driving, walking, bicycling or transit
                 travelMode: 'DRIVING'

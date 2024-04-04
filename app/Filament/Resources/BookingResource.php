@@ -73,9 +73,9 @@ class BookingResource extends Resource
                 Tables\Columns\TextColumn::make('package.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('customer_name')
+                Tables\Columns\TextColumn::make('user.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
+                Tables\Columns\TextColumn::make('user.email')
                     ->searchable(),
                 // Tables\Columns\TextColumn::make('phone')
                 //     ->searchable(),
@@ -96,7 +96,8 @@ class BookingResource extends Resource
                         'pending' => 'Pending',
                         'verified' => 'Verify',
                         // 'published' => 'Published',
-                    ])
+                    ]),
+                Tables\Columns\ImageColumn::make('receipt')
             ])
             ->filters([
                 //
