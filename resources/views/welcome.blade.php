@@ -153,7 +153,7 @@
                             <select name="type" id="type" class="form-control custom-select">
                                 <option value="">Select Type</option>
                                 @foreach($destinations as $destination)
-                                    <option value="{{ $destination->name }}">{{ $destination->name }}</option>
+                                <option value="{{ $destination->name }}">{{ $destination->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -189,6 +189,8 @@
     <x-package-gallery :packages="$activities" title="Popular Activities" subtitle="Activities" />
 
     @include('components.homepage.services')
+
+    <x-emergency-hotlines />
 
     <x-footer />
 

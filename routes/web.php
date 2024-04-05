@@ -9,7 +9,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ContactController;
-
+use App\Http\Controllers\TravelAgencyController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +24,7 @@ use App\Http\Controllers\ContactController;
 use App\Models\Destination;
 use App\Models\Activity;
 use App\Models\Package;
-
+use App\Models\User;
 // In routes/web.php
 Route::post('/checkout', [BookingController::class, 'store'])->name('checkout');
 
@@ -36,7 +36,7 @@ Route::get('/booking-success', function () {
 Route::post('/bookings/{id}/upload-receipt', [BookingController::class, 'uploadReceipt'])->name('bookings.uploadReceipt');
 
 Route::get('/admin/login', function () {
-    return redirect()->to('login');
+    return redirect()->to('home');
 })->name('filament.admin.auth.login');
 
 Route::get('/', function () {
@@ -86,6 +86,15 @@ Route::get('/tour-packages', function () {
     return view('tour-packages', compact('packages')); // Assuming you have a view named 'tour-packages.blade.php'
 })->name('tour-packages');
 
+// Tour Packages page
+Route::get('/travel-agencies', function () {
+    $travelAgencies = User::where('type', 'travel_agency')->get(); // Adjust 'type' to your column name
+    return view('travel-agencies', compact('travelAgencies'));
+})->name('travel-agencies');
+
+Route::get('/travel-agencies/{id}/packages', [TravelAgencyController::class, 'showPackages'])
+    ->name('travel-agencies.packages');
+
 // About page
 // It seems you've listed "about.html" twice in your navigation. Adjust as necessary.
 Route::get('/about', function () {
@@ -109,13 +118,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::post('register', [RegisteredUserController::class, 'store']);
-
-// // Custom routes for your application
-// Route::view('/destinations', 'destinations')->name('destinations'); // Assuming you have a view named 'destinations.blade.php'
-// Route::view('/tour-packages', 'tour-packages')->name('tour-packages'); // Assuming you have a view named 'tour-packages.blade.php'
-// Route::view('/about-us', 'about-us')->name('about-us'); // Assuming you have a view named 'about-us.blade.php'
-// Route::view('/contact-us', 'contact-us')->name('contact-us'); // Assuming you have a view named 'contact-us.blade.php'
 
 // Authentication routes (provided by Laravel Breeze)
 require __DIR__ . '/auth.php';

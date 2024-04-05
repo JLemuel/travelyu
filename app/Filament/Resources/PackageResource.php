@@ -26,6 +26,8 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Hidden;
+use Illuminate\Support\Facades\Auth;
 
 class PackageResource extends Resource
 {
@@ -50,6 +52,10 @@ class PackageResource extends Resource
     {
         return $form
             ->schema([
+                Hidden::make('travel_agency_id')
+                    ->default(Auth::id())
+                    ->visible(fn (): bool => Auth::user()->type === 'travel_agency'),
+
                 // Destination Selection
                 Forms\Components\Select::make('destination_id')
                     ->label('Choose a Destination')

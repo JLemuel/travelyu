@@ -1,5 +1,5 @@
 <x-app-layout>
-<style>
+    <style>
         .custom-carousel .carousel-inner .carousel-item {
             height: 500px;
             /* Example fixed height */

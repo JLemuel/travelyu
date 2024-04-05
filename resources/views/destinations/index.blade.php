@@ -14,9 +14,10 @@
 
     <div class="container" style="padding-top: 5rem">
         <!-- <h1 class="mt-5">Destinations in {{ $cityName }}</h1> -->
-        <x-homepage.top-cards :destinations="$destinations" title="Destinations in {{ $cityName }}" subtitle="Destinations" />
+        <x-homepage.top-cards :destinations="$destinations" title="Destinations in {{ $cityName }}"
+            subtitle="Destinations" />
     </div>
 
 
-    @include('components.homepage.footer')
+    <x-footer />
 </x-app-layout>

@@ -22,6 +22,7 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'agency_name', // Added field
+        'tagline', // Added field
         'email',
         'email_verified_at', // Ensure this is manageable if you're handling email verification
         'contact_number',

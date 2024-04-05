@@ -359,16 +359,45 @@
                             </div>
                         </div>
                     </div>
-                    <div class="section">
+                    {{-- <div class="section">
                         <h2>Location</h2>
                         <div id="map" class="mt-4"></div>
+                    </div> --}}
+
+                    <div class="section">
+                        <!-- Booking Coordinates Section -->
+                        <div class="section" id="coordinates">
+                            <h2>Pickup and Dropoff Coordinates</h2>
+                            @forelse($package->bookings as $booking)
+                            <div class="map-container">
+                                <h6 style="pr-5"><strong>Pickup Address:</strong> <span
+                                        id="pickup-address-{{ $booking->id }}"></span>
+                                </h6>
+                                <div id="pickup-map-{{ $booking->id }}" class="map" style="height: 250px;"></div>
+
+                            </div>
+                            <!-- Dropoff Map -->
+                            <div class="map-container mt-3">
+                                <h6 style="pr-5"><strong>Dropoff Address:</strong> <span
+                                        id="dropoff-address-{{ $booking->id }}"></span></h6>
+                                <div id="dropoff-map-{{ $booking->id }}" class="map" style="height: 250px;"></div>
+
+                            </div>
+                            @empty
+                            <p>No bookings with coordinates available.</p>
+                            @endforelse
+                        </div>
+
                     </div>
+
                 </div>
 
             </div>
 
             <div class="col-md-6">
                 <div class="px-2 pt-4">
+
+
                     <div class="section" id="reviews">
                         <h2>Reviews</h2>
 
@@ -433,42 +462,75 @@
     </div>
 
     <script>
-        // Coordinates for the starting point (origin)
-        var originLat = 16.616003;
-        var originLng = 120.316712;
-    
         function initMap() {
-            // Destination latitude and longitude values from your package variable
+            var geocoder = new google.maps.Geocoder();
+            
+            // Define the origin coordinates
+            var originLat = 16.616003;
+            var originLng = 120.316712;
+            var origin = new google.maps.LatLng(originLat, originLng);
+            
+            // Define the destination coordinates from your Blade variables
             var destLat = {{ number_format($package->destination->lat, 6) }};
             var destLng = {{ number_format($package->destination->lng, 6) }};
             var destination = new google.maps.LatLng(destLat, destLng);
-    
-            // Create a map object and specify the DOM element for display
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 14,
-                center: destination,
-                disableDefaultUI: true,
-                zoomControl: true,
-                mapTypeControl: true,
+        
+            // Define the pickup and dropoff coordinates
+            var pickupCoords = {lat: parseFloat('{{ $booking->pickup_latitude }}'), lng: parseFloat('{{ $booking->pickup_longitude }}')};
+            var dropoffCoords = {lat: parseFloat('{{ $booking->dropoff_latitude }}'), lng: parseFloat('{{ $booking->dropoff_longitude }}')};
+        
+            // Initialize the Pickup Map
+            var pickupMap = new google.maps.Map(document.getElementById('pickup-map-{{ $booking->id }}'), {
+                zoom: 15,
+                center: pickupCoords
             });
-    
-            // Create a directions service object to use the route method and a directions renderer object
+            new google.maps.Marker({
+                position: pickupCoords,
+                map: pickupMap,
+                title: 'Pickup Location'
+            });
+        
+            // Initialize the Dropoff Map
+            var dropoffMap = new google.maps.Map(document.getElementById('dropoff-map-{{ $booking->id }}'), {
+                zoom: 15,
+                center: dropoffCoords
+            });
+            new google.maps.Marker({
+                position: dropoffCoords,
+                map: dropoffMap,
+                title: 'Dropoff Location'
+            });
+        
+            // Geocode the Pickup Coordinates
+            geocoder.geocode({'location': pickupCoords}, function(results, status) {
+                if (status === 'OK' && results[0]) {
+                    document.getElementById('pickup-address-{{ $booking->id }}').textContent = results[0].formatted_address;
+                } else {
+                    console.error('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        
+            // Geocode the Dropoff Coordinates
+            geocoder.geocode({'location': dropoffCoords}, function(results, status) {
+                if (status === 'OK' && results[0]) {
+                    document.getElementById('dropoff-address-{{ $booking->id }}').textContent = results[0].formatted_address;
+                } else {
+                    console.error('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        
+            // Directions service to draw routes
             var directionsService = new google.maps.DirectionsService();
             var directionsRenderer = new google.maps.DirectionsRenderer();
-            directionsRenderer.setMap(map);
-    
-            // Set the origin for the directions to the fixed coordinates
-            var origin = new google.maps.LatLng(originLat, originLng);
-    
-            // Calculate and display the route
+            directionsRenderer.setMap(pickupMap); // Set the map on which to display the route
+        
             calculateAndDisplayRoute(directionsService, directionsRenderer, origin, destination);
         }
-    
+        
         function calculateAndDisplayRoute(directionsService, directionsRenderer, origin, destination) {
             directionsService.route({
                 origin: origin,
                 destination: destination,
-                // Specify the travel mode: driving, walking, bicycling or transit
                 travelMode: 'DRIVING'
             }, function(response, status) {
                 if (status === 'OK') {
@@ -478,13 +540,8 @@
                 }
             });
         }
-    
-        function handleLocationError(browserHasGeolocation, pos) {
-            alert(browserHasGeolocation ?
-                'Error: The Geolocation service failed.' :
-                'Error: Your browser doesn\'t support geolocation.');
-        }
     </script>
+
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap"></script>
 

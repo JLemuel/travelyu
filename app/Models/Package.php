@@ -12,6 +12,7 @@ class Package extends Model
     use HasFactory;
 
     protected $fillable = [
+        'travel_agency_id',
         'destination_id',
         'name',
         'type',

@@ -90,47 +90,36 @@
             /* Bootstrap danger color or choose your own */
             margin-right: 5px;
         }
+
+        /* @media (min-width: 768px) {
+            .container.text-center {
+                padding-top: 7rem;
+            }
+        } */
     </style>
 
-    <!-- Bootstrap Carousel for Images -->
-    <div id="destinationCarousel" class="carousel slide custom-carousel" data-bs-ride="carousel">
-        <!-- Indicators/dots -->
-        <div class="carousel-indicators">
-            @foreach($destination->image as $index => $image)
-            <button type="button" data-bs-target="#destinationCarousel" data-bs-slide-to="{{ $index }}"
-                class="{{ $index == 0 ? 'active' : '' }}" aria-current="true"
-                aria-label="Slide {{ $index + 1 }}"></button>
-            @endforeach
-        </div>
 
-        <!-- The slideshow/carousel -->
-        <div class="carousel-inner">
-            @foreach($destination->image as $index => $image)
-            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                <img src="{{ asset('storage/' . $image) }}" class="d-block w-100"
-                    alt="Image of {{ $destination->name }}">
-            </div>
-            @endforeach
-        </div>
+    <!-- Agency Image Section -->
+    {{-- <div class="container text-center">
+        <!-- Check if the agency has an image and display it -->
+        @if($agency->profile_image)
+        <img src="{{ asset('storage/profile_images/' . basename($agency->profile_image)) }}"
+            alt="{{ $agency->agency_name }}" class="img-fluid rounded"
+            style="max-height: 300px; object-fit: cover; width: 100%;">
+        @else
+        <!-- Display a default image if the agency doesn't have a profile image -->
+        <img src="{{ asset('assets/image1.jpg') }}" alt="Default Agency Image" class="img-fluid rounded"
+            style="max-height: 300px; object-fit: cover; width: 100%;">
+        @endif
+        <h1 class="mt-4">{{ $agency->agency_name }}</h1>
+        <p>{{ $agency->tagline }}</p>
+    </div> --}}
 
-        <!-- Left and right controls/icons -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#destinationCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#destinationCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+    <!-- Packages Section -->
+    <div class="container pt-4">
+        <x-tour-packages :title="'Packages offered by ' . $agency->agency_name" :subtitle="'Packages'"
+            :packages="$packages" />
     </div>
-    <!-- End of Carousel -->
-
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Packages for {{ $destination->name }}</h2>
-        <x-package-card :destination="$destination" />
-    </div>
-
-
 
     <x-footer />
 </x-app-layout>

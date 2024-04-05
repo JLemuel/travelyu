@@ -147,17 +147,17 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- First Name -->
                     <div>
-                        <x-input-label for="first_name" :value="__('Name of Agency')" />
-                        <x-text-input id="first_name" class="block mt-1 w-full" type="text" name="first_name"
-                            :value="old('first_name')" required autofocus />
-                        <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
+                        <x-input-label for="agency_name" :value="__('Name of Agency')" />
+                        <x-text-input id="agency_name" class="block mt-1 w-full" type="text" name="agency_name"
+                            :value="old('agency_name')" required autofocus />
+                        <x-input-error :messages="$errors->get('agency_name')" class="mt-2" />
                     </div>
 
                     <div>
-                        <x-input-label for="birthday" :value="__('Date of Establishment')" />
-                        <x-text-input id="birthday" class="block mt-1 w-full" type="date" name="birthday"
-                            :value="old('birthday')" required />
-                        <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
+                        <x-input-label for="establishment_date" :value="__('Date of Establishment')" />
+                        <x-text-input id="establishment_date" class="block mt-1 w-full" type="date"
+                            name="establishment_date" :value="old('establishment_date')" required />
+                        <x-input-error :messages="$errors->get('establishment_date')" class="mt-2" />
                     </div>
 
                     <!-- Email Address -->
@@ -195,6 +195,22 @@
                         <p class="text-xs text-gray-600 mt-1"> <span class="text-red-500">*</span>(Upload valid
                             documents e.g., Birth certificate,
                             Business permit, etc.)</p>
+                    </div>
+
+                    <!-- Profile Picture Upload -->
+                    <div>
+                        <x-input-label for="profile_image" :value="__('Profile Picture')" />
+                        <x-text-input id="profile_image" class="block mt-1 w-full" type="file" name="profile_image" />
+                        <x-input-error :messages="$errors->get('profile_image')" class="mt-2" />
+                        <p class="text-xs text-gray-600 mt-1">Please upload a profile picture.</p>
+                    </div>
+
+                    <!-- Tagline -->
+                    <div>
+                        <x-input-label for="tagline" :value="__('Tagline')" />
+                        <x-text-input id="tagline" class="block mt-1 w-full" type="text" name="tagline"
+                            :value="old('tagline')" />
+                        <x-input-error :messages="$errors->get('tagline')" class="mt-2" />
                     </div>
 
                     <!-- Username -->
