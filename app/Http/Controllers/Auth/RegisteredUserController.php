@@ -68,7 +68,7 @@ class RegisteredUserController extends Controller
             'contact_number' => $request->contact_number,
             'type' => $request->type,
             'file_path' => $filePath ?? null,
-            'profile_image' => $profileImagePath, // Save profile image path
+            'profile_image' => $profileImagePath ?? null, // Save profile image path
             'tagline' => $request->tagline, // Save tagline
             'establishment_date' => $request->type === 'travel_agency' ? $request->establishment_date : null,
             'username' => $request->username,
