@@ -132,7 +132,7 @@
                                 <option value="Tubao">Tubao</option>
                             </select>
                         </div>
-                        <div class="col-lg-2 mb-3">
+                        <!-- <div class="col-lg-2 mb-3">
                             <span class="input-indicator">Select Type</span>
                             <select name="type" id="type" class="form-control custom-select">
                                 <option value="">Select Type</option>
@@ -146,6 +146,15 @@
                                 <option value="relaxation">Relaxation</option>
                                 <option value="sports">Sports</option>
                                 <option value="water_activities">Water Activities</option>
+                            </select>
+                        </div> -->
+                        <div class="col-lg-2 mb-3">
+                            <span class="input-indicator">Select Type</span>
+                            <select name="type" id="type" class="form-control custom-select">
+                                <option value="">Select Type</option>
+                                @foreach($destinations as $destination)
+                                    <option value="{{ $destination->name }}">{{ $destination->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-lg-2 mb-3">
@@ -181,7 +190,7 @@
 
     @include('components.homepage.services')
 
-    @include('components.homepage.footer')
+    <x-footer />
 
     {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {

@@ -95,12 +95,14 @@ class PackageResource extends Resource
                     ->schema([
                         Forms\Components\TextInput::make('addtional_adult_price')
                             ->label('Adult additional fee')
+                            ->prefix('₱')
                             ->numeric(),
                         // Forms\Components\TextInput::make('addtional_youth_price')
                         //     ->label('Youth additional fee')
                         //     ->numeric(),
                         Forms\Components\TextInput::make('addtional_children_price')
                             ->label('Children additional fee')
+                            ->prefix('₱')
                             ->numeric(),
                     ])->columns(2),
 

@@ -1,5 +1,6 @@
 <!-- Navbar & Hero Start -->
 <style>
+    
     .navbar-logo {
         height: auto;
         /* Maintain aspect ratio */
@@ -27,7 +28,8 @@
 </style>
 <div class="container-fluid position-relative p-0">
     <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0"
-        style="background-color: rgba(52, 255, 52, 0.586);">
+
+        style="background-color: rgba(83, 255, 83, 0.196);"> ">
         {{-- style="background-color: rgba(83, 255, 83, 0.196);"> --}}
         <a href="/" class="navbar-brand p-0 ps-0 ps-md-5">
             <img src="{{ asset('assets/travelyu_logo1.png') }}" alt="Travelyu" class="navbar-logo" />

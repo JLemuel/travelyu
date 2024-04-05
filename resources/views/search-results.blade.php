@@ -15,5 +15,5 @@
         </div>
         @endif
     </div>
-    @include('components.homepage.footer')
+    <x-footer />
 </x-app-layout>

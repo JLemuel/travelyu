@@ -59,9 +59,33 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Upload Receipt Modal -->
+                <div class="modal fade" id="uploadReceiptModal-{{ $booking->id }}" tabindex="-1" aria-labelledby="uploadReceiptModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="uploadReceiptModalLabel">Upload Payment Receipt</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('bookings.uploadReceipt', $booking->id) }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="receiptFile" class="form-label">Receipt File</label>
+                                        <input class="form-control" type="file" id="receiptFile" name="receiptFile" required onchange="previewFile(this, 'previewImage-{{ $booking->id }}')">
+                                        <!-- Image preview placeholder -->
+                                        <img id="previewImage-{{ $booking->id }}" src="" class="img-fluid mt-3" style="width: 100%; height: auto; display: none;">
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Upload Receipt Payment</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-    
+
         @endforeach
 
 
@@ -71,48 +95,26 @@
     @endif
 </div>
 
-   <!-- Upload Receipt Modal -->
-   <div class="modal fade" id="uploadReceiptModal-{{ $booking->id }}" tabindex="-1" aria-labelledby="uploadReceiptModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="uploadReceiptModalLabel">Upload Payment Receipt</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="{{ route('bookings.uploadReceipt', $booking->id) }}" method="post" enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="mb-3">
-                                                    <label for="receiptFile" class="form-label">Receipt File</label>
-                                                    <input class="form-control" type="file" id="receiptFile" name="receiptFile" required onchange="previewFile(this, 'previewImage-{{ $booking->id }}')">
-                                                    <!-- Image preview placeholder -->
-                                                    <img id="previewImage-{{ $booking->id }}" src="" class="img-fluid mt-3" style="width: 100%; height: auto; display: none;">
-                                                </div>
-                                                <button type="submit" class="btn btn-success">Upload Receipt Payment</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+   
 
             <!-- Bootstrap Toast -->
        <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-                                <div style="z-index: 9999; position: absolute; bottom: 5rem; right: 0;">
-                                    <!-- Toast -->
-                                    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="notificationToast">
-                                        <div class="toast-header">
-                                            <strong class="mr-auto">Notification</strong>
-                                            <small>Just now</small>
-                                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="toast-body">
-                                            <!-- Dynamic message will be inserted here -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            <div style="z-index: 9999; position: absolute; bottom: 5rem; right: 0;">
+                <!-- Toast -->
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="notificationToast">
+                    <div class="toast-header">
+                        <strong class="mr-auto">Notification</strong>
+                        <small>Just now</small>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        <!-- Dynamic message will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
       
     <script>

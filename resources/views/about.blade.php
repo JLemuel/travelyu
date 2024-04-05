@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <!-- About Start -->
     <div class="container-xxl py-5">
         <div class="container" style="padding-top: 5rem">
@@ -15,62 +14,50 @@
                     <h6 class="section-title bg-white text-start text-primary pe-3">
                         About Us
                     </h6>
-                    <h1 class="mb-4">
-                        Welcome to <span class="text-primary">Travelyu</span>
-                    </h1>
+                    <h1 class="mb-4">Welcome to <span class="text-primary">Travelyu – Your Gateway to La Union's Hidden Gems</span></h1>
                     <p class="mb-4">
-                        Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
-                        diam amet diam et eos. Clita erat ipsum et lorem et sit.
+                        Nestled in the heart of La Union, Travelyu is more than just a travel agency; we are your personal gateway to an uncharted paradise. Our journey began with a simple mission: to unveil the majestic beauty of La Union to the world.
                     </p>
                     <p class="mb-4">
-                        Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
-                        diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
-                        lorem sit clita duo justo magna dolore erat amet
+                        At Travelyu, we believe that travel is not just about visiting new places but about creating memories that last a lifetime. Our dedicated team of travel enthusiasts and local experts works tirelessly to curate bespoke travel packages that cater to your every desire.
                     </p>
                     <div class="row gy-2 gx-4 mb-4">
                         <div class="col-sm-6">
                             <p class="mb-0">
-                                <i class="fa fa-arrow-right text-primary me-2"></i>First Class
-                                Flights
+                                <i class="fa fa-arrow-right text-primary me-2"></i>First Class Flights
                             </p>
                         </div>
                         <div class="col-sm-6">
                             <p class="mb-0">
-                                <i class="fa fa-arrow-right text-primary me-2"></i>Handpicked
-                                Hotels
+                                <i class="fa fa-arrow-right text-primary me-2"></i>Handpicked Hotels
                             </p>
                         </div>
                         <div class="col-sm-6">
                             <p class="mb-0">
-                                <i class="fa fa-arrow-right text-primary me-2"></i>5 Star
-                                Accommodations
+                                <i class="fa fa-arrow-right text-primary me-2"></i>5 Star Accommodations
                             </p>
                         </div>
                         <div class="col-sm-6">
                             <p class="mb-0">
-                                <i class="fa fa-arrow-right text-primary me-2"></i>Latest
-                                Model Vehicles
+                                <i class="fa fa-arrow-right text-primary me-2"></i>Latest Model Vehicles
                             </p>
                         </div>
                         <div class="col-sm-6">
                             <p class="mb-0">
-                                <i class="fa fa-arrow-right text-primary me-2"></i>150 Premium
-                                City Tours
+                                <i class="fa fa-arrow-right text-primary me-2"></i>150+ Premium City Tours
                             </p>
                         </div>
                         <div class="col-sm-6">
                             <p class="mb-0">
-                                <i class="fa fa-arrow-right text-primary me-2"></i>24/7
-                                Service
+                                <i class="fa fa-arrow-right text-primary me-2"></i>24/7 Service
                             </p>
                         </div>
                     </div>
-                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
+                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Discover More</a>
                 </div>
             </div>
         </div>
     </div>
     <!-- About End -->
-
-    @include('components.homepage.footer')
+    <x-footer />
 </x-app-layout>

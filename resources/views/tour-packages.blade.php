@@ -97,5 +97,5 @@
         <x-tour-packages :title="'All Tour Packages'" :subtitle="'Packages'" :packages="$packages" />
     </div>
 
-    @include('components.homepage.footer')
+    <x-footer />
 </x-app-layout>

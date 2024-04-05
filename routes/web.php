@@ -8,6 +8,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,8 @@ Route::get('/admin/login', function () {
 Route::get('/', function () {
     return view('splash');
 });
+
+Route::post('/contact', [ContactController::class, 'sendEmail'])->name('contact.send');
 
 // Assuming you already have this controller or you'll create it
 Route::get('/destinations/{destinations}', [DestinationController::class, 'showDestinations'])->name('destinations.show');

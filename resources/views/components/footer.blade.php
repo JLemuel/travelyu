@@ -34,12 +34,14 @@
                 <p class="mb-2">
                     <i class="fa fa-map-marker-alt me-3"></i>San Fernando City, La Union
                 </p>
+                @if($user)
                 <p class="mb-2">
                     <i class="fa fa-phone-alt me-3"></i>{{ $user->contact_number }}
                 </p>
                 <p class="mb-2">
                     <i class="fa fa-envelope me-3"></i>{{ $user->email }}
                 </p>
+                @endif
                 <div class="d-flex pt-2">
                     <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                     <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
