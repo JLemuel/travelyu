@@ -56,22 +56,33 @@ class PackageResource extends Resource
                     ->default(Auth::id())
                     ->visible(fn (): bool => Auth::user()->type === 'travel_agency'),
 
+
                 // Destination Selection
-                Forms\Components\Select::make('destination_id')
-                    ->label('Choose a Destination')
+                Forms\Components\CheckboxList::make('destinations')
+                    ->label('Choose Destinations')
                     ->options(Destination::pluck('name', 'id'))
-                    ->required()
-                    ->reactive(),
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, $set) {
+                        if (!empty($state)) {
+                            $destinations = Destination::whereIn('id', $state)->get();
+                            $totalPrice = $destinations->sum('price');
+                            $set('price', $totalPrice);
+                        } else {
+                            $set('price', 0);
+                        }
+                    })
+                    ->required(),
+
 
                 // Core Tour Details
                 Forms\Components\TextInput::make('name')
                     ->label('Tour Name') // More descriptive label
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('type')
-                    ->label('Tour Type')
-                    ->options(['Classic', 'Rainy', 'Summer'])
-                    ->required(),
+                // Forms\Components\Select::make('type')
+                //     ->label('Tour Type')
+                //     ->options(['Classic', 'Rainy', 'Summer'])
+                //     ->required(),
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->maxLength(65535)
@@ -80,10 +91,11 @@ class PackageResource extends Resource
                 // Pricing & Capacity
                 Section::make('Pricing & Capacity')
                     ->schema([
-                        Forms\Components\TextInput::make('price')
+                        TextInput::make('price')
                             ->required()
                             ->numeric()
-                            ->prefix('₱'),
+                            ->prefix('₱')
+                            ->readonly(),  // Optional: disable editing if you want it purely dynamic,  // Prevents the field from sending its initial state back to the server
                         Forms\Components\TextInput::make('duration')
                             ->label('Duration (Days)')
                             ->required()
@@ -110,6 +122,19 @@ class PackageResource extends Resource
                             ->label('Children additional fee')
                             ->prefix('₱')
                             ->numeric(),
+                    ])->columns(2),
+
+                // Payment Details
+                Section::make('Payment Details')
+                    ->description('Provide payment methods available for this package.')
+                    ->schema([
+                        Forms\Components\TextInput::make('gcash_number')
+                            ->label('GCash Number')
+                            ->numeric()
+                            ->helperText('Enter the GCash number customers can send payments to.'),
+                        Forms\Components\TextInput::make('bank_account_number')
+                            ->label('Bank Account Number')
+                            ->helperText('Enter the bank account number for direct transfers.'),
                     ])->columns(2),
 
                 Section::make('Tour Plan Details')

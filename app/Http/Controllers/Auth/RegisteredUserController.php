@@ -33,6 +33,7 @@ class RegisteredUserController extends Controller
         // dd($request->all()); // Dump the request data and die
 
         $request->validate([
+            'name' => ['string', 'max:255'],
             'first_name' => ['string', 'max:255'],
             'last_name' => ['string', 'max:255'],
             'email' => ['string', 'email', 'max:255', 'unique:users'],
@@ -57,11 +58,11 @@ class RegisteredUserController extends Controller
         }
 
 
-        $fullName = $request->first_name . ' ' . $request->last_name; // Concatenate first name and last name
+        // $fullName = $request->first_name . ' ' . $request->last_name; // Concatenate first name and last name
 
         $user = User::create([
             'first_name' => $request->type === 'tourist' ? $request->first_name : null,
-            'name' => $fullName,
+            'name' => $request->name,
             'last_name' => $request->type === 'tourist' ? $request->last_name : null,
             'agency_name' => $request->type === 'travel_agency' ? $request->agency_name : null,
             'email' => $request->email,

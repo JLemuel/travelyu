@@ -147,6 +147,13 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- First Name -->
                     <div>
+                        <x-input-label for="name" :value="__('Owners Name')" />
+                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
+                            required autofocus />
+                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                    </div>
+
+                    <div>
                         <x-input-label for="agency_name" :value="__('Name of Agency')" />
                         <x-text-input id="agency_name" class="block mt-1 w-full" type="text" name="agency_name"
                             :value="old('agency_name')" required autofocus />
