@@ -112,7 +112,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <form class="form" action="{{ route('search.packages') }}" method="GET">
-                    <div class="row mb-3">
+                    <div class="row mb-3 d-flex justify-content-center">
                         <!-- Text indicators and form controls... -->
                         <div class="col-lg-2 mb-3">
                             <span class="input-indicator">Destination</span>
@@ -157,11 +157,11 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-lg-2 mb-3">
+                        {{-- <div class="col-lg-2 mb-3">
                             <span class="input-indicator">Max Price (₱)</span>
                             <input type="number" class="form-control" name="max_price" id="max_price"
                                 placeholder="Enter max price in ₱">
-                        </div>
+                        </div> --}}
 
 
                         <div class="col-lg-2 mb-3">
