@@ -66,5 +66,5 @@
     </div>
     <!-- About End -->
 
-    @include('components.homepage.footer')
+    <x-footer />
 </x-app-layout>

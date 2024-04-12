@@ -11,12 +11,12 @@
 
         .booking-container {
             padding-top: 20px;
-            padding-bottom: 20px;
+            padding-bottom: 10px;
             background-color: var(--green-contrast-text);
             /* Optional: light background for the form area */
             border-radius: 10px;
             /* Optional: rounded corners for the form area */
-            margin-top: -100px;
+            margin-top: 1rem;
             /* Adjust as needed to position your form over the hero image */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             /* Optional: subtle shadow for depth */
@@ -107,7 +107,7 @@
             }
         }
     </style>
-    </style>
+
     <div class="container booking-container">
         <div class="row justify-content-center">
             <div class="col-lg-10">

@@ -464,16 +464,7 @@
     <script>
         function initMap() {
             var geocoder = new google.maps.Geocoder();
-            
-            // Define the origin coordinates
-            var originLat = 16.616003;
-            var originLng = 120.316712;
-            var origin = new google.maps.LatLng(originLat, originLng);
-            
-            // Define the destination coordinates from your Blade variables
-            var destLat = {{ number_format($package->destination->lat, 6) }};
-            var destLng = {{ number_format($package->destination->lng, 6) }};
-            var destination = new google.maps.LatLng(destLat, destLng);
+        
         
             // Define the pickup and dropoff coordinates
             var pickupCoords = {lat: parseFloat('{{ $booking->pickup_latitude }}'), lng: parseFloat('{{ $booking->pickup_longitude }}')};
@@ -519,27 +510,10 @@
                 }
             });
         
-            // Directions service to draw routes
-            var directionsService = new google.maps.DirectionsService();
-            var directionsRenderer = new google.maps.DirectionsRenderer();
-            directionsRenderer.setMap(pickupMap); // Set the map on which to display the route
         
-            calculateAndDisplayRoute(directionsService, directionsRenderer, origin, destination);
         }
         
-        function calculateAndDisplayRoute(directionsService, directionsRenderer, origin, destination) {
-            directionsService.route({
-                origin: origin,
-                destination: destination,
-                travelMode: 'DRIVING'
-            }, function(response, status) {
-                if (status === 'OK') {
-                    directionsRenderer.setDirections(response);
-                } else {
-                    window.alert('Directions request failed due to ' + status);
-                }
-            });
-        }
+
     </script>
 
     <script async defer

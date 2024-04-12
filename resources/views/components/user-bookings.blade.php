@@ -1,3 +1,33 @@
+<style>
+    .card-body .booking-details p,
+    .card-body .payment-methods p {
+        margin-bottom: 0.5rem;
+    }
+
+    .card-body .payment-methods h6 {
+        margin-top: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .card-actions {
+        margin-top: 1.5rem;
+    }
+
+    .card-actions .btn {
+        margin-right: 0.5rem;
+    }
+
+    /* FontAwesome icons */
+    .fas.fa-mobile-alt {
+        color: #50b948;
+        /* Green for Gcash */
+    }
+
+    .fas.fa-university {
+        color: #007bff;
+        /* Blue for Bank Account */
+    }
+</style>
 <div class="row">
     @if(isset($bookings) && $bookings->count() > 0)
     @foreach($bookings as $booking)
@@ -35,27 +65,42 @@
             <div class="col-lg-6">
                 <div class="card-body">
                     <h5 class="card-title">{{ $booking->package->name ?? 'N/A' }}</h5>
-                    <p class="card-text">
-                        Check-in: {{ $booking->check_in->format('M d, Y') }}<br>
-                        Check-out: {{ $booking->check_out->format('M d, Y') }}<br>
-                        Total Price: ${{ number_format($booking->total_price, 2) }}<br>
-                        <!-- Adults: {{ $booking->adults_count }}<br>
-                                    Youths: {{ $booking->youth_count }}<br>
-                                    Children: {{ $booking->children_count }}<br>
-                                    Additional Adults: {{ $booking->additional_adults_count }}<br>
-                                    Additional Youths: {{ $booking->additional_youth_count }}<br>
-                                    Additional Children: {{ $booking->additional_children_count }}<br>
-                                    Notes: {{ $booking->notes ?? 'N/A' }} -->
-                    </p>
-                    <a href="#" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#uploadReceiptModal-{{ $booking->id }}">
-                        Upload Payment Receipt
-                    </a>
-                    <!-- Button to view package details -->
-                    <a href="{{ route('packages.details', $booking->package->id) }}" class="btn btn-secondary">
-                        View Details
-                    </a>
+                    <div class="card-text">
+                        <div class="booking-details">
+                            <p>Check-in: {{ $booking->check_in->format('M d, Y') }}</p>
+                            <p>Check-out: {{ $booking->check_out->format('M d, Y') }}</p>
+                            <p>Total Price: ${{ number_format($booking->total_price, 2) }}</p>
+                            <!-- You can uncomment the following lines if you want to display them -->
+                            <!-- p>Adults: {{ $booking->adults_count }}</p>
+                            <p>Youths: {{ $booking->youth_count }}</p>
+                            <p>Children: {{ $booking->children_count }}</p>
+                            <p>Additional Adults: {{ $booking->additional_adults_count }}</p>
+                            <p>Additional Youths: {{ $booking->additional_youth_count }}</p>
+                            <p>Additional Children: {{ $booking->additional_children_count }}</p>
+                            <p>Notes: {{ $booking->notes ?? 'N/A' }}</p -->
+                        </div>
+                        <div class="payment-methods">
+                            <h6>Payment Options:</h6>
+                            @if ($booking->package->gcash_number)
+                            <p><i class="fas fa-mobile-alt"></i> Gcash: {{ $booking->package->gcash_number }}</p>
+                            @endif
+                            @if ($booking->package->bank_account_number)
+                            <p><i class="fas fa-university"></i> Bank Account: {{ $booking->package->bank_account_number
+                                }}</p>
+                            @endif
+                        </div>
+                        <div class="card-actions">
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#uploadReceiptModal-{{ $booking->id }}">
+                                Upload Payment Receipt
+                            </a>
+                            <a href="{{ route('packages.details', $booking->package->id) }}" class="btn btn-secondary">
+                                View Package Details
+                            </a>
+                        </div>
+                    </div>
                 </div>
+
 
                 <div class="card-footer">
                     <small class="text-muted">Booking ID: {{ $booking->id }}</small>

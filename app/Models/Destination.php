@@ -113,10 +113,15 @@ class Destination extends Model
     }
 
 
+    // public function packages()
+    // {
+    //     // Assuming each destination can have multiple packages
+    //     return $this->hasMany(Package::class);
+    // }
+
     public function packages()
     {
-        // Assuming each destination can have multiple packages
-        return $this->hasMany(Package::class);
+        return $this->belongsToMany(Package::class, 'package_destination');
     }
 
     public function activities()

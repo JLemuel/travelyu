@@ -146,34 +146,37 @@
             </div>
 
 
-            <div class="col-md-12">
-                <ul class="nav nav-tabs" id="profileTabs" role="tablist">
+            <div class="container">
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs" id="profileTabs" role="tablist">
 
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="update-profile-tab" data-bs-toggle="tab" href="#update-profile"
-                            role="tab" aria-controls="update-profile" aria-selected="false">Update Profile</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="update-password-tab" data-bs-toggle="tab" href="#update-password"
-                            role="tab" aria-controls="update-password" aria-selected="false">Update Password</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="delete-user-tab" data-bs-toggle="tab" href="#delete-user" role="tab"
-                            aria-controls="delete-user" aria-selected="false">Delete User</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="profileTabsContent">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="update-profile-tab" data-bs-toggle="tab"
+                                href="#update-profile" role="tab" aria-controls="update-profile"
+                                aria-selected="false">Update Profile</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="update-password-tab" data-bs-toggle="tab" href="#update-password"
+                                role="tab" aria-controls="update-password" aria-selected="false">Update Password</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="delete-user-tab" data-bs-toggle="tab" href="#delete-user" role="tab"
+                                aria-controls="delete-user" aria-selected="false">Delete User</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="profileTabsContent">
 
-                    <div class="tab-pane fade show active" id="update-profile" role="tabpanel"
-                        aria-labelledby="update-profile-tab">
-                        @include('profile.partials.update-profile-information-form')
-                    </div>
-                    <div class="tab-pane fade" id="update-password" role="tabpanel"
-                        aria-labelledby="update-password-tab">
-                        @include('profile.partials.update-password-form')
-                    </div>
-                    <div class="tab-pane fade" id="delete-user" role="tabpanel" aria-labelledby="delete-user-tab">
-                        @include('profile.partials.delete-user-form')
+                        <div class="tab-pane fade show active" id="update-profile" role="tabpanel"
+                            aria-labelledby="update-profile-tab">
+                            @include('profile.partials.update-profile-information-form')
+                        </div>
+                        <div class="tab-pane fade" id="update-password" role="tabpanel"
+                            aria-labelledby="update-password-tab">
+                            @include('profile.partials.update-password-form')
+                        </div>
+                        <div class="tab-pane fade" id="delete-user" role="tabpanel" aria-labelledby="delete-user-tab">
+                            @include('profile.partials.delete-user-form')
+                        </div>
                     </div>
                 </div>
             </div>

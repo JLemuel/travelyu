@@ -13,8 +13,8 @@ class Package extends Model
     protected $fillable = [
         'travel_agency_id', 'name', 'type', 'description', 'price',
         'duration', 'image', 'start_date', 'end_date', 'booking_limit',
-        'max_persons', 'additional_adult_price', 'additional_youth_price',
-        'additional_children_price', 'tour_plan_details',
+        'max_persons', 'addtional_adult_price', 'addtional_youth_price',
+        'addtional_children_price', 'tour_plan_details', 'gcash_number', 'bank_account_number'
     ];
 
     protected $casts = [
@@ -23,9 +23,8 @@ class Package extends Model
 
     public function destinations(): BelongsToMany
     {
-        return $this->belongsToMany(Destination::class, 'package_destination');
+        return $this->belongsToMany(Destination::class, 'package_destination', 'package_id', 'destination_id');
     }
-
     public function bookings()
     {
         return $this->hasMany(Booking::class);

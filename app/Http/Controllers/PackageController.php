@@ -33,7 +33,8 @@ class PackageController extends Controller
 
         // Primary search criteria
         if (!empty($validated['destination'])) {
-            $query->whereHas('destination', function ($q) use ($validated) {
+            // Assuming 'destinations' is the name of the pivot table and 'destination' the related model
+            $query->whereHas('destinations', function ($q) use ($validated) {
                 $q->where('city', $validated['destination']);
             });
         }
@@ -63,6 +64,7 @@ class PackageController extends Controller
 
         return view('search-results', compact('packages', 'isSuggestion'));
     }
+
 
     protected function getSimilarPackagesQuery($validated)
     {

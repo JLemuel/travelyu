@@ -43,6 +43,13 @@ Route::get('/', function () {
     return view('splash');
 });
 
+// routes/web.php
+
+use App\Filament\Pages\EditProfile;
+
+Route::post('/edit-profile', [EditProfile::class, 'submit'])->name('edit-profile.submit');
+
+
 Route::post('/contact', [ContactController::class, 'sendEmail'])->name('contact.send');
 
 // Assuming you already have this controller or you'll create it

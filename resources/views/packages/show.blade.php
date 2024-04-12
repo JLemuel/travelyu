@@ -9,7 +9,7 @@
             object-fit: cover;
             /* Cover the area of the carousel item without stretching */
             height: 100%;
-            /* Ensure the image covers the full height of the item */
+            /* Ensure the img covers the full height of the item */
         }
 
         .package {
@@ -250,6 +250,76 @@
             color: #ffc107;
             /* Color of filled star */
         }
+
+        .destinations-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .destination-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .destination-item:hover {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .destination-label {
+            display: block;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .destination-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .destination-name {
+            font-weight: 900;
+            color: #4cae4c;
+            font-size: 1.5rem;
+        }
+
+        .destination-images {
+            display: flex;
+            overflow-x: auto;
+            max-width: 200px;
+            /* Adjust based on your layout */
+        }
+
+        .destination-thumbnail {
+            max-height: 100px;
+            /* Adjust based on your layout */
+            margin-right: 5px;
+            border-radius: 4px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .btn-choose-destinations {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-choose-destinations:hover {
+            background-color: #0056b3;
+        }
     </style>
 
     <!-- Bootstrap Carousel for Images -->
@@ -308,6 +378,32 @@
             <div class="col-md-7">
                 <div class="container">
                     <!-- Package Description -->
+                    <div class="section" id="destination">
+                        <h2>Choose Destination</h2>
+
+                        <!-- Include this if you're using Laravel's CSRF protection -->
+                        <ul class="destinations-list">
+                            @foreach ($package->destinations as $destination)
+                            <li class="destination-item">
+                                <label class="destination-label">
+                                    <input type="checkbox" name="destinations[]" value="{{ $destination->id }}"
+                                        data-price="{{ $destination->price }}" class="destination-checkbox">
+                                    <div class="destination-content">
+                                        <span class="destination-name">{{ $destination->name }} - ₱{{
+                                            number_format($destination->price, 2) }}</span>
+                                        <div class="destination-images">
+                                            @foreach ($destination->image as $imgs)
+                                            <img src="{{ asset('storage/' . $imgs) }}" alt="{{ $destination->name }}"
+                                                class="destination-thumbnail">
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </label>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
                     <div class="section" id="description">
                         <h2>Description</h2>
                         <p class="mt-4">{{ $package->description }}</p>
@@ -637,40 +733,39 @@
 
         };
 
+         // Function to calculate total price
         function calculateTotalPrice() {
             const startDate = new Date(document.getElementById('start_date').value);
             const endDate = new Date(document.getElementById('end_date').value);
-            const totalDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24)); // +1 to include both start and end dates
+            const totalDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
 
             if (!isNaN(totalDays) && totalDays > 0) {
-                const basePrice = totalDays * packageDetails.pricePerDay;
+                let basePrice = 0;
+
+                // Calculate base price from selected destinations
+                document.querySelectorAll('input.destination-checkbox:checked').forEach((checkbox) => {
+                    basePrice += parseInt(checkbox.dataset.price, 10) * totalDays;
+                });
+
                 const totalPersons = getTotalPersons();
                 let extraFees = 0;
 
                 if (totalPersons >= packageDetails.maxPersons) {
                     const additionalAdults = parseInt(document.getElementById('additionalFeeAdults').value, 10) || 0;
-                    // const additionalYouth = parseInt(document.getElementById('additionalFeeYouth').value, 10) || 0;
                     const additionalChildren = parseInt(document.getElementById('additionalFeeChildren').value, 10) || 0;
-
-                    console.log("packageDetails.additionalAdultPrice", packageDetails.additionalAdultPrice)
-                    // console.log("packageDetails.additionalYouthPrice", packageDetails.additionalYouthPrice)
-                    console.log("packageDetails.additionalChildPrice", packageDetails.additionalChildPrice)
 
                     extraFees += additionalAdults * packageDetails.additionalAdultPrice;
                     // extraFees += additionalYouth * packageDetails.additionalYouthPrice;
                     extraFees += additionalChildren * packageDetails.additionalChildPrice;
 
-                    extraFees; // Multiply by the number of days
+                    // extraFees += (additionalAdults * packageDetails.additionalAdultPrice + additionalChildren * packageDetails.additionalChildPrice) * totalDays;
                 }
 
                 const totalPrice = basePrice + extraFees;
-                console.log("totalPrice", totalPrice);
-                
                 document.getElementById('totalPrice').textContent = `₱${totalPrice.toFixed(2)}`;
                 document.getElementById('totalPriceInput').value = totalPrice.toFixed(2);
             } else {
-                document.getElementById('totalPrice').textContent = `₱0`;
-                // Set the value of the hidden input field to 0 if totalDays is not valid
+                document.getElementById('totalPrice').textContent = '₱0.00';
                 document.getElementById('totalPriceInput').value = '0.00';
             }
         }
@@ -726,6 +821,9 @@
 
         
 
+        document.querySelectorAll('.destination-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', calculateTotalPrice);
+        });
 
         document.getElementById('start_date').addEventListener('change', calculateTotalPrice);
         // endDateInput.addEventListener('change', calculateTotalPrice);

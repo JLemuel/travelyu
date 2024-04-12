@@ -148,13 +148,13 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $package->name }}</h5>
                         <!-- Location -->
-                        <p class="card-text location">
+                        {{-- <p class="card-text location">
                             <i class="bi bi-geo-alt-fill"></i> {{ $package->destination->city }}, {{
                             $package->destination->province }}
-                        </p>
+                        </p> --}}
                         <div class="package-details mb-2">
                             <span class="days"><i class="bi bi-calendar3"></i> {{ $package->duration }} days</span>
-                            <span class="price">From ₱{{ $package->price }}</span>
+                            {{-- <span class="price">From ₱{{ $package->price }}</span> --}}
                         </div>
                         <p class="card-text">{{ $package->description }}</p>
                         <a href="{{ route('packages.show', $package->id) }}" class="btn btn-primary">Explore</a>

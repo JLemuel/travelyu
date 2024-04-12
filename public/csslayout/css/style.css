@@ -163,11 +163,76 @@
 
 /*** Hero Header ***/
 .hero-header {
-    background: linear-gradient(rgba(20, 20, 31, .7), rgba(20, 20, 31, .7)), url(../img/elyu.jpg);
+    position: relative;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+    height: 80vh; /* Adjust height as needed */
+    width: 100%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff; /* Ensures text color is white for better readability */
 }
+
+/* Adding a dark overlay to enhance text readability */
+.hero-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(20, 20, 31, 0.7);
+    z-index: 1; /* Ensures the overlay is above the background image but below text content */
+}
+
+/* Ensuring all content inside the hero header is positioned above the overlay */
+.hero-header > .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Specific styling for captions within the hero header */
+.hero-header .carousel-caption {
+    position: absolute;
+    bottom: 20%; /* Adjust this to move the caption up or down */
+    right: 15%; /* Adjust this to move the caption left or right */
+    left: 15%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #ffffff; /* White text color */
+    text-align: center; /* Center align text */
+}
+
+.hero-header h1 {
+    font-size: 2.5rem; /* Large font size for primary header */
+    text-transform: uppercase;
+    font-weight: bold;
+    animation-name: slideInDown; /* Custom animation for sliding in */
+    animation-duration: 2s; /* Duration of animation */
+}
+
+.hero-header a.btn {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 12px 24px; /* Larger button padding */
+    border-radius: 50px; /* Rounded pill shape */
+
+    border: none;
+
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
 
 .breadcrumb-item + .breadcrumb-item::before {
     color: rgba(255, 255, 255, .5);

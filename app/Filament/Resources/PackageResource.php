@@ -61,12 +61,14 @@ class PackageResource extends Resource
                 Forms\Components\CheckboxList::make('destinations')
                     ->label('Choose Destinations')
                     ->options(Destination::pluck('name', 'id'))
+                    ->relationship('destinations', 'name')
                     ->reactive()
                     ->afterStateUpdated(function ($state, $set) {
                         if (!empty($state)) {
-                            $destinations = Destination::whereIn('id', $state)->get();
-                            $totalPrice = $destinations->sum('price');
-                            $set('price', $totalPrice);
+                            // $destinations = Destination::whereIn('id', $state)->get();
+                            // $totalPrice = $destinations->sum('price');
+                            // $set('price', $totalPrice);
+                            $set('price', 0);
                         } else {
                             $set('price', 0);
                         }
@@ -91,11 +93,15 @@ class PackageResource extends Resource
                 // Pricing & Capacity
                 Section::make('Pricing & Capacity')
                     ->schema([
-                        TextInput::make('price')
-                            ->required()
-                            ->numeric()
-                            ->prefix('₱')
-                            ->readonly(),  // Optional: disable editing if you want it purely dynamic,  // Prevents the field from sending its initial state back to the server
+                        // TextInput::make('price')
+                        //     ->required()
+                        //     ->numeric()
+                        //     ->prefix('₱')
+                        //     ->dehydrated() // Ensure the value is included on form submission
+                        //     ->dehydratedStateUsing(fn ($state) => $state) // Pass the value through
+                        //     ->default(0) // Default value if none is set
+                        //     ->hidden(),
+                        // Optional: disable editing if you want it purely dynamic,  // Prevents the field from sending its initial state back to the server
                         Forms\Components\TextInput::make('duration')
                             ->label('Duration (Days)')
                             ->required()
@@ -189,9 +195,12 @@ class PackageResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('destination.name')
-                    ->label('Destination')
-                    ->searchable(),  // Assuming 'destination' relationship exists
+                Tables\Columns\TextColumn::make('destinations.name')
+                    ->label('Destinations')
+                    ->formatStateUsing(function ($state, $record) {
+                        return $record->destinations->pluck('name')->join(', ');
+                    })
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('type')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('price')

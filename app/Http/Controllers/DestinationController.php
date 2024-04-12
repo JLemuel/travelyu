@@ -20,7 +20,8 @@ class DestinationController extends Controller
         // dd($destination); // Debugging: dump the destination to see if it's found
         return view('destinations.show', compact('destination'));
     }
-    public function showDestinations($cityName) // Using the city name as a parameter
+
+    public function showDestinations($cityName) // Using the city name as a parameter0
     {
         // Find destinations by city name.
         $destinations = Destination::where('city', 'like', "%{$cityName}%")->get();

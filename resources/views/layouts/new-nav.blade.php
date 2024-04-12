@@ -89,21 +89,47 @@
         </div>
     </nav>
     @if(request()->is('home'))
-    <div class="container-fluid bg-primary py-5 mb-5 hero-header">
-        <div class="container py-5">
-            <div class="row justify-content-center py-5">
-                <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown">
-                        Discover the most engaging places here in La Union.
-                    </h1>
-                    <!-- "Explore Now" button -->
-                    <a href="/destination" class="btn btn-primary rounded-pill py-2 px-4" role="button">Explore Now</a>
-                </div>
+    <div class=" bg-primary">
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
 
+            @php
+            $slides = \App\Models\CarouselSlide::where('is_active', true)->get();
+            @endphp
+
+            <div class="carousel-inner">
+                @foreach($slides as $index => $slide)
+                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}" data-bs-interval="3000">
+                    <div class="hero-header"
+                        style="background-image: url('{{ Storage::disk('public')->url($slide->carousel_image) }}');">
+                        <div class="container py-5">
+                            <div class="row justify-content-center py-5">
+                                <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
+                                    <h1 class="display-3 text-white mb-3 animated slideInDown">
+                                        Discover the most engaging places here in La Union.
+                                    </h1>
+                                    <a href="/destination" class="btn btn-primary rounded-pill py-2 px-4"
+                                        role="button">Explore Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
+            <!-- Left and right controls/icons -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        @endif
+
+
     </div>
+    @endif
     <!-- Navbar & Hero End -->
     {{-- <p class="fs-4 text-white mb-4 animated slideInDown">
         Tempor erat elitr rebum at clita diam amet diam et eos erat

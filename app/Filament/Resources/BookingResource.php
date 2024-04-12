@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
 use App\Filament\Resources\BookingResource\Pages;
 use App\Filament\Resources\BookingResource\RelationManagers;
 use App\Models\Booking;
@@ -17,6 +19,7 @@ use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\NumberColumn;
 use Filament\Tables\Columns\RelationshipColumn; // (If applicable for package relationship)
 use Filament\Tables\Columns\TextColumn;
+use Filament\Infolists\Components\TextEntry;
 
 class BookingResource extends Resource
 {
@@ -103,12 +106,28 @@ class BookingResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                // Infolists\Components\TextEntry::make('user.name'),
+                // Infolists\Components\TextEntry::make('user.email'),
+                Infolists\Components\ImageEntry::make('receipt')
+                    // ->visibility('private')
+                    ->height(500)
+                    ->columnSpan([
+                        'sm' => 1,
+                    ]),
             ]);
     }
 
@@ -124,6 +143,7 @@ class BookingResource extends Resource
         return [
             'index' => Pages\ListBookings::route('/'),
             // 'create' => Pages\CreateBooking::route('/create'),
+            // 'view' => Pages\ViewBooking::route('/{record}'),
             'edit' => Pages\EditBooking::route('/{record}/edit'),
         ];
     }
