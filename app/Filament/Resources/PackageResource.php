@@ -195,13 +195,17 @@ class PackageResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('destinations.name')
+                Tables\Columns\TextColumn::make('destinations.city')
                     ->label('Destinations')
+                    // ->formatStateUsing(function ($state, $record) {
+                    //     return $record->destinations->pluck('name')->join(', ');
+                    // })
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('destinations.name')
+                    ->label('Type')
                     ->formatStateUsing(function ($state, $record) {
                         return $record->destinations->pluck('name')->join(', ');
                     })
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('type')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('price')
                     ->money('php') // Adjust currency if needed
@@ -210,6 +214,7 @@ class PackageResource extends Resource
                     ->label('Duration (Days)')
                     ->sortable(),
                 Tables\Columns\ImageColumn::make('image')
+                    ->stacked()
                     ->circular(), // No stacking needed for a single image
                 Tables\Columns\TextColumn::make('start_date')
                     ->date()

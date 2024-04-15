@@ -100,87 +100,107 @@
                 padding-top: 0.5rem;
             }
 
-            .btn-primary {
+            /* .btn-primary {
                 font-size: 1rem;
                 padding: .375rem .75rem;
                 margin-top: .8rem;
-            }
+            } */
         }
     </style>
 
-    <div class="container booking-container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <form class="form" action="{{ route('search.packages') }}" method="GET">
-                    <div class="row mb-3 d-flex justify-content-center">
-                        <!-- Text indicators and form controls... -->
-                        <div class="col-lg-2 mb-3">
-                            <span class="input-indicator">Destination</span>
-                            <select name="destination" id="destination" class="form-control custom-select">
-                                <option value="">Destination</option>
-                                <option value="San Fernando">San Fernando (Capital)</option>
-                                <option value="Agoo">Agoo</option>
-                                <option value="Bauang">Bauang</option>
-                                <option value="Caba">Caba</option>
-                                <option value="Luna">Luna</option>
-                                <option value="Rosario">Rosario</option>
-                                <option value="San Juan">San Juan</option>
-                                <option value="Aringay">Aringay</option>
-                                <option value="Balaoan">Balaoan</option>
-                                <option value="Bangar">Bangar</option>
-                                <option value="Santo Tomas">Santo Tomas</option>
-                                <option value="Tubao">Tubao</option>
-                            </select>
-                        </div>
-                        <!-- <div class="col-lg-2 mb-3">
-                            <span class="input-indicator">Select Type</span>
-                            <select name="type" id="type" class="form-control custom-select">
-                                <option value="">Select Type</option>
-                                <option value="adventure">Adventure</option>
-                                <option value="beach">Beach</option>
-                                <option value="cultural">Cultural Sites</option>
-                                <option value="food_tour">Food Tour</option>
-                                <option value="historical">Historical Sites</option>
-                                <option value="nature">Nature and Parks</option>
-                                <option value="night_life">Night Life</option>
-                                <option value="relaxation">Relaxation</option>
-                                <option value="sports">Sports</option>
-                                <option value="water_activities">Water Activities</option>
-                            </select>
-                        </div> -->
-                        <div class="col-lg-2 mb-3">
-                            <span class="input-indicator">Select Type</span>
-                            <select name="type" id="type" class="form-control custom-select">
-                                <option value="">Select Type</option>
+    <div>
+        <div class="container booking-container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-12">
+                    <form class="form" action="{{ route('search.packages') }}" method="GET">
+                        <div class="row px-3 mb-3">
+                            <!-- Location in La Union -->
+                            <?php
+                            $locations = [
+                                'San Fernando',
+                                'Agoo',
+                                'Bauang',
+                                'Caba',
+                                'Luna',
+                                'Rosario',
+                                'San Juan',
+                                'Aringay',
+                                'Balaoan',
+                                'Bangar',
+                                'Santo Tomas',
+                                'Tubao'
+                            ];
+                            ?>
+                            <div class="col-lg-3 col-md-6 col-12 mb-3">
+                                <span class="input-indicator">Location in La Union</span>
+                                <div class="row">
+                                    @foreach($locations as $location)
+                                    <div class="col-md-6 col-4 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="locations[]"
+                                                id="location_{{ strtolower(str_replace(' ', '_', $location)) }}"
+                                                value="{{ $location }}">
+                                            <label class="form-check-label"
+                                                for="location_{{ strtolower(str_replace(' ', '_', $location)) }}">{{
+                                                $location }}</label>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <!-- Select Type -->
+                            <div class="col-lg-2 col-md-6 mb-3">
+                                <span class="input-indicator">Select Type</span>
                                 @foreach($destinations as $destination)
-                                <option value="{{ $destination->name }}">{{ $destination->name }}</option>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="destinations[]"
+                                        id="destination_{{ $destination->id }}" value="{{ $destination->name }}">
+                                    <label class="form-check-label" for="destination_{{ $destination->id }}">{{
+                                        $destination->name }}</label>
+                                </div>
                                 @endforeach
-                            </select>
+                            </div>
+
+                            <!-- Select Month -->
+                            <div class="col-lg-3 col-md-6 col-12 mb-3">
+                                <span class="input-indicator">Select Month</span>
+                                <div class="row">
+                                    @php
+                                    $currentYear = date('Y');
+                                    $currentMonth = date('n');
+                                    @endphp
+                                    @for ($i = 1; $i <= 12; $i++) @php $month=date('F', mktime(0, 0, 0, $i, 1));
+                                        $disabled=($currentYear==date('Y') && $i < $currentMonth) ? 'disabled' : '' ;
+                                        @endphp <div class="col-md-6 col-4 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="months[]"
+                                                id="month_{{ $i }}" value="{{ $month }}" {{ $disabled }}>
+                                            <label class="form-check-label" for="month_{{ $i }}">{{ $month }} {{
+                                                $currentYear }}</label>
+                                        </div>
+                                </div>
+                                @endfor
+                            </div>
                         </div>
-                        {{-- <div class="col-lg-2 mb-3">
+
+                        <!-- Max Price -->
+                        <div class="col-lg-2 col-md-6 col-6 mb-3">
                             <span class="input-indicator">Max Price (₱)</span>
                             <input type="number" class="form-control" name="max_price" id="max_price"
                                 placeholder="Enter max price in ₱">
-                        </div> --}}
-
-
-                        <div class="col-lg-2 mb-3">
-                            <span class="input-indicator">Start Date</span>
-                            <input type="date" class="form-control" name="start_date">
-                        </div>
-                        <div class="col-lg-2 mb-3">
-                            <span class="input-indicator">End Date</span>
-                            <input type="date" class="form-control" name="end_date">
-
                         </div>
 
-                        <div class="col-lg-2 mb-3">
+                        <!-- Submit Button -->
+                        <div class="col-lg-2 col-md-6 col-6 mb-3">
                             <input type="submit" class="btn btn-primary btn-block" value="Book Now">
                         </div>
-                    </div>
+                </div>
                 </form>
             </div>
         </div>
+    </div>
+
     </div>
 
 

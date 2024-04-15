@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Package extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $fillable = [
         'travel_agency_id', 'name', 'type', 'description', 'price',
@@ -20,6 +21,7 @@ class Package extends Model
     protected $casts = [
         'image' => 'array',
     ];
+
 
     public function destinations(): BelongsToMany
     {
@@ -38,5 +40,14 @@ class Package extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->name,
+            'description' => $this->description,
+            // Add more searchable attributes as needed
+        ];
     }
 }

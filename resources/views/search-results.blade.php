@@ -1,6 +1,6 @@
 <x-app-layout>
     <div style="padding-top: 5rem;">
-        @if($packages->isNotEmpty() && !$isSuggestion)
+        @if($packages->isNotEmpty())
         <x-tour-packages :packages="$packages" title="Filtered Results" subtitle="Found Destinations" />
         @elseif($packages->isNotEmpty() && $isSuggestion)
         <div class="mt-5 text-center">
