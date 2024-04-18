@@ -193,7 +193,7 @@
 
                         <!-- Submit Button -->
                         <div class="col-lg-2 col-md-6 col-6 mb-3">
-                            <input type="submit" class="btn btn-primary btn-block" value="Book Now">
+                            <input type="submit" class="btn btn-primary btn-block" value="Search">
                         </div>
                 </div>
                 </form>
