@@ -10,7 +10,7 @@ class Activity extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'price', 'image'];
+    protected $fillable = ['name', 'destination_id', 'description', 'price', 'image'];
 
     protected $casts = [
         'image' => 'array',
