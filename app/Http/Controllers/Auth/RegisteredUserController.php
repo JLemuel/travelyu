@@ -58,11 +58,11 @@ class RegisteredUserController extends Controller
         }
 
 
-        // $fullName = $request->first_name . ' ' . $request->last_name; // Concatenate first name and last name
+        $fullName = $request->first_name . ' ' . $request->last_name; // Concatenate first name and last name
 
         $user = User::create([
             'first_name' => $request->type === 'tourist' ? $request->first_name : null,
-            'name' => $request->name,
+            'name' => $fullName,
             'last_name' => $request->type === 'tourist' ? $request->last_name : null,
             'agency_name' => $request->type === 'travel_agency' ? $request->agency_name : null,
             'email' => $request->email,

@@ -66,7 +66,10 @@
 
             </div>
 
-            <a href="{{ route('profile.edit') }}" class="nav-item nav-link">{{ Auth::user()->name }}</a>
+            <a href="{{ route('profile.edit') }}" class="nav-item nav-link">
+                {{ Auth::user()->name ?: Auth::user()->agency_name }}
+            </a>
+
             <a href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                 class="btn btn-primary rounded-pill py-1 px-2" style="font-size: 1.2rem">

@@ -84,14 +84,14 @@
 
 
                     <!-- Image/File Upload -->
-                    <div class="mt-4">
+                    {{-- <div class="mt-4">
                         <x-input-label for="file" :value="__('File')" />
                         <x-text-input id="file" class="block mt-1 w-full" type="file" name="file" required />
                         <x-input-error :messages="$errors->get('file')" class="mt-2" />
                         <p class="text-xs text-gray-600 mt-1"> <span class="text-red-500">*</span>(Upload valid
                             documents e.g., Birth certificate,
                             Business permit, etc.)</p>
-                    </div>
+                    </div> --}}
 
                     <!-- Username -->
                     <div>

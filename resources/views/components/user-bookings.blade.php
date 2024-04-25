@@ -69,7 +69,7 @@
                         <div class="booking-details">
                             <p>Check-in: {{ $booking->check_in->format('M d, Y') }}</p>
                             <p>Check-out: {{ $booking->check_out->format('M d, Y') }}</p>
-                            <p>Total Price: ${{ number_format($booking->total_price, 2) }}</p>
+                            <p>Total Price: ₱{{ number_format($booking->total_price, 2) }}</p>
                             <!-- You can uncomment the following lines if you want to display them -->
                             <!-- p>Adults: {{ $booking->adults_count }}</p>
                             <p>Youths: {{ $booking->youth_count }}</p>

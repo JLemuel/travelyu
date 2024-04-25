@@ -80,7 +80,7 @@ class ActivityResource extends Resource
                     ->limit(3)
                     ->limitedRemainingText(),
                 Tables\Columns\TextColumn::make('price')
-                    ->money()
+                    ->money('PHP')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
