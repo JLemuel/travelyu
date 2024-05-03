@@ -24,8 +24,8 @@ class StatsOverview extends BaseWidget
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success'),
             Stat::make('Destination Count', Destination::count())
-                ->description('Total Destinatinations')
-                ->descriptionIcon('heroicon-m-arrow-trending-down')
+                ->description('Total Destinations')
+                ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('danger'),
             Stat::make('Packages Count', Package::count())
                 ->description('Total Packages')
