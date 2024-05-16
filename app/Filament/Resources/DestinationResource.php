@@ -41,10 +41,10 @@ class DestinationResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('price')
-                    ->required()
-                    ->numeric()
-                    ->prefix('₱'),
+                // Forms\Components\TextInput::make('price')
+                //     ->required()
+                //     ->numeric()
+                //     ->prefix('₱'),
                 Forms\Components\Textarea::make('description')
                     ->maxLength(65535)
                     ->required()
@@ -151,8 +151,8 @@ class DestinationResource extends Resource
                     ->circular(), // Single image, no need for stacking
                 Tables\Columns\TextColumn::make('province'),
                 Tables\Columns\TextColumn::make('city'),
-                Tables\Columns\TextColumn::make('price')
-                    ->money('PHP'),
+                // Tables\Columns\TextColumn::make('price')
+                //     ->money('PHP'),
                 // Consider a column combining 'street', 'city', 'province' for a shorter 'Address' column 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

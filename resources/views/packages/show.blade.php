@@ -363,8 +363,8 @@
                     <span class="text-muted"><i class="bi bi-people-fill"></i> <strong>Max People:</strong> {{
                         $package->max_persons }}</span>
 
-                    <span class="text-muted"><i class="bi bi-book-fill"></i> <strong>Booking Limit:</strong> {{
-                        $package->booking_limit }}</span>
+                    {{-- <span class="text-muted"><i class="bi bi-book-fill"></i> <strong>Booking Limit:</strong> {{
+                        $package->booking_limit }}</span> --}}
                     <span class="text-muted"><i class="bi bi-geo-alt-fill"></i> <strong>Tour Type:</strong> {{
                         $package->type }}</span>
                     <span class="text-muted">

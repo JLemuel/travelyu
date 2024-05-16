@@ -102,6 +102,8 @@ Route::get('/travel-agencies', function () {
 Route::get('/travel-agencies/{id}/packages', [TravelAgencyController::class, 'showPackages'])
     ->name('travel-agencies.packages');
 
+Route::get('/travel-agency/{id}', [TravelAgencyController::class, 'show'])->name('travelAgency.show');
+
 // About page
 // It seems you've listed "about.html" twice in your navigation. Adjust as necessary.
 Route::get('/about', function () {

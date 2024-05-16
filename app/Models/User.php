@@ -32,6 +32,8 @@ class User extends Authenticatable
         'establishment_date', // Added field
         'username',
         'password',
+        'gcash_number',
+        'bank_account_number',
     ];
 
     /**
@@ -62,5 +64,10 @@ class User extends Authenticatable
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function packages()
+    {
+        return $this->hasMany(Package::class, 'travel_agency_id');
     }
 }

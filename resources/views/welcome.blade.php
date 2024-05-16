@@ -150,7 +150,7 @@
                             </div>
 
                             <!-- Select Type -->
-                            <div class="col-lg-2 col-md-6 mb-3">
+                            {{-- <div class="col-lg-2 col-md-6 mb-3">
                                 <span class="input-indicator">Select Type</span>
                                 @foreach($destinations as $destination)
                                 <div class="form-check">
@@ -160,7 +160,7 @@
                                         $destination->name }}</label>
                                 </div>
                                 @endforeach
-                            </div>
+                            </div> --}}
 
                             <!-- Select Month -->
                             <div class="col-lg-3 col-md-6 col-12 mb-3">
@@ -176,8 +176,9 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="months[]"
                                                 id="month_{{ $i }}" value="{{ $month }}" {{ $disabled }}>
-                                            <label class="form-check-label" for="month_{{ $i }}">{{ $month }} {{
-                                                $currentYear }}</label>
+                                            {{-- <label class="form-check-label" for="month_{{ $i }}">{{ $month }} {{
+                                                $currentYear }}</label> --}}
+                                            <label class="form-check-label" for="month_{{ $i }}">{{ $month }}</label>
                                         </div>
                                 </div>
                                 @endfor

@@ -42,6 +42,12 @@ class Package extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function travelAgency()
+    {
+        return $this->belongsTo(User::class, 'travel_agency_id');
+    }
+
+
     public function toSearchableArray()
     {
         return [

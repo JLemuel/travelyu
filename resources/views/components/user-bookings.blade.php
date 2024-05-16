@@ -79,7 +79,7 @@
                             <p>Additional Children: {{ $booking->additional_children_count }}</p>
                             <p>Notes: {{ $booking->notes ?? 'N/A' }}</p -->
                         </div>
-                        <div class="payment-methods">
+                        {{-- <div class="payment-methods">
                             <h6>Payment Options:</h6>
                             @if ($booking->package->gcash_number)
                             <p><i class="fas fa-mobile-alt"></i> Gcash: {{ $booking->package->gcash_number }}</p>
@@ -88,7 +88,7 @@
                             <p><i class="fas fa-university"></i> Bank Account: {{ $booking->package->bank_account_number
                                 }}</p>
                             @endif
-                        </div>
+                        </div> --}}
                         <div class="card-actions">
                             <a href="#" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#uploadReceiptModal-{{ $booking->id }}">
@@ -102,9 +102,22 @@
                 </div>
 
 
-                <div class="card-footer">
+                {{-- <div class="card-footer">
                     <small class="text-muted">Booking ID: {{ $booking->id }}</small>
+                </div> --}}
+                <div class="card-footer">
+                    <small class="text-muted">
+                        Travel Agency:
+                        @if($booking->package->travelAgency)
+                        <a href="{{ route('travelAgency.show', $booking->package->travelAgency->id) }}">
+                            {{ $booking->package->travelAgency->agency_name ?? 'N/A' }}
+                        </a>
+                        @else
+                        N/A
+                        @endif
+                    </small>
                 </div>
+
             </div>
         </div>
     </div>

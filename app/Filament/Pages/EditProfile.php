@@ -58,7 +58,14 @@ class EditProfile extends Page implements HasForms
                         Forms\Components\TextInput::make('email')->label('Email')->email()->required()->unique(ignoreRecord: true),
                         // Add more fields here as needed
                         Forms\Components\TextInput::make('tagline')->label('Tagline'),
-                        Forms\Components\FileUpload::make('file_path')->label('File')->required(),
+                        Forms\Components\FileUpload::make('file_path')->label('File')->columnSpanFull(),
+                        Forms\Components\TextInput::make('gcash_number')
+                            ->label('GCash Number')
+                            ->numeric()
+                            ->helperText('Enter the GCash number customers can send payments to.'),
+                        Forms\Components\TextInput::make('bank_account_number')
+                            ->label('Bank Account Number')
+                            ->helperText('Enter the bank account number for direct transfers.'),
                     ])->columns(2),
             ])
             ->model($this->getUser())

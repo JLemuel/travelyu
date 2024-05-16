@@ -293,14 +293,14 @@
                 <h1>{{ $package->name }}</h1>
                 <div class="d-flex justify-content-start flex-wrap align-items-center gap-3">
                     <span class="text-muted"><strong>Price:</strong> From ₱{{ $package->price }}</span>
-                    <span class="text-muted"><i class="bi bi-clock"></i> <strong>Duration:</strong> {{
-                        $package->duration }} days</span>
+                    {{-- <span class="text-muted"><i class="bi bi-clock"></i> <strong>Duration:</strong> {{
+                        $package->duration }} days</span> --}}
                     <span class="text-muted"><i class="bi bi-people-fill"></i> <strong>Max People:</strong> {{
                         $package->max_persons }}</span>
-                    <span class="text-muted"><i class="bi bi-book-fill"></i>
+                    {{-- <span class="text-muted"><i class="bi bi-book-fill"></i>
                         <strong>Booking Limit:</strong> {{ $package->booking_limit }}
-                        {{-- ({{ $package->booking }} booked) --}}
-                    </span>
+
+                    </span> --}}
 
                     <span class="text-muted"><i class="bi bi-geo-alt-fill"></i> <strong>Tour Type:</strong> {{
                         $package->type }}</span>

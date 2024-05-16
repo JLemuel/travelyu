@@ -73,7 +73,10 @@ class PackageResource extends Resource
                             $set('price', 0);
                         }
                     })
-                    ->required(),
+                    ->required()
+                    ->columnSpanFull()
+                    ->columns(6)
+                    ->gridDirection('row'),
 
 
                 // Core Tour Details

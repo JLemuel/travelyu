@@ -16,4 +16,10 @@ class TravelAgencyController extends Controller
 
         return view('agency-packages', compact('agency', 'packages'));
     }
+
+    public function show($id)
+    {
+        $travelAgency = User::findOrFail($id);
+        return view('travelAgency.show', compact('travelAgency'));
+    }
 }
