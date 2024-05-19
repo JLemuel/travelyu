@@ -389,8 +389,9 @@
                                     <input type="checkbox" name="destinations[]" value="{{ $destination->id }}"
                                         data-price="{{ $destination->price }}" class="destination-checkbox">
                                     <div class="destination-content">
-                                        <span class="destination-name">{{ $destination->name }} - ₱{{
-                                            number_format($destination->price, 2) }}</span>
+                                        <span class="destination-name">{{ $destination->name }}</span>
+                                        <!-- <span class="destination-name">{{ $destination->name }} - ₱{{
+                                            number_format($destination->price, 2) }}</span> -->
                                         <div class="destination-images">
                                             @foreach ($destination->image as $imgs)
                                             <img src="{{ asset('storage/' . $imgs) }}" alt="{{ $destination->name }}"
@@ -734,31 +735,25 @@
         };
 
          // Function to calculate total price
-        function calculateTotalPrice() {
+         function calculateTotalPrice() {
             const startDate = new Date(document.getElementById('start_date').value);
             const endDate = new Date(document.getElementById('end_date').value);
             const totalDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
 
             if (!isNaN(totalDays) && totalDays > 0) {
-                let basePrice = 0;
-
-                // Calculate base price from selected destinations
-                document.querySelectorAll('input.destination-checkbox:checked').forEach((checkbox) => {
-                    basePrice += parseInt(checkbox.dataset.price, 10) * totalDays;
-                });
+                let basePrice = packageDetails.pricePerDay * totalDays;
 
                 const totalPersons = getTotalPersons();
                 let extraFees = 0;
 
-                if (totalPersons >= packageDetails.maxPersons) {
+                if (totalPersons > packageDetails.maxPersons) {
+                    const additionalPersons = totalPersons - packageDetails.maxPersons;
                     const additionalAdults = parseInt(document.getElementById('additionalFeeAdults').value, 10) || 0;
                     const additionalChildren = parseInt(document.getElementById('additionalFeeChildren').value, 10) || 0;
 
                     extraFees += additionalAdults * packageDetails.additionalAdultPrice;
                     // extraFees += additionalYouth * packageDetails.additionalYouthPrice;
                     extraFees += additionalChildren * packageDetails.additionalChildPrice;
-
-                    // extraFees += (additionalAdults * packageDetails.additionalAdultPrice + additionalChildren * packageDetails.additionalChildPrice) * totalDays;
                 }
 
                 const totalPrice = basePrice + extraFees;

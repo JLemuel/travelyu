@@ -96,14 +96,11 @@ class PackageResource extends Resource
                 // Pricing & Capacity
                 Section::make('Pricing & Capacity')
                     ->schema([
-                        // TextInput::make('price')
-                        //     ->required()
-                        //     ->numeric()
-                        //     ->prefix('₱')
-                        //     ->dehydrated() // Ensure the value is included on form submission
-                        //     ->dehydratedStateUsing(fn ($state) => $state) // Pass the value through
-                        //     ->default(0) // Default value if none is set
-                        //     ->hidden(),
+                        TextInput::make('price')
+                            ->required()
+                            ->numeric()
+                            ->prefix('₱')
+                            ->default(0),
                         // Optional: disable editing if you want it purely dynamic,  // Prevents the field from sending its initial state back to the server
                         Forms\Components\TextInput::make('duration')
                             ->label('Duration (Days)')
@@ -134,17 +131,17 @@ class PackageResource extends Resource
                     ])->columns(2),
 
                 // Payment Details
-                Section::make('Payment Details')
-                    ->description('Provide payment methods available for this package.')
-                    ->schema([
-                        Forms\Components\TextInput::make('gcash_number')
-                            ->label('GCash Number')
-                            ->numeric()
-                            ->helperText('Enter the GCash number customers can send payments to.'),
-                        Forms\Components\TextInput::make('bank_account_number')
-                            ->label('Bank Account Number')
-                            ->helperText('Enter the bank account number for direct transfers.'),
-                    ])->columns(2),
+                // Section::make('Payment Details')
+                //     ->description('Provide payment methods available for this package.')
+                //     ->schema([
+                //         Forms\Components\TextInput::make('gcash_number')
+                //             ->label('GCash Number')
+                //             ->numeric()
+                //             ->helperText('Enter the GCash number customers can send payments to.'),
+                //         Forms\Components\TextInput::make('bank_account_number')
+                //             ->label('Bank Account Number')
+                //             ->helperText('Enter the bank account number for direct transfers.'),
+                //     ])->columns(2),
 
                 Section::make('Tour Plan Details')
                     ->description('Prevent abuse by limiting the number of requests per period')

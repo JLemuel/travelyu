@@ -185,6 +185,11 @@
                             </div>
                         </div>
 
+                        <div class="col-lg-2 col-md-6 col-6 mb-3">
+                            <span class="input-indicator">Min Price (₱)</span>
+                            <input type="number" class="form-control" name="min_price" id="min_price"
+                                placeholder="Enter min price in ₱">
+                        </div>
                         <!-- Max Price -->
                         <div class="col-lg-2 col-md-6 col-6 mb-3">
                             <span class="input-indicator">Max Price (₱)</span>
