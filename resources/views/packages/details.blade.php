@@ -288,13 +288,19 @@
     </div>
 
     <div class="px-2 pb-5">
-        <div class=" row mt-3">
+        <div class="mt-3  row">
             <div class="col">
                 <h1>{{ $package->name }}</h1>
-                <div class="d-flex justify-content-start flex-wrap align-items-center gap-3">
+                <div class="flex-wrap gap-3 d-flex justify-content-start align-items-center">
                     <span class="text-muted"><strong>Price:</strong> From ₱{{ $package->price }}</span>
-                    {{-- <span class="text-muted"><i class="bi bi-clock"></i> <strong>Duration:</strong> {{
-                        $package->duration }} days</span> --}}
+                    @php
+                    $today = Carbon\Carbon::now(); // Get today's date
+                    $endDate = $today->copy()->addDays($package->duration); // Calculate the end date
+                    @endphp
+                    <span class="text-muted"><i class="bi bi-clock"></i> <strong>Duration:</strong>
+                        {{ $today->format('M d, Y') }} - {{ $endDate->format('M d, Y') }} ({{ $package->duration
+                        }} days)
+                    </span>
                     <span class="text-muted"><i class="bi bi-people-fill"></i> <strong>Max People:</strong> {{
                         $package->max_persons }}</span>
                     {{-- <span class="text-muted"><i class="bi bi-book-fill"></i>
@@ -311,7 +317,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-4">
+        <div class="mt-4 row">
             <div class="col-md-6">
                 <div class="px-2">
                     <!-- Package Description -->
@@ -377,7 +383,7 @@
 
                             </div>
                             <!-- Dropoff Map -->
-                            <div class="map-container mt-3">
+                            <div class="mt-3 map-container">
                                 <h6 style="pr-5"><strong>Dropoff Address:</strong> <span
                                         id="dropoff-address-{{ $booking->id }}"></span></h6>
                                 <div id="dropoff-map-{{ $booking->id }}" class="map" style="height: 250px;"></div>
@@ -402,7 +408,7 @@
                         <h2>Reviews</h2>
 
                         @forelse($package->reviews as $review)
-                        <div class="card mb-3">
+                        <div class="mb-3 card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <h5 class="card-title">{{ $review->user->name ?? 'Anonymous' }}</h5>
@@ -427,7 +433,7 @@
                     <!-- Additional reviews here -->
 
                     <!-- Add a Review Form -->
-                    <div class="review-form mt-4">
+                    <div class="mt-4 review-form">
                         <h3>Add Your Review</h3>
                         <form action="/submit-review" method="POST">
                             @csrf

@@ -83,17 +83,17 @@
     }
 </style>
 
-<div class="container-xxl py-5 destination">
+<div class="py-5 container-xxl destination">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h6 class="section-title bg-white text-center text-primary px-3">
+            <h6 class="px-3 text-center bg-white section-title text-primary">
                 {{ $subtitle }}
             </h6>
             <h1 class="mb-5">{{ $title }}</h1>
         </div>
         @if($packages->isEmpty())
         <div class="row">
-            <div class="col text-center">
+            <div class="text-center col">
                 <h3 class="mb-3">No Packages Available</h3>
                 <p class="mb-4">Currently, there are no available packages to display. Please check back later for
                     updates or explore other destinations.</p>
@@ -103,7 +103,11 @@
         @else
         <div class="row g-3">
             @foreach($packages as $package)
-            <div class="col-md-4 mb-3">
+            @php
+            $today = Carbon\Carbon::now(); // Get today's date
+            $endDate = $today->copy()->addDays($package->duration); // Calculate the end date
+            @endphp
+            <div class="mb-3 col-md-4">
                 <div class="card package-card">
                     @if($package->image)
                     <img src="{{ asset('storage/' . $package->image[0]) }}" class="card-img-top"
@@ -111,8 +115,12 @@
                     @endif
                     <div class="card-body">
                         <h5 class="card-title">{{ $package->name }}</h5>
-                        <div class="package-details mb-2">
-                            <span class="days"><i class="bi bi-calendar3"></i> {{ $package->duration }} days</span>
+                        <div class="mb-2 package-details">
+                            <span class="days">
+                                <i class="bi bi-calendar3"></i>
+                                {{ $today->format('M d, Y') }} - {{ $endDate->format('M d, Y') }} ({{ $package->duration
+                                }} days)
+                            </span>
                         </div>
                         <p class="card-text">{{ $package->description }}</p>
                         {{-- <p class="card-text location">

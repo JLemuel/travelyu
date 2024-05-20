@@ -44,10 +44,10 @@ class ActivityResource extends Resource
                     ->options(Destination::pluck('name', 'id'))
                     ->required()
                     ->reactive(),
-                Forms\Components\TextInput::make('price')
-                    ->required()
-                    ->numeric()
-                    ->prefix('₱'),
+                // Forms\Components\TextInput::make('price')
+                //     ->required()
+                //     ->numeric()
+                //     ->prefix('₱'),
                 Forms\Components\Textarea::make('description')
                     ->maxLength(65535)
                     ->columnSpanFull(),
@@ -79,9 +79,9 @@ class ActivityResource extends Resource
                     ->stacked()
                     ->limit(3)
                     ->limitedRemainingText(),
-                Tables\Columns\TextColumn::make('price')
-                    ->money('PHP')
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('price')
+                //     ->money('PHP')
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

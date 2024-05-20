@@ -353,13 +353,19 @@
     </div>
 
     <div class="container">
-        <div class="row mt-3">
+        <div class="mt-3 row">
             <div class="col">
                 <h1>{{ $package->name }}</h1>
-                <div class="d-flex justify-content-start flex-wrap align-items-center gap-3">
+                <div class="flex-wrap gap-3 d-flex justify-content-start align-items-center">
                     <span class="text-muted"><strong>Price:</strong> From ₱{{ $package->price }}</span>
-                    <span class="text-muted"><i class="bi bi-clock"></i> <strong>Duration:</strong> {{
-                        $package->duration }} days</span>
+                    @php
+                    $today = Carbon\Carbon::now(); // Get today's date
+                    $endDate = $today->copy()->addDays($package->duration); // Calculate the end date
+                    @endphp
+                    <span class="text-muted"><i class="bi bi-clock"></i> <strong>Duration:</strong>
+                        {{ $today->format('M d, Y') }} - {{ $endDate->format('M d, Y') }} ({{ $package->duration
+                        }} days)
+                    </span>
                     <span class="text-muted"><i class="bi bi-people-fill"></i> <strong>Max People:</strong> {{
                         $package->max_persons }}</span>
 
@@ -374,7 +380,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-4">
+        <div class="mt-4 row">
             <div class="col-md-7">
                 <div class="container">
                     <!-- Package Description -->
@@ -454,7 +460,7 @@
                         <h2>Reviews</h2>
 
                         @forelse($package->reviews as $review)
-                        <div class="card pb-3">
+                        <div class="pb-3 card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <h5 class="card-title">{{ $review->user->name ?? 'Anonymous' }}</h5>
@@ -487,9 +493,9 @@
                 $isFullyBooked = $bookingsCount >= $package->booking_limit;
                 @endphp
 
-                <div class=" py-3 text-start">
+                <div class="py-3 text-start">
                     <!-- Display how many times this package has been booked -->
-                    <span class="text-muted py-2"><i class="bi bi-book-fill"></i> <strong>Booked:</strong> {{
+                    <span class="py-2 text-muted"><i class="bi bi-book-fill"></i> <strong>Booked:</strong> {{
                         $bookingsCount }} times</span><br>
                 </div>
                 <div class="card">
@@ -530,7 +536,7 @@
                                             <button type="button" id="adultsMinus"
                                                 class="btn btn-outline-primary">-</button>
                                             <input type="text" id="adults" name="adults"
-                                                class="form-control text-center" value="0" readonly>
+                                                class="text-center form-control" value="0" readonly>
                                             <button type="button" id="adultsPlus"
                                                 class="btn btn-outline-primary">+</button>
                                         </div>
@@ -545,7 +551,7 @@
                                         <div class="input-group">
                                             <button type="button" id="youthMinus"
                                                 class="btn btn-outline-primary">-</button>
-                                            <input type="text" id="youth" name="youth" class="form-control text-center"
+                                            <input type="text" id="youth" name="youth" class="text-center form-control"
                                                 value="0" readonly>
                                             <button type="button" id="youthPlus"
                                                 class="btn btn-outline-primary">+</button>
@@ -561,7 +567,7 @@
                                             <button type="button" id="childrenMinus"
                                                 class="btn btn-outline-primary">-</button>
                                             <input type="text" id="children" name="children"
-                                                class="form-control text-center" value="0" readonly>
+                                                class="text-center form-control" value="0" readonly>
                                             <button type="button" id="childrenPlus"
                                                 class="btn btn-outline-primary">+</button>
                                         </div>
@@ -578,8 +584,8 @@
                             </div>
 
                             <!-- Additional Fees Section -->
-                            <div id="additionalFees" class="additional-fees-section mt-2 d-none">
-                                <h4 class="form-control text-center text-green mb-3"
+                            <div id="additionalFees" class="mt-2 additional-fees-section d-none">
+                                <h4 class="mb-3 text-center form-control text-green"
                                     style="background-color: lightgreen; color: green;">Additional Fees</h4>
                                 <!-- Row for Additional Fees Display -->
                                 <div class="row">
@@ -622,7 +628,7 @@
                                                 <button type="button" id="additionalFeeAdultsMinus"
                                                     class="btn btn-outline-primary">-</button>
                                                 <input type="text" id="additionalFeeAdults" name="additionalFeeAdults"
-                                                    class="form-control text-center" value="0" readonly>
+                                                    class="text-center form-control" value="0" readonly>
                                                 <button type="button" id="additionalFeeAdultsPlus"
                                                     class="btn btn-outline-primary">+</button>
                                             </div>
@@ -636,7 +642,7 @@
                                                 <button type="button" id="additionalFeeYouthMinus"
                                                     class="btn btn-outline-primary">-</button>
                                                 <input type="text" id="additionalFeeYouth" name="additionalFeeYouth"
-                                                    class="form-control text-center" value="0" readonly>
+                                                    class="text-center form-control" value="0" readonly>
                                                 <button type="button" id="additionalFeeYouthPlus"
                                                     class="btn btn-outline-primary">+</button>
                                             </div>
@@ -651,7 +657,7 @@
                                                 <button type="button" id="additionalFeeChildrenMinus"
                                                     class="btn btn-outline-primary">-</button>
                                                 <input type="text" id="additionalFeeChildren"
-                                                    name="additionalFeeChildren" class="form-control text-center"
+                                                    name="additionalFeeChildren" class="text-center form-control"
                                                     value="0" readonly>
                                                 <button type="button" id="additionalFeeChildrenPlus"
                                                     class="btn btn-outline-primary">+</button>
@@ -665,7 +671,7 @@
                             <hr style="border-top: 1px solid #ccc; margin-bottom: 1rem;" />
                             <h5>Choose Your Pickup and Drop-off Locations</h6>
                                 <!-- Your input fields for pickup and drop-off locations -->
-                                <div class="row mb-2">
+                                <div class="mb-2 row">
                                     <div class="col-md-6">
                                         <label for="pickupLocation">Pickup Location</label>
                                         <input type="text" id="pickupLocation" class="form-control"
