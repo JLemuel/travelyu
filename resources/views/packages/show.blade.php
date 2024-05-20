@@ -728,108 +728,97 @@
     </div>
 
     <script>
-        const exceedMaxPersonsNotice = document.getElementById('exceedMaxPersonsNotice');
-        const additionalFees = document.getElementById('additionalFees');
-
-        const packageDetails = {
-            maxPersons: {{ $package->max_persons }},
-            pricePerDay: {{ $package->price }},
-            additionalAdultPrice: parseInt({{ $package->addtional_adult_price }}),
-            // additionalYouthPrice: parseInt({{ $package->addtional_youth_price }}),
-            additionalChildPrice: parseInt({{ $package->addtional_children_price }}),
-
-        };
-
-         // Function to calculate total price
-         function calculateTotalPrice() {
-            const startDate = new Date(document.getElementById('start_date').value);
-            const endDate = new Date(document.getElementById('end_date').value);
-            const totalDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
-
-            if (!isNaN(totalDays) && totalDays > 0) {
-                let basePrice = packageDetails.pricePerDay * totalDays;
-
-                const totalPersons = getTotalPersons();
-                let extraFees = 0;
-
-                if (totalPersons > packageDetails.maxPersons) {
-                    const additionalPersons = totalPersons - packageDetails.maxPersons;
-                    const additionalAdults = parseInt(document.getElementById('additionalFeeAdults').value, 10) || 0;
-                    const additionalChildren = parseInt(document.getElementById('additionalFeeChildren').value, 10) || 0;
-
-                    extraFees += additionalAdults * packageDetails.additionalAdultPrice;
-                    // extraFees += additionalYouth * packageDetails.additionalYouthPrice;
-                    extraFees += additionalChildren * packageDetails.additionalChildPrice;
-                }
-
-                const totalPrice = basePrice + extraFees;
-                document.getElementById('totalPrice').textContent = `₱${totalPrice.toFixed(2)}`;
-                document.getElementById('totalPriceInput').value = totalPrice.toFixed(2);
-            } else {
-                document.getElementById('totalPrice').textContent = '₱0.00';
-                document.getElementById('totalPriceInput').value = '0.00';
-            }
-        }
-
-        document.getElementById('additionalAdultFeeText').textContent = `₱${packageDetails.additionalAdultPrice} per adult`;
-        // document.getElementById('additionalYouthFeeText').textContent = `₱${packageDetails.additionalYouthPrice} per youth`;
-        document.getElementById('additionalChildFeeText').textContent = `₱${packageDetails.additionalChildPrice} per child`;
-
         document.addEventListener('DOMContentLoaded', function() {
-
-            document.getElementById('start_date').addEventListener('change', calculateTotalPrice);
-            document.getElementById('end_date').addEventListener('change', calculateTotalPrice);
+            const exceedMaxPersonsNotice = document.getElementById('exceedMaxPersonsNotice');
+            const additionalFees = document.getElementById('additionalFees');
+    
+            const packageDetails = {
+                maxPersons: {{ $package->max_persons }},
+                pricePerDay: {{ $package->price }},
+                additionalAdultPrice: parseInt({{ $package->addtional_adult_price }}),
+                additionalChildPrice: parseInt({{ $package->addtional_children_price }}),
+            };
+    
+            function calculateTotalPrice() {
+                const startDate = new Date(document.getElementById('start_date').value);
+                const endDate = new Date(document.getElementById('end_date').value);
+                const totalDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
+    
+                if (!isNaN(totalDays) && totalDays > 0) {
+                    let basePrice = packageDetails.pricePerDay * totalDays;
+    
+                    const totalPersons = getTotalPersons();
+                    let extraFees = 0;
+    
+                    if (totalPersons > packageDetails.maxPersons) {
+                        const additionalAdults = parseInt(document.getElementById('additionalFeeAdults').value, 10) || 0;
+                        const additionalChildren = parseInt(document.getElementById('additionalFeeChildren').value, 10) || 0;
+    
+                        extraFees += additionalAdults * packageDetails.additionalAdultPrice;
+                        extraFees += additionalChildren * packageDetails.additionalChildPrice;
+                    }
+    
+                    const totalPrice = basePrice + extraFees;
+                    document.getElementById('totalPrice').textContent = `₱${totalPrice.toFixed(2)}`;
+                    document.getElementById('totalPriceInput').value = totalPrice.toFixed(2);
+                } else {
+                    document.getElementById('totalPrice').textContent = '₱0.00';
+                    document.getElementById('totalPriceInput').value = '0.00';
+                }
+            }
+    
+            function changePersonCount(category, isIncreasing) {
+                const input = document.getElementById(category);
+                let currentValue = parseInt(input.value, 10) || 0;
+                currentValue = isIncreasing ? currentValue + 1 : Math.max(currentValue - 1, 0);
+                input.value = currentValue;
+    
+                if (getTotalPersons() > packageDetails.maxPersons) {
+                    document.getElementById('adultsPlus').disabled = true;
+                    document.getElementById('childrenPlus').disabled = true;
+                    exceedMaxPersonsNotice.classList.remove('d-none');
+                    additionalFees.classList.remove('d-none');
+                } else {
+                    document.getElementById('adultsPlus').disabled = false;
+                    document.getElementById('childrenPlus').disabled = false;
+                    exceedMaxPersonsNotice.classList.add('d-none');
+                    additionalFees.classList.add('d-none');
+                }
+    
+                calculateTotalPrice();
+            }
+    
+            function getTotalPersons() {
+                const adultsCount = parseInt(document.getElementById('adults').value, 10) || 0;
+                const childrenCount = parseInt(document.getElementById('children').value, 10) || 0;
+                const additionalAdultsCount = parseInt(document.getElementById('additionalFeeAdults').value, 10) || 0;
+                const additionalChildrenCount = parseInt(document.getElementById('additionalFeeChildren').value, 10) || 0;
+                return adultsCount + childrenCount + additionalAdultsCount + additionalChildrenCount;
+            }
+    
+            document.querySelectorAll('.destination-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', calculateTotalPrice);
+            });
 
             ['adults', 'children', 'additionalFeeAdults', 'additionalFeeChildren'].forEach(category => {
                 document.getElementById(`${category}Minus`).addEventListener('click', () => changePersonCount(category, false));
                 document.getElementById(`${category}Plus`).addEventListener('click', () => changePersonCount(category, true));
             });
 
+            document.getElementById('start_date').addEventListener('change', calculateTotalPrice);
+            document.getElementById('end_date').addEventListener('change', calculateTotalPrice);
+    
+            document.getElementById('additionalFeeAdultsMinus').addEventListener('click', () => changePersonCount('additionalFeeAdults', false));
+            document.getElementById('additionalFeeAdultsPlus').addEventListener('click', () => changePersonCount('additionalFeeAdults', true));
+    
+            document.getElementById('additionalFeeChildrenMinus').addEventListener('click', () => changePersonCount('additionalFeeChildren', false));
+            document.getElementById('additionalFeeChildrenPlus').addEventListener('click', () => changePersonCount('additionalFeeChildren', true));
+    
             calculateTotalPrice(); // Initial calculation on page load
         });
-
-        function changePersonCount(category, isIncreasing) {
-            const input = document.getElementById(category);
-            let currentValue = parseInt(input.value, 10) || 0;
-            currentValue = isIncreasing ? currentValue + 1 : Math.max(currentValue - 1, 0);
-            input.value = currentValue;
-
-            if (getTotalPersons() >= packageDetails.maxPersons) {
-                // Disable the childrenPlus button
-                document.getElementById('adultsPlus').disabled = true;
-                // document.getElementById('youthPlus').disabled = true;
-                document.getElementById('childrenPlus').disabled = true;
-                exceedMaxPersonsNotice.classList.remove('d-none');
-                additionalFees.classList.remove('d-none');
-            } else {
-                // Enable the childrenPlus button if it was disabled
-                document.getElementById('adultsPlus').disabled = false;
-                // document.getElementById('youthPlus').disabled = false;
-                document.getElementById('childrenPlus').disabled = false;
-                exceedMaxPersonsNotice.classList.add('d-none');
-                additionalFees.classList.add('d-none');
-            }
-
-            calculateTotalPrice();
-        }
-
-        function getTotalPersons() {
-            const adultsCount = parseInt(document.getElementById('adults').value, 10) || 0;
-            // const youthCount = parseInt(document.getElementById('youth').value, 10) || 0;
-            const childrenCount = parseInt(document.getElementById('children').value, 10) || 0;
-            return adultsCount + childrenCount; // This does not include additional fees
-        }
-
-        
-
-        document.querySelectorAll('.destination-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('change', calculateTotalPrice);
-        });
-
-        document.getElementById('start_date').addEventListener('change', calculateTotalPrice);
-        // endDateInput.addEventListener('change', calculateTotalPrice);
-        calculateTotalPrice();
     </script>
+
+
     <script>
         let map;
         let geocoder;
