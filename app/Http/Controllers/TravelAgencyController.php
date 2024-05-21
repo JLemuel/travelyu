@@ -19,7 +19,7 @@ class TravelAgencyController extends Controller
 
     public function show($id)
     {
-        $travelAgency = User::findOrFail($id);
+        $travelAgency = User::withCount('bookings')->findOrFail($id);
         return view('travelAgency.show', compact('travelAgency'));
     }
 }

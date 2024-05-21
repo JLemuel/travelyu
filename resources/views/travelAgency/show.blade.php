@@ -72,7 +72,7 @@
 <x-app-layout>
     <div class="">
         <!-- Cover Photo Section -->
-        <div class="cover-photo mb-4">
+        <div class="mb-4 cover-photo">
             <img src="{{ asset('assets/image1.jpg') }}" class="img-fluid w-100" alt="Cover Photo">
         </div>
 
@@ -89,15 +89,15 @@
 
         <!-- Profile and Info Section -->
         <div class="container">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
+            <div class="shadow-sm card">
+                <div class="text-center card-body">
                     <h2 class="card-title">{{ $travelAgency->agency_name }}</h2>
                     <p class="card-text"><strong>Contact Number:</strong> {{ $travelAgency->contact_number }}</p>
                     <p class="card-text"><strong>Email:</strong> {{ $travelAgency->email }}</p>
                     <p class="card-text"><strong>Tagline:</strong> {{ $travelAgency->tagline }}</p>
                     <p class="card-text"><strong>Established:</strong> {{ $travelAgency->establishment_date }}</p>
 
-                    <div class="payment-methods mt-4">
+                    <div class="mt-4 payment-methods">
                         <h6>Payment Options:</h6>
                         @if ($travelAgency->gcash_number)
                         <p class="card-text"><i class="fas fa-mobile-alt"></i> Gcash: {{ $travelAgency->gcash_number }}
@@ -108,6 +108,14 @@
                             $travelAgency->bank_account_number }}</p>
                         @endif
                     </div>
+                </div>
+            </div>
+
+            <!-- Statistics Card -->
+            <div class="mt-4 shadow-sm card">
+                <div class="text-center card-body">
+                    <h5 class="card-title">Statistics</h5>
+                    <p class="card-text"><strong>Number of Bookings:</strong> {{ $travelAgency->bookings_count }}</p>
                 </div>
             </div>
         </div>
