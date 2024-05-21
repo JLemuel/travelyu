@@ -701,10 +701,11 @@
 
                                 <!-- Dynamic Total Price Display -->
                                 <!-- New Div for Package Details -->
-                                <div id="packageDetails" class="mb-3 mt-3">
+                                <div id="packageDetails" class="mt-3 mb-3">
                                     <h5>Package Details:</h5>
                                     <ul>
-                                        <li>Package 1 per pax - ₱{{ $package->price }}</li>
+                                        <li>Package 1 per pax - ₱<span class="text fs-6" id="totalPriceSpan"></span>
+                                        </li>
                                         <li>Transportation - ₱{{ $package->addtional_youth_price }}</li>
                                         <li>Convenience fee - 5%</li>
                                     </ul>
@@ -769,10 +770,12 @@
     
                     const totalPrice = basePrice + extraFees;
                     document.getElementById('totalPrice').textContent = `₱${totalPrice.toFixed(2)}`;
+                    document.getElementById('totalPriceSpan').textContent = `${totalPrice.toFixed(2)}`;
                     document.getElementById('totalPriceInput').value = totalPrice.toFixed(2);
                 } else {
                     document.getElementById('totalPrice').textContent = '₱0.00';
                     document.getElementById('totalPriceInput').value = '0.00';
+                    document.getElementById('totalPriceSpan').textContent = '0.00';
                 }
             }
     
