@@ -782,9 +782,15 @@
             function changePersonCount(category, isIncreasing) {
                 const input = document.getElementById(category);
                 let currentValue = parseInt(input.value, 10) || 0;
+
+                // Increment or decrement the value by 1
                 currentValue = isIncreasing ? currentValue + 1 : Math.max(currentValue - 1, 0);
+                console.log(currentValue);
+                
+                // Update the input value
                 input.value = currentValue;
-    
+
+                // Check if the total persons exceed the max allowed and update the UI accordingly
                 if (getTotalPersons() > packageDetails.maxPersons) {
                     document.getElementById('adultsPlus').disabled = true;
                     document.getElementById('childrenPlus').disabled = true;
@@ -796,10 +802,11 @@
                     exceedMaxPersonsNotice.classList.add('d-none');
                     additionalFees.classList.add('d-none');
                 }
-    
+
+                // Recalculate the total price based on the new values
                 calculateTotalPrice();
             }
-    
+
             function getTotalPersons() {
                 const adultsCount = parseInt(document.getElementById('adults').value, 10) || 0;
                 const childrenCount = parseInt(document.getElementById('children').value, 10) || 0;
@@ -820,11 +827,11 @@
             document.getElementById('start_date').addEventListener('change', calculateTotalPrice);
             document.getElementById('end_date').addEventListener('change', calculateTotalPrice);
     
-            document.getElementById('additionalFeeAdultsMinus').addEventListener('click', () => changePersonCount('additionalFeeAdults', false));
-            document.getElementById('additionalFeeAdultsPlus').addEventListener('click', () => changePersonCount('additionalFeeAdults', true));
+            // document.getElementById('additionalFeeAdultsMinus').addEventListener('click', () => changePersonCount('additionalFeeAdults', false));
+            // document.getElementById('additionalFeeAdultsPlus').addEventListener('click', () => changePersonCount('additionalFeeAdults', true));
     
-            document.getElementById('additionalFeeChildrenMinus').addEventListener('click', () => changePersonCount('additionalFeeChildren', false));
-            document.getElementById('additionalFeeChildrenPlus').addEventListener('click', () => changePersonCount('additionalFeeChildren', true));
+            // document.getElementById('additionalFeeChildrenMinus').addEventListener('click', () => changePersonCount('additionalFeeChildren', false));
+            // document.getElementById('additionalFeeChildrenPlus').addEventListener('click', () => changePersonCount('additionalFeeChildren', true));
     
             calculateTotalPrice(); // Initial calculation on page load
         });
