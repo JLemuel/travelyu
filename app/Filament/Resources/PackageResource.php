@@ -131,17 +131,17 @@ class PackageResource extends Resource
                     ])->columns(2),
 
                 // Payment Details
-                // Section::make('Payment Details')
-                //     ->description('Provide payment methods available for this package.')
-                //     ->schema([
-                //         Forms\Components\TextInput::make('gcash_number')
-                //             ->label('GCash Number')
-                //             ->numeric()
-                //             ->helperText('Enter the GCash number customers can send payments to.'),
-                //         Forms\Components\TextInput::make('bank_account_number')
-                //             ->label('Bank Account Number')
-                //             ->helperText('Enter the bank account number for direct transfers.'),
-                //     ])->columns(2),
+                Section::make('Additional Fee')
+                    // ->description('Provide payment methods available for this package.')
+                    ->schema([
+                        Forms\Components\TextInput::make('addtional_youth_price')
+                            ->label('Transportation Fee')
+                            ->numeric(),
+                        // ->helperText('Enter the GCash number customers can send payments to.'),
+                        // Forms\Components\TextInput::make('bank_account_number')
+                        //     ->label('Bank Account Number')
+                        //     ->helperText('Enter the bank account number for direct transfers.'),
+                    ])->columns(1),
 
                 Section::make('Tour Plan Details')
                     ->description('Prevent abuse by limiting the number of requests per period')

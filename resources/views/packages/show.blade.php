@@ -700,6 +700,15 @@
                                     value="{{ $package->price }}">
 
                                 <!-- Dynamic Total Price Display -->
+                                <!-- New Div for Package Details -->
+                                <div id="packageDetails" class="mb-3 mt-3">
+                                    <h5>Package Details:</h5>
+                                    <ul>
+                                        <li>Package 1 per pax - ₱{{ $package->price }}</li>
+                                        <li>Transportation - ₱{{ $package->addtional_youth_price }}</li>
+                                        <li>Convenience fee - 5%</li>
+                                    </ul>
+                                </div>
                                 <!-- Inside your card body, after the form -->
                                 <div id="totalPriceContainer" class="mt-3 d-flex justify-content-between">
                                     <h5>Total Price:</h5>
