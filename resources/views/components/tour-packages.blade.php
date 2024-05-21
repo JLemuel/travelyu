@@ -128,9 +128,12 @@
                             $package->destination->province }}
                         </p> --}}
                         <p class="card-text">
-                            <strong class="text-primary">Travel Agency:</strong> {{ $package->travelAgency->agency_name
-                            }}
+                            <strong class="text-primary">Travel Agency:</strong>
+                            <a href="{{ route('travelAgency.show', $package->travelAgency->id) }}">
+                                {{ $package->travelAgency->agency_name }}
+                            </a>
                         </p>
+
                         <a href="{{ route('packages.show', $package->id) }}" class="btn btn-primary">Explore</a>
                     </div>
                 </div>

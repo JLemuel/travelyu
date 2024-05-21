@@ -40,7 +40,7 @@
 <x-app-layout>
     <!-- Travel Agencies Section -->
     <div class="container" style="padding-top: 8rem">
-        <div class="text-center mb-5">
+        <div class="mb-5 text-center">
             <h2 class="display-4">Explore Our Travel Agencies</h2>
             <p class="lead">Discover your next great adventure with trusted agencies</p>
         </div>
@@ -48,7 +48,7 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach ($travelAgencies as $agency)
             <div class="col">
-                <div class="card h-100 shadow-sm">
+                <div class="shadow-sm card h-100">
 
                     <img src="{{ $agency->profile_image ? asset('storage/profile_images/' . basename($agency->profile_image)) : asset('assets/image1.jpg') }}"
                         alt="{{ $agency->name ?? 'Travel Agency' }}"
@@ -56,7 +56,12 @@
 
 
                     <div class="card-body">
-                        <h5 class="card-title">{{ $agency->agency_name }}</h5>
+                        <h5 class="card-title">
+                            <a href="{{ route('travelAgency.show', $agency->id) }}">
+                                {{ $agency->agency_name }}
+                            </a>
+                        </h5>
+
                         <p class="card-text">{{ $agency->tagline ?? 'i love philippines' }}</p>
                     </div>
                     <div class="card-footer">
