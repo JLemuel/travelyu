@@ -1,8 +1,8 @@
 <!-- Destination Start -->
-<div class="container-xxl py-5 destination">
+<div class="py-5 container-xxl destination">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h6 class="section-title bg-white text-center text-primary px-3">
+            <h6 class="px-3 text-center bg-white section-title text-primary">
                 {{ $subtitle }}
             </h6>
             <h1 class="mb-5">{{ $title }}</h1>
@@ -15,7 +15,7 @@
             $image = $images[$randomIndex]; // Get the image at the random index
             @endphp
             <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.{{ $loop->iteration }}s">
-                <div class="position-relative d-block overflow-hidden" style="height: 100%; background: #eee;">
+                <div class="overflow-hidden position-relative d-block" style="height: 100%; background: #eee;">
                     <!-- Conditional link based on authentication status -->
                     @auth
                     <a href="{{ route('destinations.detail', ['destinations' => $destination->city, 'destinationId' => $destination->id]) }}"
@@ -27,8 +27,14 @@
                             <img class="img-fluid w-100" src="{{ asset('storage/' . $image) }}"
                                 alt="{{ $destination->name }}" style="object-fit: cover;">
                             <div class="text-overlay">
-                                <div class="bg-white text-primary fw-bold m-3 py-1 px-2">
+                                <div class="px-2 py-1 m-3 bg-white text-primary fw-bold">
                                     {{ $destination->name }}
+                                </div>
+                            </div>
+                            <div class="text-overlay">
+                                <p class="px-4">Description:</p>
+                                <div class="px-2 py-1 m-3 text-primary fw-bold">
+                                    {{ $destination->description }}
                                 </div>
                             </div>
                         </a>
