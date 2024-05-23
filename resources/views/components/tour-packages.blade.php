@@ -113,7 +113,14 @@
                     <img src="{{ asset('storage/' . $package->image[0]) }}" class="card-img-top"
                         alt="{{ $package->name }}">
                     @endif
-                    <div class="card-body">
+                    <div class="card-body mt-2">
+                        <p class="card-text">
+                            <strong class="text-primary">Travel Agency:</strong>
+                            <a href="{{ route('travelAgency.show', $package->travelAgency->id) }}">
+                                {{ $package->travelAgency->agency_name }}
+                            </a>
+                        </p>
+
                         <h5 class="card-title">{{ $package->name }}</h5>
                         <div class="mb-2 package-details">
                             <span class="days">
@@ -127,12 +134,6 @@
                             <i class="bi bi-geo-alt-fill"></i> {{ $package->destination->city }}, {{
                             $package->destination->province }}
                         </p> --}}
-                        <p class="card-text">
-                            <strong class="text-primary">Travel Agency:</strong>
-                            <a href="{{ route('travelAgency.show', $package->travelAgency->id) }}">
-                                {{ $package->travelAgency->agency_name }}
-                            </a>
-                        </p>
 
                         <a href="{{ route('packages.show', $package->id) }}" class="btn btn-primary">Explore</a>
                     </div>

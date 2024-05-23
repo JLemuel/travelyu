@@ -10,7 +10,7 @@ use Filament\Widgets\ChartWidget;
 class BlogPostsChart extends ChartWidget
 {
 
-    protected static ?string $heading = 'Booking Stats';
+    protected static ?string $heading = 'No. of People Entering La Union';
 
     protected int | string | array $columnSpan = 'full';
 
@@ -41,22 +41,24 @@ class BlogPostsChart extends ChartWidget
                     end: now(),
                 )
                 ->perDay()
-                ->count(),
+                ->sum('adults_count'),
             'month' => $data = Trend::model(Booking::class)
                 ->between(
                     start: now()->subMonth(),
                     end: now(),
                 )
                 ->perDay()
-                ->count(),
+                ->sum('adults_count'),
             '3months' => $data = Trend::model(Booking::class)
                 ->between(
                     start: now()->subMonths(3),
                     end: now(),
                 )
                 ->perMonth()
-                ->count(),
+                ->sum('adults_count'),
         };
+
+        // dd($data);
 
         return [
             'datasets' => [
@@ -71,6 +73,6 @@ class BlogPostsChart extends ChartWidget
 
     protected function getType(): string
     {
-        return 'line';
+        return 'bar';
     }
 }

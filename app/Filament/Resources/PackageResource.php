@@ -56,6 +56,19 @@ class PackageResource extends Resource
                     ->default(Auth::id())
                     ->visible(fn (): bool => Auth::user()->type === 'travel_agency'),
 
+                // Core Tour Details
+                Forms\Components\TextInput::make('name')
+                    ->label('Tour Name') // More descriptive label
+                    ->required()
+                    ->maxLength(255),
+                // Forms\Components\Select::make('type')
+                //     ->label('Tour Type')
+                //     ->options(['Classic', 'Rainy', 'Summer'])
+                //     ->required(),
+                Forms\Components\Textarea::make('description')
+                    ->required()
+                    ->maxLength(65535)
+                    ->columnSpanFull(),
 
                 // Destination Selection
                 Forms\Components\CheckboxList::make('destinations')
@@ -78,21 +91,6 @@ class PackageResource extends Resource
                     ->columns(6)
                     ->gridDirection('row'),
 
-
-                // Core Tour Details
-                Forms\Components\TextInput::make('name')
-                    ->label('Tour Name') // More descriptive label
-                    ->required()
-                    ->maxLength(255),
-                // Forms\Components\Select::make('type')
-                //     ->label('Tour Type')
-                //     ->options(['Classic', 'Rainy', 'Summer'])
-                //     ->required(),
-                Forms\Components\Textarea::make('description')
-                    ->required()
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-
                 // Pricing & Capacity
                 Section::make('Pricing & Capacity')
                     ->schema([
@@ -106,9 +104,9 @@ class PackageResource extends Resource
                             ->label('Duration (Days)')
                             ->required()
                             ->numeric(),
-                        Forms\Components\TextInput::make('booking_limit')
-                            ->label('Booking Limit')
-                            ->numeric(),
+                        // Forms\Components\TextInput::make('booking_limit')
+                        //     ->label('Booking Limit')
+                        //     ->numeric(),
                         Forms\Components\TextInput::make('max_persons')
                             ->label('Max Participants')
                             ->numeric(),
@@ -213,16 +211,16 @@ class PackageResource extends Resource
                 Tables\Columns\TextColumn::make('duration')
                     ->label('Duration (Days)')
                     ->sortable(),
-                Tables\Columns\ImageColumn::make('image')
-                    ->stacked()
-                    ->circular(), // No stacking needed for a single image
-                Tables\Columns\TextColumn::make('start_date')
-                    ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('end_date')
-                    ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('booking_limit'),
+                // Tables\Columns\ImageColumn::make('image')
+                //     ->stacked()
+                //     ->circular(), // No stacking needed for a single image
+                // Tables\Columns\TextColumn::make('start_date')
+                //     ->date()
+                //     ->sortable(),
+                // Tables\Columns\TextColumn::make('end_date')
+                //     ->date()
+                //     ->sortable(),
+                // Tables\Columns\TextColumn::make('booking_limit'),
                 Tables\Columns\TextColumn::make('max_persons'),
                 // ... (created_at, updated_at - Keep if desired)
             ])

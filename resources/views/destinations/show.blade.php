@@ -126,7 +126,7 @@
     <!-- End of Carousel -->
 
     <div class="container mt-5">
-        <h2 class="text-center mb-4">Packages for {{ $destination->name }}</h2>
+        {{-- <h2 class="text-center mb-4">Packages for {{ $destination->name }}</h2> --}}
         <x-package-card :destination="$destination" />
     </div>
 

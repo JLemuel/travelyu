@@ -358,14 +358,19 @@
                 <h1>{{ $package->name }}</h1>
                 <div class="flex-wrap gap-3 d-flex justify-content-start align-items-center">
                     <span class="text-muted"><strong>Price:</strong> From ₱{{ $package->price }}</span>
-                    @php
+                    {{-- @php
                     $today = Carbon\Carbon::now(); // Get today's date
                     $endDate = $today->copy()->addDays($package->duration); // Calculate the end date
                     @endphp
                     <span class="text-muted"><i class="bi bi-clock"></i> <strong>Duration:</strong>
                         {{ $today->format('M d, Y') }} - {{ $endDate->format('M d, Y') }} ({{ $package->duration
                         }} days)
+                    </span> --}}
+                    <span class="text-muted"><i class="bi bi-clock"></i> <strong>Duration:</strong>
+                        {{ \Carbon\Carbon::parse($package->start_date)->format('M d, Y') }} - {{
+                        \Carbon\Carbon::parse($package->end_date)->format('M d, Y') }} ({{ $package->duration }} days)
                     </span>
+
                     <span class="text-muted"><i class="bi bi-people-fill"></i> <strong>Max People:</strong> {{
                         $package->max_persons }}</span>
 
@@ -383,39 +388,6 @@
         <div class="mt-4 row">
             <div class="col-md-7">
                 <div class="container">
-                    <!-- Package Description -->
-                    <div class="section" id="destination">
-                        <h2>Choose Destination</h2>
-
-                        <!-- Include this if you're using Laravel's CSRF protection -->
-                        <ul class="destinations-list">
-                            @foreach ($package->destinations as $destination)
-                            <li class="destination-item">
-                                <label class="destination-label">
-                                    <input type="checkbox" name="destinations[]" value="{{ $destination->id }}"
-                                        data-price="{{ $destination->price }}" class="destination-checkbox">
-                                    <div class="destination-content">
-                                        <span class="destination-name">{{ $destination->name }}</span>
-                                        <!-- <span class="destination-name">{{ $destination->name }} - ₱{{
-                                            number_format($destination->price, 2) }}</span> -->
-                                        <div class="destination-images">
-                                            @foreach ($destination->image as $imgs)
-                                            <img src="{{ asset('storage/' . $imgs) }}" alt="{{ $destination->name }}"
-                                                class="destination-thumbnail">
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </label>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-
-                    <div class="section" id="description">
-                        <h2>Description</h2>
-                        <p class="mt-4">{{ $package->description }}</p>
-                    </div>
-
                     <!-- Tour Plan -->
                     <div class="section" id="tour-plan">
                         <h2>Tour Plan</h2>
@@ -455,6 +427,40 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="section" id="description">
+                        <h2>Description</h2>
+                        <p class="mt-4">{{ $package->description }}</p>
+                    </div>
+
+                    <!-- Package Description -->
+                    <div class="section" id="destination">
+                        <h2>Choose Add-Ons</h2>
+
+                        <!-- Include this if you're using Laravel's CSRF protection -->
+                        <ul class="destinations-list">
+                            @foreach ($package->destinations as $destination)
+                            <li class="destination-item">
+                                <label class="destination-label">
+                                    <input type="checkbox" name="destinations[]" value="{{ $destination->id }}"
+                                        data-price="{{ $destination->price }}" class="destination-checkbox">
+                                    <div class="destination-content">
+                                        <span class="destination-name">{{ $destination->name }}</span>
+                                        <!-- <span class="destination-name">{{ $destination->name }} - ₱{{
+                                            number_format($destination->price, 2) }}</span> -->
+                                        <div class="destination-images">
+                                            @foreach ($destination->image as $imgs)
+                                            <img src="{{ asset('storage/' . $imgs) }}" alt="{{ $destination->name }}"
+                                                class="destination-thumbnail">
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </label>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
 
                     <div class="section" id="reviews">
                         <h2>Reviews</h2>
@@ -704,12 +710,37 @@
                                 <div id="packageDetails" class="mt-3 mb-3">
                                     <h5>Package Details:</h5>
                                     <ul>
-                                        <li>Package 1 per pax - ₱<span class="text fs-6" id="totalPriceSpan"></span>
+                                        <li>Package 1 per pax - ₱{{ $package->price }}
                                         </li>
+                                        {{-- <li>Package 1 per pax - ₱<span class="text fs-6"
+                                                id="totalPriceSpan"></span>
+                                        </li> --}}
                                         <li>Transportation - ₱{{ $package->addtional_youth_price }}</li>
                                         <li>Convenience fee - 5%</li>
                                     </ul>
                                 </div>
+
+                                <!-- Travel Agency Details -->
+                                @if($package->travelAgency->name || $package->travelAgency->gcash_number ||
+                                $package->travelAgency->bank_account_number)
+                                <div class="alert alert-info">
+                                    <strong><i class="fas fa-info-circle"></i> Travel Agency Payment Details:</strong>
+                                    <ul class="payment-details">
+                                        @if($package->travelAgency->name)
+                                        <li><i class="fas fa-building"></i> Agency Name: {{ $package->travelAgency->name
+                                            }}</li>
+                                        @endif
+                                        @if($package->travelAgency->gcash_number)
+                                        <li><i class="fas fa-mobile-alt"></i> GCash Number: {{
+                                            $package->travelAgency->gcash_number }}</li>
+                                        @endif
+                                        @if($package->travelAgency->bank_account_number)
+                                        <li><i class="fas fa-university"></i> Bank Account Number: {{
+                                            $package->travelAgency->bank_account_number }}</li>
+                                        @endif
+                                    </ul>
+                                </div>
+                                @endif
                                 <!-- Inside your card body, after the form -->
                                 <div id="totalPriceContainer" class="mt-3 d-flex justify-content-between">
                                     <h5>Total Price:</h5>
@@ -717,7 +748,8 @@
                                     <h3 id="totalPrice" name="totalPrice" class="text-danger"></h3>
                                 </div>
 
-
+                                <div id="feesBreakdownContainer" class="mb-2">
+                                </div>
                                 <!-- Include additional fields as necessary -->
                                 <button type="submit" class="btn btn-primary">Book Now</button>
                         </form>
@@ -745,6 +777,7 @@
             const packageDetails = {
                 maxPersons: {{ $package->max_persons }},
                 pricePerDay: {{ $package->price }},
+                transpoFee: {{ $package->addtional_youth_price }},
                 additionalAdultPrice: parseInt({{ $package->addtional_adult_price }}),
                 additionalChildPrice: parseInt({{ $package->addtional_children_price }}),
             };
@@ -768,14 +801,42 @@
                         extraFees += additionalChildren * packageDetails.additionalChildPrice;
                     }
     
-                    const totalPrice = basePrice + extraFees;
-                    document.getElementById('totalPrice').textContent = `₱${totalPrice.toFixed(2)}`;
-                    document.getElementById('totalPriceSpan').textContent = `${totalPrice.toFixed(2)}`;
-                    document.getElementById('totalPriceInput').value = totalPrice.toFixed(2);
-                } else {
-                    document.getElementById('totalPrice').textContent = '₱0.00';
-                    document.getElementById('totalPriceInput').value = '0.00';
-                    document.getElementById('totalPriceSpan').textContent = '0.00';
+                       // Calculate total price without convenience fee
+                        const totalPriceWithoutFee = basePrice + extraFees + packageDetails.transpoFee;
+                        // Calculate convenience fee (5% of base price)
+                        const convenienceFee = 0.05 * totalPriceWithoutFee;
+                        // Calculate total price with convenience fee
+                        // const totalPriceWithFee = totalPriceWithoutFee;
+                        const totalPriceWithFee = totalPriceWithoutFee + convenienceFee;
+
+                         // Create and populate the fees breakdown
+                        const feesBreakdownContainer = document.getElementById('feesBreakdownContainer');
+                        feesBreakdownContainer.innerHTML = ''; // Clear previous breakdown
+
+                        const fees = [
+                            { label: 'Base Price', amount: basePrice },
+                            { label: 'Extra Fees', amount: extraFees },
+                            { label: 'Transportation Fee', amount: packageDetails.transpoFee },
+                            { label: 'Convenience Fee', amount: convenienceFee }, // uncomment if you want to display it 
+                        ];
+
+                        fees.forEach(fee => {
+                            const feeElement = document.createElement('div');
+                            feeElement.classList.add('d-flex', 'justify-content-between');
+                            feeElement.innerHTML = `
+                                <span>${fee.label}:</span>
+                                <span>₱${fee.amount.toFixed(2)}</span>
+                            `;
+                            feesBreakdownContainer.appendChild(feeElement);
+                        });
+                        
+                        document.getElementById('totalPrice').textContent = `₱${totalPriceWithFee.toFixed(2)}`;
+                        document.getElementById('totalPriceSpan').textContent = `${totalPriceWithFee.toFixed(2)}`;
+                        document.getElementById('totalPriceInput').value = totalPriceWithFee.toFixed(2);
+                    } else {
+                        document.getElementById('totalPrice').textContent = '₱0.00';
+                        document.getElementById('totalPriceInput').value = '0.00';
+                        document.getElementById('totalPriceSpan').textContent = '0.00';
                 }
             }
     
