@@ -113,7 +113,7 @@
                     <img src="{{ asset('storage/' . $package->image[0]) }}" class="card-img-top"
                         alt="{{ $package->name }}">
                     @endif
-                    <div class="card-body mt-2">
+                    <div class="mt-2 card-body">
                         <p class="card-text">
                             <strong class="text-primary">Travel Agency:</strong>
                             <a href="{{ route('travelAgency.show', $package->travelAgency->id) }}">
@@ -123,10 +123,16 @@
 
                         <h5 class="card-title">{{ $package->name }}</h5>
                         <div class="mb-2 package-details">
-                            <span class="days">
+                            {{-- <span class="days">
                                 <i class="bi bi-calendar3"></i>
                                 {{ $today->format('M d, Y') }} - {{ $endDate->format('M d, Y') }} ({{ $package->duration
                                 }} days)
+                            </span> --}}
+                            <span class="days">
+                                <i class="bi bi-calendar3"></i>
+                                {{ \Carbon\Carbon::parse($package->start_date)->format('M d, Y') }} - {{
+                                \Carbon\Carbon::parse($package->end_date)->format('M d, Y') }} ({{ $package->duration }}
+                                days)
                             </span>
                         </div>
                         <p class="card-text">{{ $package->description }}</p>
