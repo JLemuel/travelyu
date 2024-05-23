@@ -786,6 +786,7 @@
             function calculateTotalPrice() {
                 // const startDate = new Date(document.getElementById('start_date').value);
                 // const endDate = new Date(document.getElementById('end_date').value);
+                // const totalDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
                 const totalDays = packageDetails.duration;
     
                 if (!isNaN(totalDays) && totalDays > 0) {
