@@ -514,7 +514,7 @@
                         <!-- Begin Booking Form -->
                         <form action="{{ route('checkout') }}" method="POST">
                             @csrf
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-6">
                                     <div class="pb-3">
                                         <label for="start_date" class="form-label">Start Date</label>
@@ -529,7 +529,7 @@
                                             min="{{ $package->start_date}}" max="{{ $package->end_date}}" required>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
 
                             <div class="row">
@@ -710,7 +710,7 @@
                                 <div id="packageDetails" class="mt-3 mb-3">
                                     <h5>Package Details:</h5>
                                     <ul>
-                                        <li>Package 1 per pax - ₱{{ $package->price }}
+                                        <li>Package price - ₱{{ $package->price }}
                                         </li>
                                         {{-- <li>Package 1 per pax - ₱<span class="text fs-6"
                                                 id="totalPriceSpan"></span>
@@ -780,15 +780,17 @@
                 transpoFee: {{ $package->addtional_youth_price }},
                 additionalAdultPrice: parseInt({{ $package->addtional_adult_price }}),
                 additionalChildPrice: parseInt({{ $package->addtional_children_price }}),
+                duration: {{ $package->duration }},
             };
     
             function calculateTotalPrice() {
-                const startDate = new Date(document.getElementById('start_date').value);
-                const endDate = new Date(document.getElementById('end_date').value);
-                const totalDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
+                // const startDate = new Date(document.getElementById('start_date').value);
+                // const endDate = new Date(document.getElementById('end_date').value);
+                const totalDays = packageDetails.duration;
     
                 if (!isNaN(totalDays) && totalDays > 0) {
-                    let basePrice = packageDetails.pricePerDay * totalDays;
+                    // let basePrice = packageDetails.pricePerDay * totalDays;
+                    let basePrice = packageDetails.pricePerDay;
     
                     const totalPersons = getTotalPersons();
                     let extraFees = 0;
