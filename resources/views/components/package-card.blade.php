@@ -1,6 +1,7 @@
 <div class="row">
-    @forelse($destination->packages as $package)
     <h2 class="text-center mb-4">Packages for {{ $destination->name }}</h2>
+
+    @forelse($destination->packages as $package)
     <div class="col-md-4 mb-3">
         <div class="card package-card">
             <!-- Package Image -->
@@ -10,6 +11,7 @@
 
             <!-- Package Info -->
             <div class="card-body">
+                <h5 class="my-2 text-primary">Travel Agency: {{ $package->travelAgency->agency_name }}</h5>
                 <h5 class="card-title">{{ $package->name }}</h5>
                 <!-- Location -->
                 <p class="card-text location">

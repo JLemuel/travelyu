@@ -445,9 +445,9 @@
                                     <input type="checkbox" name="destinations[]" value="{{ $destination->id }}"
                                         data-price="{{ $destination->price }}" class="destination-checkbox">
                                     <div class="destination-content">
-                                        <span class="destination-name">{{ $destination->name }}</span>
-                                        <!-- <span class="destination-name">{{ $destination->name }} - ₱{{
-                                            number_format($destination->price, 2) }}</span> -->
+                                        {{-- <span class="destination-name">{{ $destination->name }}</span> --}}
+                                        <span class="destination-name">{{ $destination->name }} - ₱{{
+                                            number_format($destination->price, 2) }}</span>
                                         <div class="destination-images">
                                             @foreach ($destination->image as $imgs)
                                             <img src="{{ asset('storage/' . $imgs) }}" alt="{{ $destination->name }}"
@@ -803,9 +803,15 @@
                         extraFees += additionalAdults * packageDetails.additionalAdultPrice;
                         extraFees += additionalChildren * packageDetails.additionalChildPrice;
                     }
+
+                        // Calculate total price of selected destinations
+                        let selectedDestinationsPrice = 0;
+                        document.querySelectorAll('.destination-checkbox:checked').forEach(checkbox => {
+                            selectedDestinationsPrice += parseFloat(checkbox.getAttribute('data-price'));
+                        });
     
                        // Calculate total price without convenience fee
-                        const totalPriceWithoutFee = basePrice + extraFees + packageDetails.transpoFee;
+                        const totalPriceWithoutFee = basePrice + extraFees + packageDetails.transpoFee + selectedDestinationsPrice;;
                         // Calculate convenience fee (5% of base price)
                         const convenienceFee = 0.05 * totalPriceWithoutFee;
                         // Calculate total price with convenience fee
@@ -820,6 +826,7 @@
                             { label: 'Base Price', amount: basePrice },
                             { label: 'Extra Fees', amount: extraFees },
                             { label: 'Transportation Fee', amount: packageDetails.transpoFee },
+                            { label: 'Destinations Price', amount: selectedDestinationsPrice },
                             { label: 'Convenience Fee', amount: convenienceFee }, // uncomment if you want to display it 
                         ];
 
@@ -900,7 +907,6 @@
             calculateTotalPrice(); // Initial calculation on page load
         });
     </script>
-
 
     <script>
         let map;
@@ -1004,8 +1010,6 @@
 
         document.addEventListener('DOMContentLoaded', loadScript);
     </script>
-
-
 
     <x-footer />
 </x-app-layout>

@@ -50,7 +50,7 @@
             <div class="col">
                 <div class="shadow-sm card h-100">
 
-                    <img src="{{ $agency->profile_image ? asset('storage/profile_images/' . basename($agency->profile_image)) : asset('assets/image1.jpg') }}"
+                    <img src="{{ $agency->profile_image ? asset('storage/' . basename($agency->profile_image)) : asset('assets/image1.jpg') }}"
                         alt="{{ $agency->name ?? 'Travel Agency' }}"
                         style="height: 200px; width: 100%; object-fit: cover;">
 
